@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpecialObjectDestroy : MonoBehaviour
 {
-    [SerializeField] TimeIncreaser timeIncreaser;
+    public TimeIncreaser timeIncreaser;
 
     void OnTriggerEnter(Collider other)
     {

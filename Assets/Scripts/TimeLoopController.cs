@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class TimeLoopController : MonoBehaviour, Timer
 {
-    [SerializeField] bool debugMode = false;
-    [SerializeField] float timeLimit = 10f;
+    public bool debugMode = false;
+    public float timeLimit = 10f;
     private float timeCounter;
 
     private bool resetting = false;
@@ -30,7 +30,7 @@ public class TimeLoopController : MonoBehaviour, Timer
             // decrement time limit
             timeCounter -= Time.deltaTime;
 
-            Debug.Log(timeCounter);
+            //Debug.Log(timeCounter);
         } else
         {
             // time limit reached, resetting loop
@@ -38,7 +38,7 @@ public class TimeLoopController : MonoBehaviour, Timer
             resetting = true;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             resetting = false;
-            Debug.Log("Resetting");
+            //Debug.Log("Resetting");
         }
     }
 

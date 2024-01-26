@@ -6,7 +6,7 @@ public class TimeIncreaser : MonoBehaviour
 {
     TimeLoopController timeController;
 
-    [SerializeField] float amountTimeIncrease = 10f;
+    public float amountTimeIncrease = 10f;
 
 
     private void Start()

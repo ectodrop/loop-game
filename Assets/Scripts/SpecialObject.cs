@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SpecialObject : MonoBehaviour
 {
-    [SerializeField] TimeIncreaser timeIncreaser;
+    public TimeIncreaser timeIncreaser;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            Debug.Log("hit");
             timeIncreaser.increaseTimeLimit();
+            Destroy(gameObject);
         }
     }
 }
