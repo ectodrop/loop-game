@@ -1,5 +1,5 @@
 
-public interface Timer
+public interface ITimer
 {
 
     float GetTime();
