@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 public class InteractableTest : MonoBehaviour, IInteractable
 {
-    [SerializeField] protected string hintText = "Press E";
-    [SerializeField] protected UnityEvent onInteract;
+    [SerializeField] private string hintText = "Press E";
+    [SerializeField] private UnityEvent onInteract;
     public string DisplayText { get => hintText; }
 
     private bool canInteract = true;
