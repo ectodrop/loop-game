@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TimeLoopController : MonoBehaviour, Timer
+public class TimeLoopController : MonoBehaviour, ITimer
 {
     public bool debugMode = false;
     public float timeLimit = 10f;
