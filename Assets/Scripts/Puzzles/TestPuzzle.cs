@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PuzzleMaster : MonoBehaviour
+public class TestPuzzle : MonoBehaviour
 {
     public string Solution = "123";
     private string combination = "";
