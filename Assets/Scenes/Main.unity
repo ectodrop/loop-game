@@ -349,17 +349,9 @@ PrefabInstance:
       value: TimeController
       objectReference: {fileID: 0}
     - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
-      propertyPath: debugMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
       propertyPath: timerText
       value: 
       objectReference: {fileID: 128795565}
-    - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
-      propertyPath: timeLimitController
-      value: 
-      objectReference: {fileID: 11400000, guid: 962a79f424033ff408df9840a81294cb, type: 2}
     - target: {fileID: 6650408051653675645, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1312,30 +1304,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2738158112434387988, guid: 832512e67ffeb8440b3be92882722635, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3890153309324372917, guid: 832512e67ffeb8440b3be92882722635, type: 3}
-      propertyPath: pickUpRange
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3890153309324372917, guid: 832512e67ffeb8440b3be92882722635, type: 3}
-      propertyPath: defaultPickupId
-      value: 
-      objectReference: {fileID: 11400000, guid: a80aece38e78a4146bb4aa45685b8307, type: 2}
     - target: {fileID: 4977417921168962091, guid: 832512e67ffeb8440b3be92882722635, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5430935882361751823, guid: 832512e67ffeb8440b3be92882722635, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8096784108776745621, guid: 832512e67ffeb8440b3be92882722635, type: 3}
-      propertyPath: heldItemManager
-      value: 
-      objectReference: {fileID: 11400000, guid: 3a777ff890320fc438984f2b1338cfae, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
