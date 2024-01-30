@@ -14,7 +14,7 @@ public class InteractableTest : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        GetComponent<MeshRenderer>().material.SetColor("_Color", Color.green);
+        GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.green);
         onInteract.Invoke();
         canInteract = false;
     }

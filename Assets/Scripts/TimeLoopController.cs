@@ -2,46 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class TimeLoopController : MonoBehaviour, ITimer
 {
     public bool debugMode = false;
     public float timeLimit = 10f;
+    public TextMeshProUGUI timerText;
     private float timeCounter;
-
-    private bool resetting = false;
+        
 
     // Start is called before the first frame update
     void Start()
     {
         timeCounter = timeLimit;
+        InvokeRepeating("ResetScene", timeLimit, timeLimit);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (debugMode || resetting)
+        if (debugMode)
         {
             return;
         }
 
-        if (timeCounter > 0) { 
-            // decrement time limit
+        if (timeCounter > 0) {
             timeCounter -= Time.deltaTime;
-
-            //Debug.Log(timeCounter);
+            var parts = timeCounter.ToString("N2").Split(".");
+            timerText.text = string.Format("{0}:{1}", parts[0], parts[1]);
         } else
         {
-            // time limit reached, resetting loop
-            timeCounter = timeLimit;
-            resetting = true;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            resetting = false;
-            //Debug.Log("Resetting");
+            timeCounter = 0;
         }
     }
-
+    private void ResetScene()
+    {
+        if (!debugMode)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     public float GetTime()
     {
         return timeLimit;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 public class Interactor : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class Interactor : MonoBehaviour
             if (interactable.CanInteract())
             {
                 GUIController.Show(interactable.DisplayText);
+                hit.transform.GetComponent<MeshRenderer>().materials.Last().SetColor("_Color", Color.white);
                 if (Input.GetKeyDown("e"))
                     interactable.Interact();
             }

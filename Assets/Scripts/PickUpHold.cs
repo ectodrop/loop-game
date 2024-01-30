@@ -53,6 +53,7 @@ public class PickUpHoldScript : MonoBehaviour
             heldObjRb.isKinematic = true;
             heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
             heldObj.layer = LayerNumber; //change the object layer to the holdLayer
+            heldObj.transform.localRotation = Quaternion.identity;
             Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
             //make sure object doesnt collide with player, it can cause weird bugs
         }

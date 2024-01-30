@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     private CharacterController _controller;
-    private const float DefaultSpeed = 2.0f;
+    [SerializeField] private float DefaultSpeed = 2.0f;
     private float _playerSpeed = 2.0f;
     private Vector3 _velocity;
 
