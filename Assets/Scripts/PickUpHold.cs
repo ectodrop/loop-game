@@ -7,17 +7,22 @@ public class PickUpHoldScript : MonoBehaviour
     public GameObject player;
     public Transform holdPos;
     public float pickUpRange = 5f; //how far the player can pickup the object from
+    public HoldableItemScriptableObject defaultPickupId;
+
     private GameObject heldObj; //object which we pick up
     private Rigidbody heldObjRb; //rigidbody of object we pick up
     private int LayerNumber; //layer index
+    public static HoldableItemScriptableObject heldItemIdentifier;
 
     void Start()
     {
         LayerNumber = LayerMask.NameToLayer("holdLayer"); //if your holdLayer is named differently make sure to change this ""
+        heldItemIdentifier = null;
     }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) //change E to whichever key you want to press to pick up
+        if (Input.GetKeyDown(KeyCode.Q)) //change E to whichever key you want to press to pick up
         {
             if (heldObj == null) //if currently not holding anything
             {
@@ -39,11 +44,8 @@ public class PickUpHoldScript : MonoBehaviour
                 DropObject();
             }
         }
-        if (heldObj != null) //if player is holding object
-        {
-            MoveObject(); //keep object position at holdPos
-        }
     }
+
     void PickUpObject(GameObject pickUpObj)
     {
         if (pickUpObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
@@ -54,10 +56,21 @@ public class PickUpHoldScript : MonoBehaviour
             heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
             heldObj.layer = LayerNumber; //change the object layer to the holdLayer
             heldObj.transform.localRotation = Quaternion.identity;
+            heldObj.transform.localPosition = Vector3.zero;
             Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
             //make sure object doesnt collide with player, it can cause weird bugs
+            PickupableObject pickupId;
+            if (pickUpObj.TryGetComponent(out pickupId))
+            {
+                heldItemIdentifier = pickupId.PickupIdentifier();
+            }
+            else
+            {
+                heldItemIdentifier = defaultPickupId;
+            }
         }
     }
+
     void DropObject()
     {
         //re-enable collision with player
@@ -66,12 +79,9 @@ public class PickUpHoldScript : MonoBehaviour
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null; //unparent object
         heldObj = null; //undefine game object
+        heldItemIdentifier = null;
     }
-    void MoveObject()
-    {
-        //keep object position the same as the holdPosition position
-        heldObj.transform.position = holdPos.transform.position;
-    }
+
     void StopClipping() //function only called when dropping
     {
         var clipRange = Vector3.Distance(heldObj.transform.position, transform.position); //distance from holdPos to the camera

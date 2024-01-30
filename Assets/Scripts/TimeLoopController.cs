@@ -7,22 +7,20 @@ using TMPro;
 public class TimeLoopController : MonoBehaviour, ITimer
 {
     public bool debugMode = false;
-    public float timeLimit = 10f;
+    public TimeLimitControllerScriptableObject timeLimitController;
     public TextMeshProUGUI timerText;
     private float timeCounter;
-        
 
     // Start is called before the first frame update
     void Start()
     {
-        timeCounter = timeLimit;
-        InvokeRepeating("ResetScene", timeLimit, timeLimit);
+        timeCounter = timeLimitController.currentMaxTime;
+        Invoke("ResetScene", timeCounter);
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (debugMode)
         {
             return;
@@ -37,18 +35,18 @@ public class TimeLoopController : MonoBehaviour, ITimer
             timeCounter = 0;
         }
     }
-    private void ResetScene()
+    public void ResetScene()
     {
         if (!debugMode)
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public float GetTime()
     {
-        return timeLimit;
+        return timeLimitController.currentMaxTime;
     }
 
     public void SetTime(float newTimeLimit)
     {
-        timeLimit = newTimeLimit;
+        timeLimitController.currentMaxTime = newTimeLimit;
     }
 }

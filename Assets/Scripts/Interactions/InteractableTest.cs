@@ -1,9 +1,9 @@
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class InteractableTest : MonoBehaviour, IInteractable
+public class InteractableTest : MonoBehaviour, IInteractable, IRayHoverable
 {
     [SerializeField] private string hintText = "Press E";
     [SerializeField] private UnityEvent onInteract;
@@ -11,6 +11,16 @@ public class InteractableTest : MonoBehaviour, IInteractable
 
     private bool canInteract = true;
 
+
+    public void OnHoverEnter()
+    {
+        GetComponent<MeshRenderer>().materials.Last().SetColor("_Color", Color.white);
+    }
+
+    public void OnHoverExit()
+    {
+        GetComponent<MeshRenderer>().materials.Last().SetColor("_Color", Color.black);
+    }
 
     public void Interact()
     {
