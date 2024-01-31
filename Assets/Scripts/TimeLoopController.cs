@@ -8,9 +8,11 @@ public class TimeLoopController : MonoBehaviour, ITimer
 {
     public bool debugMode = false;
     public TimeLimitControllerScriptableObject timeLimitController;
+    public ScheduleControllerScriptableObject scheduleController;
     public TextMeshProUGUI timerText;
     private float timeCounter;
 
+    private int currentEvent = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,7 @@ public class TimeLoopController : MonoBehaviour, ITimer
 
         if (timeCounter > 0) {
             timeCounter -= Time.deltaTime;
+            InvokeNextEvent();
             var parts = timeCounter.ToString("N2").Split(".");
             timerText.text = string.Format("{0}:{1}", parts[0], parts[1]);
         } else
@@ -35,6 +38,20 @@ public class TimeLoopController : MonoBehaviour, ITimer
             timeCounter = 0;
         }
     }
+
+    private void InvokeNextEvent()
+    {
+        if (currentEvent >= scheduleController.scheduledEvents.Length)
+            return;
+
+        var nextEvent = scheduleController.scheduledEvents[currentEvent];
+        if (nextEvent.time < timeLimitController.currentMaxTime - timeCounter)
+        {
+            nextEvent.TriggerScheduled();
+            currentEvent++;
+        }
+    }
+
     public void ResetScene()
     {
         if (!debugMode)

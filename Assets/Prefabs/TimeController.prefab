@@ -46,4 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   timeLimitController: {fileID: 11400000, guid: 962a79f424033ff408df9840a81294cb, type: 2}
+  scheduleController: {fileID: 11400000, guid: 83de23a067603d640b6f4b857ceb8ecc, type: 2}
   timerText: {fileID: 0}
