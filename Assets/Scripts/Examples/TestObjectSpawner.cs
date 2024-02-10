@@ -5,16 +5,16 @@ using UnityEngine;
 public class TestObjectSpawner : MonoBehaviour
 {
     public GameObject testObject;
-    public ScheduleEventScriptableObject testEvent;
+    public GameEvent spawnCubeEvent;
 
     public void OnEnable()
     {
-        testEvent.onScheduleTrigger.AddListener(SpawnCube);
+        spawnCubeEvent?.AddListener(SpawnCube);
     }
     
     public void OnDisable()
     {
-        testEvent.onScheduleTrigger.RemoveListener(SpawnCube);
+        spawnCubeEvent?.RemoveListener(SpawnCube);
     }
 
     private void SpawnCube()
