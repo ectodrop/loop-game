@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 059023b88a7034648afb482a0d729126, type: 3}
-  m_Name: SpawnCubeScheduleEventSO
+  m_Name: 5_SpawnCubeScheduleEventSO
   m_EditorClassIdentifier: 
   time: 5

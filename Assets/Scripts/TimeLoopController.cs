@@ -47,7 +47,7 @@ public class TimeLoopController : MonoBehaviour, ITimer
         var nextEvent = scheduleController.scheduledEvents[currentEvent];
         if (nextEvent.time < timeLimitController.currentMaxTime - timeCounter)
         {
-            nextEvent.TriggerScheduled();
+            nextEvent.TriggerEvent();
             currentEvent++;
         }
     }
