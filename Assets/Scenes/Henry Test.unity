@@ -377,6 +377,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 832512e67ffeb8440b3be92882722635, type: 3}
+--- !u!1 &1226680594 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1327602608678436638, guid: 108496e0d757dc34aa910f24540f6bcf, type: 3}
+  m_PrefabInstance: {fileID: 4881417000252850015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1352808902
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,6 +750,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battery
       objectReference: {fileID: 0}
+    - target: {fileID: 4816473742594666074, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+      propertyPath: m_TagString
+      value: canPickUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187445792192416779, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -762,6 +775,10 @@ PrefabInstance:
       propertyPath: battery
       value: 
       objectReference: {fileID: 1031887238}
+    - target: {fileID: 4674784256346881678, guid: 108496e0d757dc34aa910f24540f6bcf, type: 3}
+      propertyPath: switchObj
+      value: 
+      objectReference: {fileID: 1226680594}
     - target: {fileID: 6952632585083689287, guid: 108496e0d757dc34aa910f24540f6bcf, type: 3}
       propertyPath: m_Name
       value: Holder

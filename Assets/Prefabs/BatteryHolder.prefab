@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 3753019814636400176}
   - component: {fileID: 6327929934119310990}
   - component: {fileID: 1263629705747397290}
+  - component: {fileID: 240844718722736989}
   m_Layer: 0
   m_Name: Switch
   m_TagString: Untagged
@@ -276,6 +277,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &240844718722736989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327602608678436638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8991cec658f847e0ad5926527611c2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hintText: Press E
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  holder: {fileID: 6952632585083689287}
 --- !u!1 &2294582293899518988
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,3 +522,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battery: {fileID: 0}
   textMeshPro: {fileID: 6722855968786460078}
+  switchObj: {fileID: 1327602608678436638}

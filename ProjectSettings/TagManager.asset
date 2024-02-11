@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TimeController
   - canPickUp
+  - Battery
   layers:
   - Default
   - TransparentFX
