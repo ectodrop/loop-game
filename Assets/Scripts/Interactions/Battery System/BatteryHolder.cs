@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 
 public class BatteryHolder : MonoBehaviour
 {
@@ -16,7 +17,6 @@ public class BatteryHolder : MonoBehaviour
 
     private int _drainRate = 1;
     private bool _draining = false;
-    private bool _emergencyPower = false;
 
     // Switch
     public GameObject switchObj;
@@ -47,6 +47,7 @@ public class BatteryHolder : MonoBehaviour
         if (_holder.bounds.Intersects(_batteryCollier.bounds) && !IsPlayerHolding() && !_holding)
         {
             Debug.Log("Battery Inserted.");
+            textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
             battery.transform.SetParent(gameObject.transform);
             battery.transform.position = gameObject.transform.position;
             _batteryRb.isKinematic = true;
@@ -73,9 +74,15 @@ public class BatteryHolder : MonoBehaviour
         // Drain battery until empty
         while (_batteryScript.GetBatteryLevel() != 0 && _draining)
         {
+            _batteryScript.DecreaseBattery(25);
             textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
-            _batteryScript.DecreaseBattery(1);
             yield return new WaitForSeconds(_drainRate);
+        }
+
+        // Battery is empty stop draining
+        if (_batteryScript.GetBatteryLevel() <= 0)
+        {
+            StopDrain();
         }
     }
 
@@ -84,13 +91,20 @@ public class BatteryHolder : MonoBehaviour
         return _holding;
     }
 
-    public void AllowDrain()
+    private void AllowDrain()
     {
+        BatterySystemEvents.TriggerBatteryDraining();
         _draining = true;
     }
 
     public void StopDrain()
     {
+        BatterySystemEvents.TriggerBatteryStoppedDraining();
         _draining = false;
+    }
+
+    public bool IsBatteryEmpty()
+    {
+        return _batteryScript.GetBatteryLevel() <= 0;
     }
 }

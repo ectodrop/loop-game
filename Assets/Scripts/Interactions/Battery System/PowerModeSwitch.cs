@@ -44,11 +44,11 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable
             GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.green);
 
             // If the holder already has the battery start the battery drain
-            if (_holderScript.HasBattery())
+            if (_holderScript.HasBattery() && !_holderScript.IsBatteryEmpty())
             {
                 _holderScript.StartBatteryDrain();
             }
-            
+
             _emergencyPower = true;
         }
         // Switch off
@@ -56,9 +56,12 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable
         {
             GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.red);
             _emergencyPower = false;
-            
-            // Stop draining the battery
-            _holderScript.StopDrain();
+
+            // Stop draining the battery if not already empty to prevent uneeded triggers
+            if (!_holderScript.IsBatteryEmpty())
+            {
+                _holderScript.StopDrain();
+            }
         }
 
         onInteract.Invoke();
