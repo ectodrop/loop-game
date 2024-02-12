@@ -2,16 +2,19 @@ using UnityEngine;
 
 public class BatterySystemEventsTest : MonoBehaviour
 {
+    public GameEvent batteryDraining;
+    public GameEvent batteryStopDraining;
+
     private void OnEnable()
     {
-        BatterySystemEvents.BatteryDraining += HandleBatteryDraining;
-        BatterySystemEvents.BatteryStoppedDraining += HandleBatteryStoppedDraining;
+        batteryDraining.AddListener(HandleBatteryDraining);
+        batteryStopDraining.AddListener(HandleBatteryStoppedDraining);
     }
 
     private void OnDisable()
     {
-        BatterySystemEvents.BatteryDraining -= HandleBatteryDraining;
-        BatterySystemEvents.BatteryStoppedDraining -= HandleBatteryStoppedDraining;
+        batteryDraining.RemoveListener(HandleBatteryDraining);
+        batteryStopDraining.RemoveListener(HandleBatteryStoppedDraining);
     }
 
     private void HandleBatteryDraining()

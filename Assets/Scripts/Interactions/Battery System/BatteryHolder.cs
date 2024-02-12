@@ -18,6 +18,10 @@ public class BatteryHolder : MonoBehaviour
     private int _drainRate = 1;
     private bool _draining = false;
 
+    // Game Events
+    public GameEvent batteryDraining;
+    public GameEvent batteryStopDraining;
+    
     // Switch
     public GameObject switchObj;
     private PowerModeSwitch _switchScript;
@@ -93,13 +97,13 @@ public class BatteryHolder : MonoBehaviour
 
     private void AllowDrain()
     {
-        BatterySystemEvents.TriggerBatteryDraining();
+        batteryDraining.TriggerEvent();
         _draining = true;
     }
 
     public void StopDrain()
     {
-        BatterySystemEvents.TriggerBatteryStoppedDraining();
+        batteryStopDraining.TriggerEvent();
         _draining = false;
     }
 
