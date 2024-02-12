@@ -11,6 +11,8 @@ public class EmergencyPowerSwitch : MonoBehaviour
     public UnityEngine.UI.Image Off;
     int index = 0;
     public PowerGeneratorSwitch powerGeneratorSwitch; // Reference to the PowerGeneratorSwitch script
+    public GameEvent EmergencyPowerOnEvent;
+    public GameEvent EmergencyPowerOffEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -38,10 +40,12 @@ public class EmergencyPowerSwitch : MonoBehaviour
         index = 0;
         On.gameObject.SetActive(false);
         Off.gameObject.SetActive(true);
+        EmergencyPowerOffEvent.TriggerEvent();
     }
 
     public void OFF()
     {
+        Debug.Log(powerGeneratorSwitch.GetIndex());
         if (powerGeneratorSwitch.GetIndex() == 1)
         {
             powerGeneratorSwitch.ON();
@@ -49,6 +53,7 @@ public class EmergencyPowerSwitch : MonoBehaviour
         index = 1;
         On.gameObject.SetActive(true);
         Off.gameObject.SetActive(false);
+        EmergencyPowerOnEvent.TriggerEvent();
     }
 
     public int GetIndex()

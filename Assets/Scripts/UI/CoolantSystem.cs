@@ -8,6 +8,7 @@ public class CoolantSystem : MonoBehaviour
     public Button drainCoolantButton;
     public PowerGeneratorSwitch powerGeneratorSwitch; // Reference to the PowerGeneratorSwitch script
     public EmergencyPowerSwitch emergencyPowerSwitch; // Reference to the EmergencyPowerSwitch script
+    public GameEvent coolantDrainedEvent;
 
     private string adminPassword = "123456"; // Replace with your actual admin password
 
@@ -25,6 +26,7 @@ public class CoolantSystem : MonoBehaviour
         if (powerGeneratorSwitch.GetIndex() == 0 && emergencyPowerSwitch.GetIndex() == 0 && passwordInputField.text == adminPassword)
         {
             drainCoolantButton.interactable = true;
+            coolantDrainedEvent.TriggerEvent();
         }
         else
         {
