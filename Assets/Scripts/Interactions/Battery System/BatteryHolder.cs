@@ -74,7 +74,7 @@ public class BatteryHolder : MonoBehaviour
         // Drain battery until empty
         while (_batteryScript.GetBatteryLevel() != 0 && _draining)
         {
-            _batteryScript.DecreaseBattery(25);
+            _batteryScript.DecreaseBattery(1);
             textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
             yield return new WaitForSeconds(_drainRate);
         }
