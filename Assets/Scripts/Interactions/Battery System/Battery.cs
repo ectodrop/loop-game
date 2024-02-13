@@ -25,7 +25,7 @@ public class Battery : MonoBehaviour, IInteractable, IRayHoverable
 
     public void OnHoverExit()
     {
-        GetComponent<MeshRenderer>().materials.Last().SetColor("_Color", Color.black);
+        GetComponent<MeshRenderer>().materials.Last().SetColor("_Color", Color.yellow);
     }
 
     public void Interact()

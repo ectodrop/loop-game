@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+    public GameEvent HUDEnableEvent, HUDDisableEvent;
 
     void Start()
     {
@@ -30,13 +31,17 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
+        HUDEnableEvent.TriggerEvent();
         Time.timeScale = 1f;
         GameIsPaused = false;
         pauseMenuUI.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void PauseGame()
     {
+        HUDDisableEvent.TriggerEvent();
         Time.timeScale = 0f;
         GameIsPaused = true;
         pauseMenuUI.SetActive(true);

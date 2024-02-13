@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControlPanel : MonoBehaviour, IInteractable
+public class ControlPanel : MonoBehaviour, IInteractable, IRayHoverable
 {
     public GameEvent controlPanelInteracted;
 
-    public string DisplayText => "Press E to interact with Control Panel";
 
     public bool CanInteract()
     {
@@ -30,5 +29,13 @@ public class ControlPanel : MonoBehaviour, IInteractable
     void Update()
     {
 
+    }
+
+    public void OnHoverEnter()
+    {
+    }
+
+    public void OnHoverExit()
+    {
     }
 }

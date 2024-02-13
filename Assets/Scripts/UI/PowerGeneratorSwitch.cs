@@ -12,6 +12,7 @@ public class PowerGeneratorSwitch : MonoBehaviour
     int index = 0; // 0 for OFF, 1 for ON
     public GameEvent PowerSwitchOnEvent;
     public GameEvent PowerSwitchOffEvent;
+    public GameEvent HUDDisableEvent, HUDEnableEvent;
 
 
     // Start is called before the first frame update

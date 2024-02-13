@@ -6,17 +6,7 @@ public class ControlPanelUI : MonoBehaviour
 {
     public GameEvent controlPanelInteracted;
     public GameObject controlPanelUI;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public GameEvent HUDEnableEvent, HUDDisableEvent;
 
     public void OnEnable()
     {
@@ -30,13 +20,19 @@ public class ControlPanelUI : MonoBehaviour
 
     public void OnControlPanelInteracted()
     {
+        HUDDisableEvent.TriggerEvent();
         controlPanelUI.SetActive(true);
+        Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
     public void CloseControlPanel()
     {
+        HUDEnableEvent.TriggerEvent();
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         controlPanelUI.SetActive(false);
     }
 }
