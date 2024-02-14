@@ -13,6 +13,12 @@ public class CharacterMovement : MonoBehaviour
     private bool _grounded;
     private const float JumpHeight = 1.0f; // Adjust as needed
     private const float Gravity = -9.81f;
+    
+    // For BounceBack
+    private bool _bounce = false;
+    private float BounceDuration = 0.1f;
+    private float BounceTimer = 0.1f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -79,8 +85,27 @@ public class CharacterMovement : MonoBehaviour
             _velocity.y = Mathf.Sqrt(JumpHeight * -2.0f * Gravity);
         }
 
+        // BounceBack
+        if (_bounce)
+        {
+            _velocity -= transform.forward * 5 * _playerSpeed;
+
+            BounceTimer -= Time.deltaTime;
+            if (BounceTimer <= 0.0f)
+            {
+                Debug.Log("time 0");
+                _bounce = false;
+                BounceTimer = BounceDuration;
+            }
+        }
+
         // ----------------------------------------------------------
         // Update ALL movement after compute
         _controller.Move(_velocity * Time.deltaTime);
+    }
+    // When player contacts the electrified puddle, the player will bounce back.
+    private void BounceBack()
+    {
+        _bounce = true;
     }
 }
