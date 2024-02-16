@@ -9,7 +9,7 @@ public class CameraLook : MonoBehaviour
     
     // Used for vertical viewing limits
     private float _minAngle = -45.0f;
-    private float _maxAngle = 45.0f;
+    private float _maxAngle = 70.0f;
     private float _currentRotationX = 0.0f;
 
     // Start is called before the first frame update
