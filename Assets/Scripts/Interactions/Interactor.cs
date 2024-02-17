@@ -7,7 +7,7 @@ using System.Linq;
 public class Interactor : MonoBehaviour
 {
     public float InteractableDistance = 2.0f;
-    public InteractGUIController GUIController;
+    public GameEventString onHoverReadableObject;
 
     private Camera mainCamera;
     private IRayHoverable curRayHoverableObj;
@@ -24,15 +24,12 @@ public class Interactor : MonoBehaviour
     {
         var prevRayHoverableObj = curRayHoverableObj;
         RaycastHit hit;
-        Debug.DrawRay(mainCamera.transform.position, mainCamera.transform.forward * InteractableDistance, Color.red);
-        GUIController.Hide();
         if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, InteractableDistance, rayLayerMask))
         {
             curRayHoverableObj = hit.transform.GetComponent<IRayHoverable>();
 
             if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
             {
-                GUIController.Show(interactable.DisplayText);
                 if (Input.GetKeyDown("e"))
                     interactable.Interact();
             }
@@ -45,6 +42,14 @@ public class Interactor : MonoBehaviour
         // check if the current interactable we are hovering on has changed, call the corresponding interface methods if yes
         if (curRayHoverableObj != prevRayHoverableObj)
         {
+            if (curRayHoverableObj == null)
+            {
+                onHoverReadableObject.TriggerEvent("");
+            }
+            else
+            {
+                onHoverReadableObject.TriggerEvent("Interact (E)");
+            }
             prevRayHoverableObj?.OnHoverExit();
             curRayHoverableObj?.OnHoverEnter();
         }
