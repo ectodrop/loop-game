@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ControlPanel : MonoBehaviour, IInteractable, IRayHoverable
 {
-    public GameEvent controlPanelInteracted;
+    // public GameEvent controlPanelInteracted;
+    public GameEvent LoginUIOn;
 
 
     public bool CanInteract()
@@ -14,7 +15,9 @@ public class ControlPanel : MonoBehaviour, IInteractable, IRayHoverable
 
     public void Interact()
     {
-        controlPanelInteracted.TriggerEvent();
+        // controlPanelInteracted.TriggerEvent();
+        LoginUIOn.TriggerEvent();   
+        
     }
 
 
