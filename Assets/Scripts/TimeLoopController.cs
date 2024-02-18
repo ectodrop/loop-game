@@ -18,13 +18,19 @@ public class TimeLoopController : MonoBehaviour, ITimer
 
     // Handle battery usage
     private bool _usingBattery = false;
+    
+    [Header("Listening To")]
     public GameEvent batteryDraining;
     public GameEvent batteryStopDraining;
+    public GameEvent resetLoopEvent;
+    public GameEventFloat timeExtendedEvent;
 
     private void OnEnable()
     {
         batteryDraining.AddListener(HandleBatteryDraining);
         batteryStopDraining.AddListener(HandleBatteryStoppedDraining);
+        resetLoopEvent.AddListener(ResetScene);
+        timeExtendedEvent.AddListener(HandleTimeExtension);
     }
 
     private void OnDisable()
@@ -95,6 +101,12 @@ public class TimeLoopController : MonoBehaviour, ITimer
     public void SetTime(float newTimeLimit)
     {
         timeLimitController.currentMaxTime = newTimeLimit;
+    }
+
+    private void HandleTimeExtension(float addedTime)
+    {
+        SetTime(GetTime() + addedTime);
+        ResetScene();
     }
 
     private void HandleBatteryDraining()

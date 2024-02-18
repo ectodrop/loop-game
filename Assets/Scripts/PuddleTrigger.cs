@@ -6,6 +6,7 @@ public class PuddleTrigger : MonoBehaviour
 {
     public GameEvent PowerOn;
     public GameEvent PowerOff;
+    public Material electricMat;
     float DeathCountDown = 1.0f;
 
     void OnEnable()
@@ -15,10 +16,12 @@ public class PuddleTrigger : MonoBehaviour
     }
     void PuddleOn()
     {
+        electricMat.SetInt("_Enabled", 1);
         this.gameObject.SetActive(true);
     }
     void PuddleOff()
     {
+        electricMat.SetInt("_Enabled", 0);
         this.gameObject.SetActive(false);
     }
     void OnTriggerEnter(Collider collider)

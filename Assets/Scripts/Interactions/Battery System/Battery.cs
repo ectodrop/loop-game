@@ -5,18 +5,10 @@ using UnityEngine.Events;
 
 public class Battery : MonoBehaviour, IInteractable, IRayHoverable
 {
-    [SerializeField] private string hintText = "Press E";
-    [SerializeField] private UnityEvent onInteract;
-
     private int _batteryLevel = 100;
 
-    public string DisplayText
-    {
-        get => hintText;
-    }
 
     private bool canInteract = true;
-
 
     public void OnHoverEnter()
     {
@@ -30,8 +22,6 @@ public class Battery : MonoBehaviour, IInteractable, IRayHoverable
 
     public void Interact()
     {
-        GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.green);
-        onInteract.Invoke();
         canInteract = false;
     }
 

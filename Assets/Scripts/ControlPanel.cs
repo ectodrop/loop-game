@@ -5,6 +5,7 @@ using UnityEngine;
 public class ControlPanel : MonoBehaviour, IInteractable, IRayHoverable
 {
     // public GameEvent controlPanelInteracted;
+    [Header("Triggers")]
     public GameEvent LoginUIOn;
 
 
@@ -18,20 +19,6 @@ public class ControlPanel : MonoBehaviour, IInteractable, IRayHoverable
         // controlPanelInteracted.TriggerEvent();
         LoginUIOn.TriggerEvent();   
         
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void OnHoverEnter()

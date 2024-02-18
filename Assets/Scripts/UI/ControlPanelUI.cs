@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class ControlPanelUI : MonoBehaviour
 {
-    public GameEvent controlPanelInteracted;
     public GameObject controlPanelUI;
-    public GameEvent HUDEnableEvent, HUDDisableEvent;
+    
+    [Header("Triggers")]
+    public GameEvent HUDEnableEvent;
+    public GameEvent HUDDisableEvent;
+    [Header("Listening To")]
+    public GameEvent controlPanelInteracted;
 
     public void OnEnable()
     {

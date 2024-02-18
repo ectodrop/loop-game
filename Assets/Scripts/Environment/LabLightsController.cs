@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class LabLightsController : MonoBehaviour
 {
-    public Light light;
+    [Header("Listening To")]
     public GameEvent powerOn;
     public GameEvent powerOff;
 
-    private readonly int _defaultIntensity = 300;
+    private readonly int _defaultIntensity = 50;
 
     private void OnEnable()
     {
@@ -24,11 +24,17 @@ public class LabLightsController : MonoBehaviour
 
     private void HandlePowerOn()
     {
-        light.intensity = _defaultIntensity;
+        foreach (var light in GetComponentsInChildren<Light>())
+        {
+            light.intensity = _defaultIntensity;
+        }
     }
 
     private void HandlePowerOff()
     {
-        light.intensity = 0;
+        foreach (var light in GetComponentsInChildren<Light>())
+        {
+            light.intensity = 0;
+        }
     }
 }

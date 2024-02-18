@@ -108,7 +108,10 @@ public class CharacterMovement : MonoBehaviour
     // When player contacts the electrified puddle, the player will bounce back.
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        _bounce = true;
-        BounceDirection = new Vector3(-hit.moveDirection.x, 0, -hit.moveDirection.z);
+        if (hit.gameObject.CompareTag("puddle"))
+        {
+            _bounce = true;
+            BounceDirection = new Vector3(-hit.moveDirection.x, 0, -hit.moveDirection.z);
+        }
     }
 }

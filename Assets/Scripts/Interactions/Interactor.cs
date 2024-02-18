@@ -11,6 +11,7 @@ public class Interactor : MonoBehaviour
 
     private Camera mainCamera;
     private IRayHoverable curRayHoverableObj;
+    private GameObject curHoverObject;
     private int rayLayerMask;
     // Start is called before the first frame update
     void Start()
@@ -22,11 +23,11 @@ public class Interactor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var prevRayHoverableObj = curRayHoverableObj;
+        var prevHoverObject = curHoverObject;
         RaycastHit hit;
         if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, InteractableDistance, rayLayerMask))
         {
-            curRayHoverableObj = hit.transform.GetComponent<IRayHoverable>();
+            curHoverObject = hit.transform.gameObject;
 
             if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
             {
@@ -36,22 +37,33 @@ public class Interactor : MonoBehaviour
         }
         else
         {
-            curRayHoverableObj = null;
+            curHoverObject = null;
         }
 
         // check if the current interactable we are hovering on has changed, call the corresponding interface methods if yes
-        if (curRayHoverableObj != prevRayHoverableObj)
+        if (curHoverObject != prevHoverObject)
         {
-            if (curRayHoverableObj == null)
+            // check for labels
+            if (curHoverObject == null)
             {
                 onHoverReadableObject.TriggerEvent("");
             }
             else
             {
-                onHoverReadableObject.TriggerEvent("Interact (E)");
+                string text = "";
+                foreach (var label in curHoverObject.GetComponents<ILabel>())
+                {
+                    text += label.GetLabel() + "\n";
+                }
+                onHoverReadableObject.TriggerEvent(text);
             }
-            prevRayHoverableObj?.OnHoverExit();
-            curRayHoverableObj?.OnHoverEnter();
+
+            // call the enter exit methods if they exist
+            if (curHoverObject != null && curHoverObject.TryGetComponent(out IRayHoverable curRayHoverableObj))
+                curRayHoverableObj?.OnHoverEnter();
+            
+            if (prevHoverObject != null && prevHoverObject.TryGetComponent(out IRayHoverable prevRayHoverableObj))
+                prevRayHoverableObj?.OnHoverExit();
         }
     }
 }

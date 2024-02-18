@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b66d0962d5dfd8f418a389db2cece9af, type: 3}
-  m_Name: TimeLimitControllerSO
+  m_Script: {fileID: 11500000, guid: 083192d409018464599f474dc616383a, type: 3}
+  m_Name: TimeExtensionEvent
   m_EditorClassIdentifier: 
-  defaultMaxTime: 20

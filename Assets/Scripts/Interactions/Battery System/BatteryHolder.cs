@@ -5,8 +5,10 @@ using UnityEngine;
 using TMPro;
 using UnityEditor;
 
-public class BatteryHolder : MonoBehaviour
+public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
 {
+    public string HoldingText;
+    public string EmptyText;
     public GameObject battery;
     public TextMeshPro textMeshPro;
     Collider _holder, _batteryCollier;
@@ -45,15 +47,23 @@ public class BatteryHolder : MonoBehaviour
         return battery.layer == _holdLayer;
     }
 
-    // Update is called once per frame
-    void Update()
+    public string GetLabel()
     {
-        if (_holder.bounds.Intersects(_batteryCollier.bounds) && !IsPlayerHolding() && !_holding)
+        if (!_holding && !IsPlayerHolding()) 
+            return "";
+        return IsPlayerHolding() ? HoldingText : EmptyText;
+    }
+
+    // Update is called once per frame
+    public void Interact()
+    {
+        if (IsPlayerHolding() && !_holding)
         {
             Debug.Log("Battery Inserted.");
             textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
             battery.transform.SetParent(gameObject.transform);
             battery.transform.position = gameObject.transform.position;
+            battery.layer = LayerMask.GetMask("Default");
             _batteryRb.isKinematic = true;
 
 
@@ -65,6 +75,11 @@ public class BatteryHolder : MonoBehaviour
 
             _holding = true;
         }
+    }
+
+    public bool CanInteract()
+    {
+        return true;
     }
 
     public void StartBatteryDrain()

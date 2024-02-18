@@ -7,8 +7,13 @@ using UnityEngine;
 public class InteractGUIController : MonoBehaviour
 {
     public TextMeshProUGUI interactableLabel;
+    
+    [Header("Listening To (string)")]
     public GameEventString onHoverReadableObject;
-    public GameEvent HUDEnableEvent, HUDDisableEvent;
+    
+    [Header("Listening To")]
+    public GameEvent HUDEnableEvent;
+    public GameEvent HUDDisableEvent;
 
 
     public void OnEnable()

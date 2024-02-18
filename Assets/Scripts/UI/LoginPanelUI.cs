@@ -4,12 +4,14 @@ using UnityEngine.UI;
 
 public class LoginPanelUI : MonoBehaviour
 {
+    public GameObject loginPanelUI;
+    
+    [Header("Listening To")]
     public GameEvent LoginUIOn;
 
-    public GameEvent HUDEnableEvent, HUDDisableEvent;
-
-    public GameObject loginPanelUI;
-
+    [Header("Triggers")]
+    public GameEvent HUDEnableEvent;
+    public GameEvent HUDDisableEvent;
 
     public void OnEnable()
     {

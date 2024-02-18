@@ -6,7 +6,9 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
-    public GameEvent HUDEnableEvent, HUDDisableEvent;
+    [Header("Triggers")]
+    public GameEvent HUDEnableEvent;
+    public GameEvent HUDDisableEvent;
 
     void Start()
     {

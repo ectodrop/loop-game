@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class IndicatorPanel : MonoBehaviour
 {
-    public GameEvent switchOn;
-    public GameEvent switchOff;
-    public GameEvent batteryDraining;
-    public GameEvent batteryStopDraining;
-    public ScheduleEvent powerOutage;
-
     // LEDS
     public GameObject powerLed;
 
@@ -18,11 +12,20 @@ public class IndicatorPanel : MonoBehaviour
     public GameObject batteryLed;
 
     private bool _usingGenerator = true;
+    
+    [Header("Listening To")]
+    public GameEvent switchOn;
+    public GameEvent switchOff;
+    public GameEvent batteryDraining;
+    public GameEvent batteryStopDraining;
+    public ScheduleEvent powerOutage;
 
-
+    [Header("Triggers")]
     // Power event
     public GameEvent powerOn;
     public GameEvent powerOff;
+
+
 
     void Start()
     {
