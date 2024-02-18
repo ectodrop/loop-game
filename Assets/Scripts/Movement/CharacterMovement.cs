@@ -16,6 +16,7 @@ public class CharacterMovement : MonoBehaviour
     
     // For BounceBack
     private bool _bounce = false;
+    private Vector3 BounceDirection = new Vector3(0, 0, 0);
     private float BounceDuration = 0.1f;
     private float BounceTimer = 0.1f;
 
@@ -89,7 +90,7 @@ public class CharacterMovement : MonoBehaviour
         // BounceBack
         if (_bounce)
         {
-            _velocity -= transform.forward * 5 * _playerSpeed;
+            _velocity += BounceDirection * 5 * _playerSpeed;
 
             BounceTimer -= Time.deltaTime;
             if (BounceTimer <= 0.0f)
@@ -105,8 +106,9 @@ public class CharacterMovement : MonoBehaviour
         _controller.Move(_velocity * Time.deltaTime);
     }
     // When player contacts the electrified puddle, the player will bounce back.
-    private void BounceBack()
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         _bounce = true;
+        BounceDirection = new Vector3(-hit.moveDirection.x, 0, -hit.moveDirection.z);
     }
 }
