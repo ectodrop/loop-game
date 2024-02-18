@@ -696,10 +696,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8991cec658f847e0ad5926527611c2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hintText: Press E
-  onInteract:
-    m_PersistentCalls:
-      m_Calls: []
+  EmergencyOnText: 
+  EmergencyOffText: 
   holder: {fileID: 6952632585083689287}
   switchOn: {fileID: 11400000, guid: cc9659571e034437db7d33d9139631c2, type: 2}
   switchOff: {fileID: 11400000, guid: 7f5c559cea2a447f7847d814ad044b79, type: 2}
@@ -1435,14 +1433,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a411baeac4c6ee14d998c520963e7f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerLed: {fileID: 8636147607223601715}
+  generatorLed: {fileID: 1812429954922552907}
+  batteryLed: {fileID: 7778834805380258458}
   switchOn: {fileID: 11400000, guid: cc9659571e034437db7d33d9139631c2, type: 2}
   switchOff: {fileID: 11400000, guid: 7f5c559cea2a447f7847d814ad044b79, type: 2}
   batteryDraining: {fileID: 11400000, guid: fe6ac462cae99e247862bf00da89c36d, type: 2}
   batteryStopDraining: {fileID: 11400000, guid: bc6d2e6ab98f2644f9459b9aac4f2da1, type: 2}
-  powerOutage: {fileID: 11400000, guid: f488b13f3f501074aac9deab7aeb0391, type: 2}
-  powerLed: {fileID: 8636147607223601715}
-  generatorLed: {fileID: 1812429954922552907}
-  batteryLed: {fileID: 7778834805380258458}
+  powerOutageEvent: {fileID: 11400000, guid: f488b13f3f501074aac9deab7aeb0391, type: 2}
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
 --- !u!1 &6952632585083689287
@@ -1569,6 +1567,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e6adcd0b96b45c4b442ff68e21550fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HoldingText: 
+  EmptyText: 
   battery: {fileID: 0}
   textMeshPro: {fileID: 6722855968786460078}
   batteryDraining: {fileID: 11400000, guid: fe6ac462cae99e247862bf00da89c36d, type: 2}

@@ -14,11 +14,9 @@ public class TimeLoopController : MonoBehaviour, ITimer
 
     private int currentEvent = 0;
 
-    private readonly string _powerOutageName = "PowerOutageEvent";
-
     // Handle battery usage
     private bool _usingBattery = false;
-    
+
     [Header("Listening To")]
     public GameEvent batteryDraining;
     public GameEvent batteryStopDraining;
@@ -75,15 +73,8 @@ public class TimeLoopController : MonoBehaviour, ITimer
         var nextEvent = scheduleController.scheduledEvents[currentEvent];
         if (nextEvent.time < timeLimitController.currentMaxTime - timeCounter)
         {
-            currentEvent++;
-
-            // If battery is already being used do not trigger the power outage
-            if (nextEvent.name == _powerOutageName && _usingBattery)
-            {
-                return;
-            }
-
             nextEvent.TriggerEvent();
+            currentEvent++;
         }
     }
 
