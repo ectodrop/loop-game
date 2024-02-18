@@ -11,6 +11,8 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable
 
     public GameObject holder;
     private BatteryHolder _holderScript;
+    public GameEvent switchOn;
+    public GameEvent switchOff;
 
     public string DisplayText
     {
@@ -50,13 +52,14 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable
             }
 
             _emergencyPower = true;
+            switchOn.TriggerEvent();
         }
         // Switch off
         else
         {
             GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.red);
             _emergencyPower = false;
-
+            switchOff.TriggerEvent();
             // Stop draining the battery if not already empty to prevent uneeded triggers
             if (!_holderScript.IsBatteryEmpty())
             {

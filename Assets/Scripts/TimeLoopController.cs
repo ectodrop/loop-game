@@ -13,6 +13,26 @@ public class TimeLoopController : MonoBehaviour, ITimer
     private float timeCounter;
 
     private int currentEvent = 0;
+
+    private readonly string _powerOutageName = "PowerOutageEvent";
+
+    // Handle battery usage
+    private bool _usingBattery = false;
+    public GameEvent batteryDraining;
+    public GameEvent batteryStopDraining;
+
+    private void OnEnable()
+    {
+        batteryDraining.AddListener(HandleBatteryDraining);
+        batteryStopDraining.AddListener(HandleBatteryStoppedDraining);
+    }
+
+    private void OnDisable()
+    {
+        batteryDraining.RemoveListener(HandleBatteryDraining);
+        batteryStopDraining.RemoveListener(HandleBatteryStoppedDraining);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,12 +48,14 @@ public class TimeLoopController : MonoBehaviour, ITimer
             return;
         }
 
-        if (timeCounter > 0) {
+        if (timeCounter > 0)
+        {
             timeCounter -= Time.deltaTime;
             InvokeNextEvent();
             var parts = timeCounter.ToString("N2").Split(".");
             timerText.text = string.Format("{0}:{1}", parts[0], parts[1]);
-        } else
+        }
+        else
         {
             timeCounter = 0;
         }
@@ -47,8 +69,15 @@ public class TimeLoopController : MonoBehaviour, ITimer
         var nextEvent = scheduleController.scheduledEvents[currentEvent];
         if (nextEvent.time < timeLimitController.currentMaxTime - timeCounter)
         {
-            nextEvent.TriggerEvent();
             currentEvent++;
+
+            // If battery is already being used do not trigger the power outage
+            if (nextEvent.name == _powerOutageName && _usingBattery)
+            {
+                return;
+            }
+
+            nextEvent.TriggerEvent();
         }
     }
 
@@ -57,6 +86,7 @@ public class TimeLoopController : MonoBehaviour, ITimer
         if (!debugMode)
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
     public float GetTime()
     {
         return timeLimitController.currentMaxTime;
@@ -65,5 +95,15 @@ public class TimeLoopController : MonoBehaviour, ITimer
     public void SetTime(float newTimeLimit)
     {
         timeLimitController.currentMaxTime = newTimeLimit;
+    }
+
+    private void HandleBatteryDraining()
+    {
+        _usingBattery = true;
+    }
+
+    private void HandleBatteryStoppedDraining()
+    {
+        _usingBattery = false;
     }
 }
