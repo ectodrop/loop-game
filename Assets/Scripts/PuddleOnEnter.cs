@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PuddleOnEnter : MonoBehaviour
 {
-    public GameObject player;
-    private void OnTriggerEnter(Collider other)
+    public GameEventVector3 PlayerEnterPuddleEvent;
+    
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (other.tag == "Player")
+        Debug.Log("collision");
+        if (hit.collider.tag == "Player")
         {
-            player.SendMessage("BounceBack");
+            Debug.Log("EnterPuddle");
+            PlayerEnterPuddleEvent.TriggerEvent(new Vector3(1,1,1));  
         }
     }
 }
