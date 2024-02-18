@@ -12,7 +12,7 @@ public class IndicatorPanel : MonoBehaviour
     public GameObject batteryLed;
 
     private bool _usingGenerator = true;
-    
+    private bool _usingBattery = false;
     [Header("Listening To")]
     public GameEvent switchOn;
     public GameEvent switchOff;
@@ -24,7 +24,6 @@ public class IndicatorPanel : MonoBehaviour
     // Power event
     public GameEvent powerOn;
     public GameEvent powerOff;
-
 
 
     void Start()
@@ -71,16 +70,19 @@ public class IndicatorPanel : MonoBehaviour
     private void HandleBatteryDrain()
     {
         SetGreenColor(powerLed);
+        _usingBattery = true;
     }
 
     private void HandleBatteryDrainStop()
     {
         SetRedColor(powerLed);
+        _usingBattery = false;
     }
 
     private void HandlePowerOutage()
     {
-        if (_usingGenerator)
+        // If we are using the generator or the battery is not being drained then no power
+        if (_usingGenerator || !_usingBattery)
         {
             SetRedColor(powerLed);
         }
