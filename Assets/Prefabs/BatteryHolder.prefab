@@ -1443,6 +1443,8 @@ MonoBehaviour:
   powerLed: {fileID: 8636147607223601715}
   generatorLed: {fileID: 1812429954922552907}
   batteryLed: {fileID: 7778834805380258458}
+  powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
+  powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
 --- !u!1 &6952632585083689287
 GameObject:
   m_ObjectHideFlags: 0

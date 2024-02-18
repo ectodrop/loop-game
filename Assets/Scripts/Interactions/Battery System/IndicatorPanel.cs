@@ -19,6 +19,11 @@ public class IndicatorPanel : MonoBehaviour
 
     private bool _usingGenerator = true;
 
+
+    // Power event
+    public GameEvent powerOn;
+    public GameEvent powerOff;
+
     void Start()
     {
         // LED defaults
@@ -81,10 +86,18 @@ public class IndicatorPanel : MonoBehaviour
     private void SetRedColor(GameObject obj)
     {
         obj.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.red);
+        if (obj == powerLed)
+        {
+            powerOff.TriggerEvent();
+        }
     }
 
     private void SetGreenColor(GameObject obj)
     {
         obj.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.green);
+        if (obj == powerLed)
+        {
+            powerOn.TriggerEvent();
+        }
     }
 }
