@@ -682,6 +682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractableDistance: 2
   onHoverReadableObject: {fileID: 11400000, guid: dc0ded10ca1e3ac43b0d60632f7c25d8, type: 2}
+  timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
 --- !u!95 &220946495324720265
 Animator:
   serializedVersion: 5

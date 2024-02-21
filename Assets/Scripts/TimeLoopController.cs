@@ -16,6 +16,8 @@ public class TimeLoopController : MonoBehaviour
     public ScheduleControllerScriptableObject scheduleController;
 
     private int currentEvent = 0;
+    private float timestopCooldown = 2.0f;
+    private float timestopCooldownTimer = 0.0f;
 
     // Handle battery usage
     private bool _usingBattery = false;
@@ -37,6 +39,7 @@ public class TimeLoopController : MonoBehaviour
     {
         timeSettings.ResetTimers();
         timeStoppedFlag.ResetValue();
+        ResumeTime();
     }
 
     private void OnEnable()
@@ -56,15 +59,20 @@ public class TimeLoopController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (timestopCooldownTimer < timestopCooldown)
+            timestopCooldownTimer += Time.deltaTime;
+        
+        if (timestopCooldownTimer >= timestopCooldown && Input.GetKeyDown(KeyCode.R))
         {
             if (!timeStoppedFlag.GetValue())
             {
+                timestopCooldownTimer = 0.0f;
                 StopTime();
                 timeStopStartEvent.TriggerEvent();
             }
             else
             {
+                timestopCooldownTimer = 0.0f;
                 ResumeTime();
                 timeStopEndEvent.TriggerEvent();
             }
