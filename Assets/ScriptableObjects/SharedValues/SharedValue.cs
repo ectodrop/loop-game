@@ -7,8 +7,15 @@ public class SharedValue<T> : ScriptableObject
 {
     public T DefaultValue;
 
-    [NonSerialized] private T _currentValue;
+    [NonSerialized]
+    private T _currentValue;
+    
     private void OnEnable()
+    {
+        ResetValue();
+    }
+
+    private void OnDisable()
     {
         ResetValue();
     }
@@ -26,5 +33,10 @@ public class SharedValue<T> : ScriptableObject
     public void SetValue(T val)
     {
         _currentValue = val;
+    }
+    
+    public override string ToString()
+    {
+        return _currentValue.ToString();
     }
 }

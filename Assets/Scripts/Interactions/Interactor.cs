@@ -8,6 +8,7 @@ public class Interactor : MonoBehaviour
 {
     public float InteractableDistance = 2.0f;
     public GameEventString onHoverReadableObject;
+    public SharedBool timeStoppedFlag;
 
     private Camera mainCamera;
     private IRayHoverable curRayHoverableObj;
@@ -31,7 +32,7 @@ public class Interactor : MonoBehaviour
 
             if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
             {
-                if (Input.GetKeyDown("e"))
+                if (!timeStoppedFlag.GetValue() && Input.GetKeyDown("e"))
                     interactable.Interact();
             }
         }
@@ -55,6 +56,9 @@ public class Interactor : MonoBehaviour
                 {
                     text += label.GetLabel() + "\n";
                 }
+
+                if (timeStoppedFlag.GetValue())
+                    text = "Resume time to interact (R)";
                 onHoverReadableObject.TriggerEvent(text);
             }
 

@@ -8,8 +8,6 @@ public class ScheduleControllerScriptableObject : ScriptableObject
 
     public void OnEnable()
     {
-        Array.Sort(scheduledEvents, delegate (ScheduleEvent x, ScheduleEvent y) {
-            return x.time.CompareTo(y.time);
-        });
+        Array.Sort(scheduledEvents, (x, y) => x.time.CompareTo(y.time) );
     }
 }

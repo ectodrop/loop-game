@@ -1,18 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
-public class TimeLoopController : MonoBehaviour, ITimer
+public class TimeLoopController : MonoBehaviour
 {
     public bool debugMode = false;
-    public TimeLimitControllerScriptableObject timeLimitController;
+    public TimeSettings timeSettings;
     public ScheduleControllerScriptableObject scheduleController;
-    public TextMeshProUGUI timerText;
-    private float timeCounter;
 
     private int currentEvent = 0;
+    private float timestopCooldown = 1.2f;
+    private float timestopCooldownTimer = 1.2f;
 
     // Handle battery usage
     private bool _usingBattery = false;
@@ -20,14 +25,27 @@ public class TimeLoopController : MonoBehaviour, ITimer
     [Header("Listening To")]
     public GameEvent batteryDraining;
     public GameEvent batteryStopDraining;
+    public GameEventInt timeExtendedEvent;
+
+    [Header("Triggers")]
+    public GameEvent timeStopStartEvent;
+    public GameEvent timeStopEndEvent;
     public GameEvent resetLoopEvent;
-    public GameEventFloat timeExtendedEvent;
+
+    [Header("Sets Shared Variables")]
+    public SharedBool timeStoppedFlag;
+
+    private void Start()
+    {
+        timeSettings.ResetTimers();
+        timeStoppedFlag.ResetValue();
+        ResumeTime();
+    }
 
     private void OnEnable()
     {
         batteryDraining.AddListener(HandleBatteryDraining);
         batteryStopDraining.AddListener(HandleBatteryStoppedDraining);
-        resetLoopEvent.AddListener(ResetScene);
         timeExtendedEvent.AddListener(HandleTimeExtension);
     }
 
@@ -35,34 +53,65 @@ public class TimeLoopController : MonoBehaviour, ITimer
     {
         batteryDraining.RemoveListener(HandleBatteryDraining);
         batteryStopDraining.RemoveListener(HandleBatteryStoppedDraining);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        timeCounter = timeLimitController.currentMaxTime;
-        Invoke("ResetScene", timeCounter);
+        timeExtendedEvent.RemoveListener(HandleTimeExtension);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (debugMode)
+        if (timestopCooldownTimer < timestopCooldown)
+            timestopCooldownTimer += Time.deltaTime;
+        
+        if (timestopCooldownTimer >= timestopCooldown && Input.GetKeyDown(KeyCode.R))
+        {
+            if (!timeStoppedFlag.GetValue())
+            {
+                timestopCooldownTimer = 0.0f;
+                StopTime();
+                timeStopStartEvent.TriggerEvent();
+            }
+            else
+            {
+                timestopCooldownTimer = timestopCooldown / 2.0f;
+                ResumeTime();
+                timeStopEndEvent.TriggerEvent();
+            }
+        }
+        
+        if (timeStoppedFlag.GetValue() || debugMode)
         {
             return;
         }
 
-        if (timeCounter > 0)
+        if (timeSettings.currentTimeSeconds < timeSettings.CurrentMaxTimeSeconds())
         {
-            timeCounter -= Time.deltaTime;
+            int prevNextIncrement = timeSettings.NextIncrement();
+            timeSettings.currentTimeSeconds += Time.deltaTime;
+            int nextIncrement = timeSettings.NextIncrement();
+            if (prevNextIncrement < nextIncrement)
+            {
+                timeSettings.currentTimestamp.AddMinutes(timeSettings.minutesPerIncrement);
+            }
             InvokeNextEvent();
-            var parts = timeCounter.ToString("N2").Split(".");
-            timerText.text = string.Format("{0}:{1}", parts[0], parts[1]);
         }
         else
         {
-            timeCounter = 0;
+            StopTime();
+            resetLoopEvent.TriggerEvent();
         }
+    }
+
+    private void StopTime()
+    {
+        timeStoppedFlag.SetValue(true);
+        Shader.SetGlobalInteger("_TimeStopped", 1);
+    }
+
+    private void ResumeTime()
+    {
+        timeStoppedFlag.SetValue(false);
+        Shader.SetGlobalInteger("_TimeStopped", 0);
+        
     }
 
     private void InvokeNextEvent()
@@ -71,33 +120,17 @@ public class TimeLoopController : MonoBehaviour, ITimer
             return;
 
         var nextEvent = scheduleController.scheduledEvents[currentEvent];
-        if (nextEvent.time < timeLimitController.currentMaxTime - timeCounter)
+        if (nextEvent.time.CompareTo(timeSettings.currentTimestamp) <= 0)
         {
             nextEvent.TriggerEvent();
             currentEvent++;
         }
     }
 
-    public void ResetScene()
+    private void HandleTimeExtension(int addedTime)
     {
-        if (!debugMode)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public float GetTime()
-    {
-        return timeLimitController.currentMaxTime;
-    }
-
-    public void SetTime(float newTimeLimit)
-    {
-        timeLimitController.currentMaxTime = newTimeLimit;
-    }
-
-    private void HandleTimeExtension(float addedTime)
-    {
-        SetTime(GetTime() + addedTime);
-        ResetScene();
+        timeSettings.currentStartTimestamp.AddMinutes(-addedTime);
+        resetLoopEvent.TriggerEvent();
     }
 
     private void HandleBatteryDraining()

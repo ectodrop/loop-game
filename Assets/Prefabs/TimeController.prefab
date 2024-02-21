@@ -45,8 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 0
-  timeLimitController: {fileID: 11400000, guid: 962a79f424033ff408df9840a81294cb, type: 2}
+  timeSettings: {fileID: 11400000, guid: 962a79f424033ff408df9840a81294cb, type: 2}
   scheduleController: {fileID: 11400000, guid: 83de23a067603d640b6f4b857ceb8ecc, type: 2}
-  timerText: {fileID: 0}
   batteryDraining: {fileID: 11400000, guid: fe6ac462cae99e247862bf00da89c36d, type: 2}
   batteryStopDraining: {fileID: 11400000, guid: bc6d2e6ab98f2644f9459b9aac4f2da1, type: 2}
+  timeExtendedEvent: {fileID: 11400000, guid: d1b1426ed26bb0d49bab6defe1e3034d, type: 2}
+  timeStopStartEvent: {fileID: 11400000, guid: ff2edae89ca8dc947818500d2d72bcda, type: 2}
+  timeStopEndEvent: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
+  resetLoopEvent: {fileID: 11400000, guid: 8fb932e54d9c1da41a1bb9ab63b79c5d, type: 2}
+  timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}

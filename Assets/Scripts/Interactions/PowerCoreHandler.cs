@@ -5,10 +5,10 @@ using UnityEngine;
 public class PowerCoreHandler : MonoBehaviour, IInteractable
 {
     [Header("Triggers")]
-    public GameEventFloat timeExtensionEvent;
+    public GameEventInt timeExtensionEvent;
     public void Interact()
     {
-        timeExtensionEvent.TriggerEvent(10.0f);
+        timeExtensionEvent.TriggerEvent(10);
     }
 
     public bool CanInteract()
