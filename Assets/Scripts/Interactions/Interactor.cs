@@ -58,7 +58,7 @@ public class Interactor : MonoBehaviour
                 }
 
                 if (timeStoppedFlag.GetValue())
-                    text = "Resume time to interact";
+                    text = "Resume time to interact (R)";
                 onHoverReadableObject.TriggerEvent(text);
             }
 

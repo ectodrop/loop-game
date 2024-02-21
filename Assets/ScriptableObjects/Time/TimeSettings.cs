@@ -64,7 +64,6 @@ public class TimeSettings : ScriptableObject
             Debug.LogError("Invalid: Pick a different max time or increment");
         }
         currentTimeSeconds = 0;
-        currentTimestamp.hour = currentStartTimestamp.hour;
-        currentTimestamp.minute = currentStartTimestamp.minute;
+        currentTimestamp = currentStartTimestamp.Clone();
     }
 }

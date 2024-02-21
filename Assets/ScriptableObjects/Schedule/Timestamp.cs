@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class Timestamp
 {
-    public int hour;
-    public int minute;
+    [SerializeField] private int hour;
+    [SerializeField] private int minute;
     private float second;
 
     public Timestamp(int hour, int minute)
@@ -52,6 +53,16 @@ public class Timestamp
         if (hour == other.hour) return other.minute - minute;
 
         return (other.hour - hour) * 60 + (60 - minute) + (other.minute);
+    }
+
+    public void SetHour(int hour)
+    {
+        this.hour = hour;  
+    }
+
+    public void SetMinute(int minute)
+    {
+        this.minute = minute;
     }
 
     public int CompareTo(Timestamp other)

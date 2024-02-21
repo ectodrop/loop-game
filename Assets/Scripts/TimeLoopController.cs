@@ -16,8 +16,8 @@ public class TimeLoopController : MonoBehaviour
     public ScheduleControllerScriptableObject scheduleController;
 
     private int currentEvent = 0;
-    private float timestopCooldown = 2.0f;
-    private float timestopCooldownTimer = 0.0f;
+    private float timestopCooldown = 1.2f;
+    private float timestopCooldownTimer = 1.2f;
 
     // Handle battery usage
     private bool _usingBattery = false;
@@ -72,7 +72,7 @@ public class TimeLoopController : MonoBehaviour
             }
             else
             {
-                timestopCooldownTimer = 0.0f;
+                timestopCooldownTimer = timestopCooldown / 2.0f;
                 ResumeTime();
                 timeStopEndEvent.TriggerEvent();
             }

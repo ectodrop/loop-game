@@ -1804,14 +1804,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimeController
       objectReference: {fileID: 0}
-    - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
-      propertyPath: timeStopped
-      value: 
-      objectReference: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
-    - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
-      propertyPath: timeStoppedFlag
-      value: 
-      objectReference: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
     - target: {fileID: 6650408051653675645, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
