@@ -65,6 +65,8 @@ Material:
     - _Scale: 2.26
     - _SrcBlend: 5
     - _Surface: 1
+    - _TIMESTOPPED: 0
+    - _TimeStopped: 0
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0

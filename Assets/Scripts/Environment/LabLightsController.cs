@@ -34,7 +34,7 @@ public class LabLightsController : MonoBehaviour
     {
         foreach (var light in GetComponentsInChildren<Light>())
         {
-            light.intensity = 0;
+            light.intensity = 10;
         }
     }
 }

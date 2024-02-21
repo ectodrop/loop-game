@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c677fe107590081418d8b1cbf8a94621, type: 3}
-  m_Name: ScheduleControllerSO
+  m_Script: {fileID: 11500000, guid: 059023b88a7034648afb482a0d729126, type: 3}
+  m_Name: 10_PowerOutageEvent
   m_EditorClassIdentifier: 
-  scheduledEvents:
-  - {fileID: 11400000, guid: f488b13f3f501074aac9deab7aeb0391, type: 2}
-  - {fileID: 11400000, guid: ad89c2501c65abb49a9959d383928971, type: 2}
+  time:
+    hour: 12
+    minute: 10

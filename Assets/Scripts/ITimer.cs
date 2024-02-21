@@ -2,8 +2,8 @@
 public interface ITimer
 {
 
-    float GetTime();
+    int GetTime();
 
-    void SetTime(float newTimeLimit);
+    void SetTime(int newTimeLimit);
 
 }

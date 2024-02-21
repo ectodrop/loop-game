@@ -6,5 +6,5 @@ using UnityEngine;
 public class ScheduleEvent : GameEvent
 {
     [Tooltip("Number of seconds from the start when the event should be triggered")]
-    public float time;
+    public Timestamp time;
 }
