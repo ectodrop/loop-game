@@ -5,7 +5,7 @@ using UnityEngine;
 public class ControlPanelUI : MonoBehaviour
 {
     public GameObject controlPanelUI;
-    
+
     [Header("Triggers")]
     public GameEvent HUDEnableEvent;
     public GameEvent HUDDisableEvent;

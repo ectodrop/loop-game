@@ -6,6 +6,8 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+    public GameObject controlPanelUI;
+    public GameObject loginPanelUI;
     [Header("Triggers")]
     public GameEvent HUDEnableEvent;
     public GameEvent HUDDisableEvent;
@@ -33,12 +35,16 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        HUDEnableEvent.TriggerEvent();
-        Time.timeScale = 1f;
         GameIsPaused = false;
         pauseMenuUI.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // If both UI panels are closed, continue timer and hide cursor
+        if (!loginPanelUI.activeInHierarchy && !controlPanelUI.activeInHierarchy)
+        {
+            HUDEnableEvent.TriggerEvent();
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     void PauseGame()
