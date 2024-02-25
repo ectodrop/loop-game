@@ -10,12 +10,6 @@ public class TutorialPlayerThoughts : MonoBehaviour
     private bool _bounce = false;
     private int _num_bounces = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
