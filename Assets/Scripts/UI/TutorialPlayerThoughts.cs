@@ -10,11 +10,13 @@ public class TutorialPlayerThoughts : MonoBehaviour
     private bool _bounce = false;
     private int _num_bounces = 0;
 
-    // Update is called once per frame
-    void Update()
+  
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (_bounce)
+        if (hit.gameObject.CompareTag("puddle"))
         {
+            _num_bounces += 1;
+
             if (_num_bounces > 6)
             {
                 playerThoughts.text = "The power generator needs to be turned off.";
@@ -27,16 +29,6 @@ public class TutorialPlayerThoughts : MonoBehaviour
             {
                 playerThoughts.text = "Ouch. The water is electrified by the power generator.";
             }
-
-        }
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.gameObject.CompareTag("puddle"))
-        {
-            _num_bounces += 1;
-            _bounce = true;
         }
     }
 }
