@@ -3,12 +3,61 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Battery : MonoBehaviour, IInteractable, IRayHoverable
+public class Battery : MonoBehaviour, IInteractable, IRayHoverable, ILabel
 {
+    public string pickupText;
+    // Manually Enable and disable pickup
+    public GameEvent enableBattery;
+    public GameEvent disableBattery;
+
+    // Manually Enable and Disable drain feature
+    public GameEvent enableDrain;
+    public GameEvent disableDrain;
+
+    private bool _canDrain = true;
+    
     private int _batteryLevel = 100;
 
 
-    private bool canInteract = true;
+    private bool _canInteract = true;
+
+    private void OnEnable()
+    {
+        enableBattery.AddListener(HandleEnableBattery);
+        disableBattery.AddListener(HandleDisableBattery);
+        enableDrain.AddListener(HandleEnableDrain);
+        disableDrain.AddListener(HandleDisableDrain);
+    }
+
+    private void OnDisable()
+    {
+        enableBattery.RemoveListener(HandleEnableBattery);
+        disableBattery.RemoveListener(HandleDisableBattery);
+        enableDrain.RemoveListener(HandleEnableDrain);
+        disableDrain.RemoveListener(HandleDisableDrain);
+    }
+
+    private void HandleEnableBattery()
+    {
+        _canInteract = true;
+        gameObject.transform.gameObject.tag = "canPickUp";
+    }
+
+    private void HandleDisableBattery()
+    {
+        _canInteract = false;
+        gameObject.transform.gameObject.tag = "Untagged";
+    }
+
+    private void HandleEnableDrain()
+    {
+        _canDrain = true;
+    }
+
+    private void HandleDisableDrain()
+    {
+        _canDrain = false;
+    }
 
     public void OnHoverEnter()
     {
@@ -22,12 +71,12 @@ public class Battery : MonoBehaviour, IInteractable, IRayHoverable
 
     public void Interact()
     {
-        canInteract = false;
+        _canInteract = false;
     }
 
     public bool CanInteract()
     {
-        return canInteract;
+        return _canInteract;
     }
 
     public int GetBatteryLevel()
@@ -37,6 +86,18 @@ public class Battery : MonoBehaviour, IInteractable, IRayHoverable
 
     public void DecreaseBattery(int amount)
     {
-        _batteryLevel -= amount;
+        if (_canDrain)
+        {
+            _batteryLevel -= amount;
+        }
+    }
+
+    public string GetLabel()
+    {
+        if (_canInteract)
+        {
+            return pickupText;
+        }
+        return "";
     }
 }
