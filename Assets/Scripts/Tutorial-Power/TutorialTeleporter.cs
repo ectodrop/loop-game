@@ -12,6 +12,9 @@ public class TutorialTeleporter : MonoBehaviour
         Debug.Log("Exiting Power Tutorial.");
 
         // Return to Main Menu
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene(menuName);
+
     }
 }
