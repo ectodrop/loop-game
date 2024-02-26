@@ -701,6 +701,8 @@ MonoBehaviour:
   holder: {fileID: 6952632585083689287}
   switchOn: {fileID: 11400000, guid: cc9659571e034437db7d33d9139631c2, type: 2}
   switchOff: {fileID: 11400000, guid: 7f5c559cea2a447f7847d814ad044b79, type: 2}
+  enableSwitch: {fileID: 11400000, guid: 6debaa38eb26ec84a92a4e0409ed3df0, type: 2}
+  disableSwitch: {fileID: 11400000, guid: 9d006a4d94e2a7a4485d3b4cdc01d525, type: 2}
 --- !u!1 &1812429954922552907
 GameObject:
   m_ObjectHideFlags: 0

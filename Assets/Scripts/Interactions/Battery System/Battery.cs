@@ -5,10 +5,36 @@ using UnityEngine.Events;
 
 public class Battery : MonoBehaviour, IInteractable, IRayHoverable
 {
+    // Manually Enable and disable pickup
+    public GameEvent enableBattery;
+    public GameEvent disableBattery;
+    
     private int _batteryLevel = 100;
 
 
-    private bool canInteract = true;
+    private bool _canInteract = true;
+
+    private void OnEnable()
+    {
+        enableBattery.AddListener(HandleEnableBattery);
+        disableBattery.AddListener(HandleDisableBattery);
+    }
+
+    private void OnDisable()
+    {
+        enableBattery.RemoveListener(HandleEnableBattery);
+        disableBattery.RemoveListener(HandleDisableBattery);
+    }
+
+    private void HandleEnableBattery()
+    {
+        _canInteract = true;
+    }
+
+    private void HandleDisableBattery()
+    {
+        _canInteract = false;
+    }
 
     public void OnHoverEnter()
     {
@@ -22,12 +48,12 @@ public class Battery : MonoBehaviour, IInteractable, IRayHoverable
 
     public void Interact()
     {
-        canInteract = false;
+        _canInteract = false;
     }
 
     public bool CanInteract()
     {
-        return canInteract;
+        return _canInteract;
     }
 
     public int GetBatteryLevel()

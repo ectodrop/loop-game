@@ -93,8 +93,8 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
         float height = door.transform.position.y;
         while (height < maxDoorHeight)
         {
-            yield return new WaitForSeconds(0.1f);
-            Vector3 newPosition = door.transform.position + Vector3.up * 0.1f;
+            yield return new WaitForSeconds(0.01f);
+            Vector3 newPosition = door.transform.position + Vector3.up * 0.01f;
             door.transform.position = newPosition;
             height = door.transform.position.y;
         }
