@@ -52,7 +52,11 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable, ILab
 
     public string GetLabel()
     {
-        return _emergencyPower ? EmergencyOnText : EmergencyOffText;
+        if (_canInteract)
+        {
+            return _emergencyPower ? EmergencyOnText : EmergencyOffText;
+        }
+        return "";
     }
 
     public void OnHoverEnter()

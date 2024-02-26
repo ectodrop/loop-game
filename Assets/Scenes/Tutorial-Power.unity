@@ -485,6 +485,7 @@ MonoBehaviour:
   doorFirstClick: {fileID: 11400000, guid: 2343f350184441447a467a6782b66563, type: 2}
   enableBattery: {fileID: 11400000, guid: 246d6ba8b6fd1a642bcb43650bbbfb39, type: 2}
   disableBattery: {fileID: 11400000, guid: 16acbc6daa870c54e9ccffe7a688b884, type: 2}
+  disableDrain: {fileID: 11400000, guid: 3965a3a7f6d768643a7afc8ad64720a2, type: 2}
   enableSwitch: {fileID: 11400000, guid: 6debaa38eb26ec84a92a4e0409ed3df0, type: 2}
   disableSwitch: {fileID: 11400000, guid: 9d006a4d94e2a7a4485d3b4cdc01d525, type: 2}
   switchOn: {fileID: 11400000, guid: cc9659571e034437db7d33d9139631c2, type: 2}
@@ -798,6 +799,14 @@ PrefabInstance:
     - target: {fileID: 4816473742594666074, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
       propertyPath: m_Name
       value: Battery
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816473742594666074, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+      propertyPath: m_TagString
+      value: canPickUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9099021499785935338, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

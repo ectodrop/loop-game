@@ -162,5 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d69578d13864cdd9f1be19f3f051b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupText: Pickup (F)
   enableBattery: {fileID: 11400000, guid: 246d6ba8b6fd1a642bcb43650bbbfb39, type: 2}
   disableBattery: {fileID: 11400000, guid: 16acbc6daa870c54e9ccffe7a688b884, type: 2}
+  enableDrain: {fileID: 11400000, guid: db56d35ae80bbfb4c9868ce7664c712b, type: 2}
+  disableDrain: {fileID: 11400000, guid: 3965a3a7f6d768643a7afc8ad64720a2, type: 2}
