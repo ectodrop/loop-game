@@ -288,6 +288,7 @@ GameObject:
   - component: {fileID: 3819993109371581350}
   - component: {fileID: 1754629855191863285}
   - component: {fileID: 2348206971236696891}
+  - component: {fileID: 4699725325634964880}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
@@ -381,6 +382,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4699725325634964880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7156161318111843468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b846bb98581c334db839422fc12a52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuName: Menu
 --- !u!1 &8731011209643597808
 GameObject:
   m_ObjectHideFlags: 0
