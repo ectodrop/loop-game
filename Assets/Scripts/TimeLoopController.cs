@@ -34,6 +34,11 @@ public class TimeLoopController : MonoBehaviour
 
     [Header("Sets Shared Variables")]
     public SharedBool timeStoppedFlag;
+    
+    [Header("Sound Effects")]
+    public SoundEffect timeloopEndSFX;
+    public SoundEffect timestopStartSFX;
+    public SoundEffect timestopEndSFX;
 
     private void Start()
     {
@@ -66,12 +71,14 @@ public class TimeLoopController : MonoBehaviour
         {
             if (!timeStoppedFlag.GetValue())
             {
+                timestopStartSFX.Play();
                 timestopCooldownTimer = 0.0f;
                 StopTime();
                 timeStopStartEvent.TriggerEvent();
             }
             else
             {
+                timestopEndSFX.Play();
                 timestopCooldownTimer = timestopCooldown / 2.0f;
                 ResumeTime();
                 timeStopEndEvent.TriggerEvent();
@@ -97,6 +104,7 @@ public class TimeLoopController : MonoBehaviour
         else
         {
             StopTime();
+            timeloopEndSFX.Play();
             resetLoopEvent.TriggerEvent();
         }
     }

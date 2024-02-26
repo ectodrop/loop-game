@@ -5,11 +5,17 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
 
+    public SoundEffect footsteps;
     // For character animation
     public Animator _playerAnimator;
     void Start()
     {
         _playerAnimator = GetComponent<Animator>();
+    }
+
+    public void PlayFootSteps()
+    {
+        footsteps.Play();
     }
 
     // Update is called once per frame

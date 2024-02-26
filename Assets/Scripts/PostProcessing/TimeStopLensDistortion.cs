@@ -45,26 +45,24 @@ public class TimeStopLensDistortion : MonoBehaviour
 
     private void DeactivateTimeStop()
     {
-        colorOverride.active = false;
-        colorAdjustmentsOverride.active = false;
-        bloomOverride.active = true;
+        StartCoroutine(DistortionAnimation(false));
     }
 
     private void PlayAnimation()
     {
-        StartCoroutine(DistortionAnimation());
+        StartCoroutine(DistortionAnimation(true));
     }
 
-    private IEnumerator DistortionAnimation()
+    private IEnumerator DistortionAnimation(bool stopping)
     {
         float time = 0;
         while (time < 1.0f)
         {
             if (time > 0.5f)
             {
-                colorOverride.active = true;
-                bloomOverride.active = false;
-                colorAdjustmentsOverride.active = true;
+                colorOverride.active = stopping;
+                bloomOverride.active = !stopping;
+                colorAdjustmentsOverride.active = stopping;
             }
             lensOverride.intensity.value = distortionCurve.Evaluate(time);
             time += animationSpeed;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public SoundEffect playerZapSFX;
     private CharacterController _controller;
     [SerializeField] private float DefaultSpeed = 2.0f;
     private float _playerSpeed = 2.0f;
@@ -19,6 +20,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 BounceDirection = new Vector3(0, 0, 0);
     private float BounceDuration = 0.1f;
     private float BounceTimer = 0.1f;
+    
 
 
 
@@ -110,6 +112,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (hit.gameObject.CompareTag("puddle"))
         {
+            playerZapSFX.Play();
             _bounce = true;
             BounceDirection = new Vector3(-hit.moveDirection.x, 0, -hit.moveDirection.z);
         }

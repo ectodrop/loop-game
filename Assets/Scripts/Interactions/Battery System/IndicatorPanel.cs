@@ -32,7 +32,11 @@ public class IndicatorPanel : MonoBehaviour
     public GameEvent powerOn;
     public GameEvent powerOff;
 
+    [Header("Sound Effects")]
+    public SoundEffect powerOffSFX;
 
+    public SoundEffect powerOnSFX;
+    
     void Start()
     {
         // LED defaults
@@ -122,12 +126,14 @@ public class IndicatorPanel : MonoBehaviour
     private void TriggerPowerOff(GameObject obj)
     {
         obj.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.red);
+        powerOffSFX.Play();
         powerOff.TriggerEvent();
     }
 
     private void TriggerPowerOn(GameObject obj)
     {
         obj.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.green);
+        powerOnSFX.Play();
         powerOn.TriggerEvent();
     }
 
