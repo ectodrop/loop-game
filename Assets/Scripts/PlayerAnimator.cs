@@ -32,7 +32,6 @@ public class PlayerAnimator : MonoBehaviour
         {
             _playerAnimator.SetFloat("walkingSpeed", 0f);
             _playerAnimator.SetBool("isWalking", false);
-            //_playerAnimator.SetFloat("walkingAnim", 0f);
         }
     }
 }
