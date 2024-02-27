@@ -23,11 +23,15 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     // Game Events
     public GameEvent batteryDraining;
     public GameEvent batteryStopDraining;
-    
+
     // Switch
     public GameObject switchObj;
     private PowerModeSwitch _switchScript;
 
+
+    // Offsets to place battery perfectly
+    private readonly float _yOffset = 0.2f;
+    private readonly float _zOffset = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +53,7 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
 
     public string GetLabel()
     {
-        if (!_holding && !IsPlayerHolding()) 
+        if (!_holding && !IsPlayerHolding())
             return "";
         return IsPlayerHolding() ? HoldingText : EmptyText;
     }
@@ -63,6 +67,8 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
             textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
             battery.transform.SetParent(gameObject.transform);
             battery.transform.position = gameObject.transform.position;
+            battery.transform.localPosition += new Vector3(0, _yOffset, _zOffset);
+            battery.transform.rotation = gameObject.transform.rotation;
             battery.layer = LayerMask.GetMask("Default");
             _batteryRb.isKinematic = true;
 
