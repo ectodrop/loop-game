@@ -9,7 +9,7 @@ public class PuddleTrigger : MonoBehaviour
     public GameEvent PowerOff;
     float DeathCountDown = 1.0f;
 
-    private Material material;
+    private Material _material;
 
     private void Start()
     {
