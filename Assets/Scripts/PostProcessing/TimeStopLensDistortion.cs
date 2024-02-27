@@ -22,7 +22,7 @@ public class TimeStopLensDistortion : MonoBehaviour
     private Bloom bloomOverride;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         profile = GetComponent<Volume>().profile;
         profile.TryGet<LensDistortion>(out lensOverride);

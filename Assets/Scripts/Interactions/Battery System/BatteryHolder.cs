@@ -20,9 +20,12 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     private int _drainRate = 1;
     private bool _draining = false;
 
-    // Game Events
+    [Header("Listening To")]
     public GameEvent batteryDraining;
     public GameEvent batteryStopDraining;
+    
+    [Header("Triggers")]
+    public GameEventString hoverTextChangeEvent;
 
     // Switch
     public GameObject switchObj;
@@ -65,6 +68,8 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
         {
             Debug.Log("Battery Inserted.");
             textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
+            GetComponent<BoxCollider>().enabled = false;
+            battery.transform.tag = "Untagged";
             battery.transform.SetParent(gameObject.transform);
             battery.transform.position = gameObject.transform.position;
             battery.transform.localPosition += new Vector3(0, _yOffset, _zOffset);
@@ -73,6 +78,7 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
             _batteryRb.isKinematic = true;
 
 
+            hoverTextChangeEvent.TriggerEvent("");
             // If switch is already on (using emergency power, start draining battery)
             if (_switchScript.UsingEmergencyPower())
             {
@@ -99,7 +105,7 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
         // Drain battery until empty
         while (_batteryScript.GetBatteryLevel() != 0 && _draining)
         {
-            _batteryScript.DecreaseBattery(1);
+            _batteryScript.DecreaseBattery(10);
             textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
             yield return new WaitForSeconds(_drainRate);
         }

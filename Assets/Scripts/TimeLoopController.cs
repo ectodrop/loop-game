@@ -40,11 +40,12 @@ public class TimeLoopController : MonoBehaviour
     public SoundEffect timestopStartSFX;
     public SoundEffect timestopEndSFX;
 
+    private bool firstFrame = true;
     private void Start()
     {
         timeSettings.ResetTimers();
         timeStoppedFlag.ResetValue();
-        ResumeTime();
+        
     }
 
     private void OnEnable()
@@ -64,6 +65,15 @@ public class TimeLoopController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (firstFrame)
+        {
+            firstFrame = false;
+            timestopStartSFX.Play();
+            timestopCooldownTimer = 0.0f;
+            StopTime();
+            timeStopStartEvent.TriggerEvent();
+        }
+        
         if (timestopCooldownTimer < timestopCooldown)
             timestopCooldownTimer += Time.deltaTime;
         
