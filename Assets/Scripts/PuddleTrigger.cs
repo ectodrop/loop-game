@@ -13,7 +13,7 @@ public class PuddleTrigger : MonoBehaviour
 
     private void Start()
     {
-        material = GetComponentInParent<MeshRenderer>().material;
+        _material = GetComponentInParent<MeshRenderer>().material;
     }
 
     void OnEnable()
@@ -23,12 +23,12 @@ public class PuddleTrigger : MonoBehaviour
     }
     void PuddleOn()
     {
-        material.SetInt("_PowerOn", 1);
+        _material.SetInt("_PowerOn", 1);
         this.gameObject.SetActive(true);
     }
     void PuddleOff()
     {
-        material.SetInt("_PowerOn", 0);
+        _material.SetInt("_PowerOn", 0);
         this.gameObject.SetActive(false);
     }
     void OnTriggerEnter(Collider collider)

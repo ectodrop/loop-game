@@ -11,13 +11,11 @@ public class LabLightsController : MonoBehaviour
     public Material lightOn;
     public Material lightOff;
 
-    private LightmapData[] darkLightMap, brightLightmap;
+    private LightmapData[] _darkLightMap, _brightLightmap;
     
     [Header("Listening To")]
     public GameEvent powerOn;
     public GameEvent powerOff;
-
-    // private readonly int _defaultIntensity = 50;
 
     private void Start()
     {
@@ -31,7 +29,7 @@ public class LabLightsController : MonoBehaviour
             dlightMap.Add(lmdata);
         }
 
-        darkLightMap = dlightMap.ToArray();
+        _darkLightMap = dlightMap.ToArray();
         
         List<LightmapData> blightMap = new List<LightmapData>();
         for (int i = 0; i < brightLightmapColor.Length; i++)
@@ -43,7 +41,7 @@ public class LabLightsController : MonoBehaviour
             blightMap.Add(lmdata);
         }
 
-        brightLightmap = blightMap.ToArray();
+        _brightLightmap = blightMap.ToArray();
     }
 
     private void OnEnable()
@@ -60,7 +58,7 @@ public class LabLightsController : MonoBehaviour
 
     private void HandlePowerOn()
     {
-        LightmapSettings.lightmaps = brightLightmap;
+        LightmapSettings.lightmaps = _brightLightmap;
         foreach (var light in GetComponentsInChildren<MeshRenderer>())
         {
             light.material = lightOn;
@@ -69,7 +67,7 @@ public class LabLightsController : MonoBehaviour
 
     private void HandlePowerOff()
     {
-        LightmapSettings.lightmaps = darkLightMap;
+        LightmapSettings.lightmaps = _darkLightMap;
         foreach (var light in GetComponentsInChildren<MeshRenderer>())
         {
             light.material = lightOff;
