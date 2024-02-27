@@ -19,4 +19,4 @@ MonoBehaviour:
     hour: 12
     minute: 20
   secondsPerMinute: 1
-  minutesPerIncrement: 5
+  minutesPerIncrement: 2

@@ -19,6 +19,7 @@ public class TimeStopLensDistortion : MonoBehaviour
     private LensDistortion lensOverride;
     private ColorCurves colorOverride;
     private ColorAdjustments colorAdjustmentsOverride;
+    private Bloom bloomOverride;
     
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class TimeStopLensDistortion : MonoBehaviour
         profile.TryGet<LensDistortion>(out lensOverride);
         profile.TryGet<ColorCurves>(out colorOverride);
         profile.TryGet<ColorAdjustments>(out colorAdjustmentsOverride);
+        profile.TryGet<Bloom>(out bloomOverride);
     }
 
     private void OnEnable()
@@ -43,24 +45,24 @@ public class TimeStopLensDistortion : MonoBehaviour
 
     private void DeactivateTimeStop()
     {
-        colorOverride.active = false;
-        colorAdjustmentsOverride.active = false;
+        StartCoroutine(DistortionAnimation(false));
     }
 
     private void PlayAnimation()
     {
-        StartCoroutine(DistortionAnimation());
+        StartCoroutine(DistortionAnimation(true));
     }
 
-    private IEnumerator DistortionAnimation()
+    private IEnumerator DistortionAnimation(bool stopping)
     {
         float time = 0;
         while (time < 1.0f)
         {
             if (time > 0.5f)
             {
-                colorOverride.active = true;
-                colorAdjustmentsOverride.active = true;
+                colorOverride.active = stopping;
+                bloomOverride.active = !stopping;
+                colorAdjustmentsOverride.active = stopping;
             }
             lensOverride.intensity.value = distortionCurve.Evaluate(time);
             time += animationSpeed;

@@ -67,6 +67,9 @@ public class SceneTransition : MonoBehaviour
             yield return new WaitForSeconds(1 / 60f);
         }
 
+        sceneTransition.color = Color.black;
+        yield return new WaitForSeconds(1.0f);
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
