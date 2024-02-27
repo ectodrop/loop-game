@@ -9,8 +9,11 @@ public class PuddleTrigger : MonoBehaviour
     public GameEvent PowerOff;
     float DeathCountDown = 1.0f;
 
+    private Material material;
+
     private void Start()
     {
+        material = GetComponentInParent<MeshRenderer>().material;
     }
 
     void OnEnable()
@@ -20,12 +23,12 @@ public class PuddleTrigger : MonoBehaviour
     }
     void PuddleOn()
     {
-        Shader.SetGlobalInteger("_PowerOn", 1);
+        material.SetInt("_PowerOn", 1);
         this.gameObject.SetActive(true);
     }
     void PuddleOff()
     {
-        Shader.SetGlobalInteger("_PowerOn", 0);
+        material.SetInt("_PowerOn", 0);
         this.gameObject.SetActive(false);
     }
     void OnTriggerEnter(Collider collider)
