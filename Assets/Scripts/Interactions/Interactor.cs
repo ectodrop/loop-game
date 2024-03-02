@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using System.Linq;
 
 public class Interactor : MonoBehaviour
 {
@@ -14,6 +10,11 @@ public class Interactor : MonoBehaviour
     private IRayHoverable curRayHoverableObj;
     private GameObject curHoverObject;
     private int rayLayerMask;
+
+    private string curHoverString = "";
+
+    private ILabel[] curLabels;
+    private RaycastHit interactHit;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +26,13 @@ public class Interactor : MonoBehaviour
     void Update()
     {
         var prevHoverObject = curHoverObject;
-        RaycastHit hit;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, InteractableDistance, rayLayerMask))
+        var prevHoverString = curHoverString;
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out interactHit, InteractableDistance, rayLayerMask))
         {
-            curHoverObject = hit.transform.gameObject;
+            curHoverObject = interactHit.transform.gameObject;
+            curLabels = curHoverObject.GetComponents<ILabel>();
 
-            if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
+            if (interactHit.transform.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
             {
                 if (!timeStoppedFlag.GetValue() && Input.GetKeyDown("e"))
                     interactable.Interact();
@@ -39,29 +41,20 @@ public class Interactor : MonoBehaviour
         else
         {
             curHoverObject = null;
+            curLabels = null;
         }
 
+        curHoverString = "";
+        if (curLabels != null)
+            for (int i = 0; i < curLabels.Length; i++)
+                curHoverString += curLabels[i].GetLabel() + "\n";
+        
+        if (curHoverString != "" && timeStoppedFlag.GetValue())
+            curHoverString = "Resume time to interact (R)";
+        
         // check if the current interactable we are hovering on has changed, call the corresponding interface methods if yes
         if (curHoverObject != prevHoverObject)
         {
-            // check for labels
-            if (curHoverObject == null)
-            {
-                onHoverReadableObject.TriggerEvent("");
-            }
-            else
-            {
-                string text = "";
-                foreach (var label in curHoverObject.GetComponents<ILabel>())
-                {
-                    text += label.GetLabel() + "\n";
-                }
-
-                if (timeStoppedFlag.GetValue())
-                    text = "Resume time to interact (R)";
-                onHoverReadableObject.TriggerEvent(text);
-            }
-
             // call the enter exit methods if they exist
             if (curHoverObject != null && curHoverObject.TryGetComponent(out IRayHoverable curRayHoverableObj))
                 curRayHoverableObj?.OnHoverEnter();
@@ -69,5 +62,8 @@ public class Interactor : MonoBehaviour
             if (prevHoverObject != null && prevHoverObject.TryGetComponent(out IRayHoverable prevRayHoverableObj))
                 prevRayHoverableObj?.OnHoverExit();
         }
+        
+        if (curHoverString != prevHoverString)
+            onHoverReadableObject.TriggerEvent(curHoverString);
     }
 }
