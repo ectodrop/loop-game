@@ -1682,6 +1682,8 @@ MonoBehaviour:
   powerOutageEvent: {fileID: 11400000, guid: f488b13f3f501074aac9deab7aeb0391, type: 2}
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
+  powerOffSFX: {fileID: 11400000, guid: 22e996a0cd7033a4b88ff45c4714c6b3, type: 2}
+  powerOnSFX: {fileID: 11400000, guid: 5b9a1bd0e49beef409961c58f55cbceb, type: 2}
 --- !u!1 &6300965586874858848
 GameObject:
   m_ObjectHideFlags: 0

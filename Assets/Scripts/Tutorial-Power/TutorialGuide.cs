@@ -70,7 +70,7 @@ public class TutorialGuide : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         powerOutageEvent.TriggerEvent();
-        playerThoughts.text = "Oh no the power seems to have gone out. Maybe I need to change the power source.";
+        playerThoughts.text = "Oh no the power seems to have gone out. Maybe I need to change the power source by pulling on the lever.";
     }
 
     // 2. Once user switches, disable switch, enable battery
