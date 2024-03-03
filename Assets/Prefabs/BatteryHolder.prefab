@@ -490,6 +490,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &967469772933252689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2149874091780098115}
+  m_Layer: 0
+  m_Name: Lever
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2149874091780098115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967469772933252689}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.32595825, y: 0.14366317, z: 0.80437887}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6015105122928546230}
+  m_Father: {fileID: 7962642457471275752}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1030227435292919791
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,12 +721,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158549602977910612}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.50000006, y: 0.49999997, z: 0.50000006, w: 0.49999997}
-  m_LocalPosition: {x: 0.617, y: 0.289, z: -0.644}
-  m_LocalScale: {x: 5.92976, y: 36.80779, z: 5.868895}
+  m_LocalRotation: {x: 0.50000006, y: 0.49999997, z: 0.50000006, w: -0.49999997}
+  m_LocalPosition: {x: -0.29104185, y: 0.2906736, z: 0.14737892}
+  m_LocalScale: {x: 5.92976, y: 36.80779, z: 11.73779}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7962642457471275752}
+  m_Father: {fileID: 2149874091780098115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7322866602598067759
 MeshFilter:
@@ -1891,10 +1923,10 @@ Transform:
   - {fileID: 6686004764907166440}
   - {fileID: 1885127898612716380}
   - {fileID: 4425784843345492417}
-  - {fileID: 6015105122928546230}
   - {fileID: 2267648675051951336}
   - {fileID: 6620542906260953391}
   - {fileID: 5671916176245246678}
+  - {fileID: 2149874091780098115}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &778632600672731142
@@ -1984,10 +2016,10 @@ MonoBehaviour:
   EmptyText: Missing Battery
   battery: {fileID: 4816473742594666074, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
   textMeshPro: {fileID: 6722855968786460078}
+  switchObj: {fileID: 1158549602977910612}
   batteryDraining: {fileID: 11400000, guid: fe6ac462cae99e247862bf00da89c36d, type: 2}
   batteryStopDraining: {fileID: 11400000, guid: bc6d2e6ab98f2644f9459b9aac4f2da1, type: 2}
   playerDropHeldEvent: {fileID: 11400000, guid: d4be8eac327bce949ab9a46e2c01cb0e, type: 2}
-  switchObj: {fileID: 1158549602977910612}
 --- !u!1 &7778834805380258458
 GameObject:
   m_ObjectHideFlags: 0
