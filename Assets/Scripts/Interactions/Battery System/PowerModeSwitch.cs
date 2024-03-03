@@ -22,10 +22,15 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable, ILab
     public GameEvent enableSwitch;
     public GameEvent disableSwitch;
 
+    // Offsets for rotation
+    private Vector3 offPos;
+    private Vector3 onPos = new Vector3(-0.413f, -0.22f, 0.1473789f);
+
     private void Start()
     {
         GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.red);
         _holderScript = holder.GetComponent<BatteryHolder>();
+        offPos = gameObject.transform.localPosition;
     }
 
     private void OnEnable()
@@ -56,6 +61,7 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable, ILab
         {
             return _emergencyPower ? EmergencyOnText : EmergencyOffText;
         }
+
         return "";
     }
 
@@ -74,29 +80,44 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable, ILab
         // Switch on
         if (!_emergencyPower)
         {
-            GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.green);
-
-            // If the holder already has the battery start the battery drain
-            if (_holderScript.HasBattery() && !_holderScript.IsBatteryEmpty())
-            {
-                _holderScript.StartBatteryDrain();
-            }
-
-            _emergencyPower = true;
-            switchOn.TriggerEvent();
+            TurnOn();
         }
         // Switch off
         else
         {
-            GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.red);
-            _emergencyPower = false;
-            switchOff.TriggerEvent();
-            // Stop draining the battery if not already empty to prevent uneeded triggers
-            if (!_holderScript.IsBatteryEmpty())
-            {
-                _holderScript.StopDrain();
-            }
+            TurnOff();
         }
+    }
+
+    private void TurnOn()
+    {
+        GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.green);
+
+        // If the holder already has the battery start the battery drain
+        if (_holderScript.HasBattery() && !_holderScript.IsBatteryEmpty())
+        {
+            _holderScript.StartBatteryDrain();
+        }
+
+        _emergencyPower = true;
+        switchOn.TriggerEvent();
+        gameObject.transform.transform.Rotate(Vector3.right, 90);
+        gameObject.transform.localPosition = onPos;
+    }
+
+    private void TurnOff()
+    {
+        GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.red);
+        _emergencyPower = false;
+        switchOff.TriggerEvent();
+        // Stop draining the battery if not already empty to prevent uneeded triggers
+        if (!_holderScript.IsBatteryEmpty())
+        {
+            _holderScript.StopDrain();
+        }
+
+        gameObject.transform.transform.Rotate(Vector3.right, -90);
+        gameObject.transform.localPosition = offPos;
     }
 
     public bool CanInteract()
