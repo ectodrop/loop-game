@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f39a31fad10f64b8bfc98a72d429a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Label: Pick up (F)
+  Label: Pick up (E)
 --- !u!54 &7501234544382215363
 Rigidbody:
   m_ObjectHideFlags: 0
