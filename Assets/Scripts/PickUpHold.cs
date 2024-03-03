@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,9 @@ public class PickUpHoldScript : MonoBehaviour
 {
     public GameObject player;
     public Transform holdPos;
-    public float pickUpRange = 5f; //how far the player can pickup the object from
     public HoldableItemScriptableObject defaultPickupId;
+    [Header("Listening To")]
+    public GameEvent dropHeldEvent;
 
     private GameObject heldObj; //object which we pick up
     private Rigidbody heldObjRb; //rigidbody of object we pick up
@@ -20,33 +22,23 @@ public class PickUpHoldScript : MonoBehaviour
         heldItemIdentifier = null;
     }
 
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.F)) //change E to whichever key you want to press to pick up
-        {
-            if (heldObj == null) //if currently not holding anything
-            {
-                //perform raycast to check if player is looking at object within pickuprange
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
-                {
-                    //make sure pickup tag is attached
-                    if (hit.transform.gameObject.tag == "canPickUp")
-                    {
-                        //pass in object hit into the PickUpObject function
-                        PickUpObject(hit.transform.gameObject);
-                    }
-                }
-            }
-            else
-            {
-                StopClipping(); //prevents object from clipping through walls
-                DropObject();
-            }
-        }
+        dropHeldEvent.AddListener(DropObject);
     }
 
-    void PickUpObject(GameObject pickUpObj)
+    private void OnDisable()
+    {
+        dropHeldEvent.RemoveListener(DropObject);
+    }
+
+
+    public bool IsHolding()
+    {
+        return heldObj != null;
+    }
+    
+    public void PickUpObject(GameObject pickUpObj)
     {
         if (pickUpObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
         {
@@ -71,8 +63,9 @@ public class PickUpHoldScript : MonoBehaviour
         }
     }
 
-    void DropObject()
+    public void DropObject()
     {
+        StopClipping(); //prevents object from clipping through walls
         //re-enable collision with player
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
         heldObj.layer = 0; //object assigned back to default layer
