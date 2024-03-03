@@ -117,6 +117,6 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
 
     public string GetLabel()
     {
-        return !_firstPress ? OffText : "";
+        return _hasPower ? OffText : "";
     }
 }
