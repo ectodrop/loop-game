@@ -5,19 +5,21 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 
 public class TimeLoopController : MonoBehaviour
 {
+    public GameControls gameControls;
     public bool debugMode = false;
     public TimeSettings timeSettings;
     public ScheduleControllerScriptableObject scheduleController;
 
     private int currentEvent = 0;
     private float timestopCooldown = 1.2f;
-    private float timestopCooldownTimer = 1.2f;
+    private float lastTimestop = 1.2f;
 
     // Handle battery usage
     private bool _usingBattery = false;
@@ -52,6 +54,7 @@ public class TimeLoopController : MonoBehaviour
         batteryDraining.AddListener(HandleBatteryDraining);
         batteryStopDraining.AddListener(HandleBatteryStoppedDraining);
         timeExtendedEvent.AddListener(HandleTimeExtension);
+        gameControls.Wrapper.Player.TimeStop.performed += HandleTimeStop;
     }
 
     private void OnDisable()
@@ -59,31 +62,12 @@ public class TimeLoopController : MonoBehaviour
         batteryDraining.RemoveListener(HandleBatteryDraining);
         batteryStopDraining.RemoveListener(HandleBatteryStoppedDraining);
         timeExtendedEvent.RemoveListener(HandleTimeExtension);
+        gameControls.Wrapper.Player.TimeStop.performed -= HandleTimeStop;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timestopCooldownTimer < timestopCooldown)
-            timestopCooldownTimer += Time.deltaTime;
-        
-        if (timestopCooldownTimer >= timestopCooldown && Input.GetKeyDown(KeyCode.R))
-        {
-            if (!timeStoppedFlag.GetValue())
-            {
-                timestopStartSFX.Play();
-                timestopCooldownTimer = 0.0f;
-                StopTime();
-                timeStopStartEvent.TriggerEvent();
-            }
-            else
-            {
-                timestopEndSFX.Play();
-                timestopCooldownTimer = timestopCooldown / 2.0f;
-                ResumeTime();
-                timeStopEndEvent.TriggerEvent();
-            }
-        }
         
         if (timeStoppedFlag.GetValue() || debugMode)
         {
@@ -107,6 +91,27 @@ public class TimeLoopController : MonoBehaviour
             timeloopEndSFX.Play();
             resetLoopEvent.TriggerEvent();
         }
+    }
+
+    private void HandleTimeStop(InputAction.CallbackContext _)
+    {
+        if (Time.time - lastTimestop < timestopCooldown)
+            return;
+        
+        if (!timeStoppedFlag.GetValue())
+        {
+            timestopStartSFX.Play();
+            StopTime();
+            timeStopStartEvent.TriggerEvent();
+        }
+        else
+        {
+            timestopEndSFX.Play();
+            ResumeTime();
+            timeStopEndEvent.TriggerEvent();
+        }
+
+        lastTimestop = Time.time;
     }
 
     private void StopTime()

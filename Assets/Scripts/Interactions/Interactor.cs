@@ -1,10 +1,14 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
+    public GameControls gameControls;
     public float InteractableDistance = 2.0f;
     public GameEventString onHoverReadableObject;
     public SharedBool timeStoppedFlag;
+    public PickUpHoldScript pickupScript;
 
     private Camera mainCamera;
     private IRayHoverable curRayHoverableObj;
@@ -20,6 +24,17 @@ public class Interactor : MonoBehaviour
     {
         mainCamera = Camera.main;
         rayLayerMask = LayerMask.GetMask("Interactable") | LayerMask.GetMask("Default");
+
+    }
+
+    private void OnEnable()
+    {
+        gameControls.Wrapper.Player.Interact.performed += HandleInteract;
+    }
+
+    private void OnDisable()
+    {
+        gameControls.Wrapper.Player.Interact.performed -= HandleInteract;
     }
 
     // Update is called once per frame
@@ -31,12 +46,6 @@ public class Interactor : MonoBehaviour
         {
             curHoverObject = interactHit.transform.gameObject;
             curLabels = curHoverObject.GetComponents<ILabel>();
-
-            if (interactHit.transform.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
-            {
-                if (!timeStoppedFlag.GetValue() && Input.GetKeyDown("e"))
-                    interactable.Interact();
-            }
         }
         else
         {
@@ -65,5 +74,27 @@ public class Interactor : MonoBehaviour
         
         if (curHoverString != prevHoverString)
             onHoverReadableObject.TriggerEvent(curHoverString);
+    }
+
+    private void HandleInteract(InputAction.CallbackContext _)
+    {
+        if (curHoverObject != null && !pickupScript.IsHolding())
+        {
+            if (curHoverObject.CompareTag("canPickUp"))
+                pickupScript.PickUpObject(curHoverObject);
+        }
+        else if (curHoverObject == null && pickupScript.IsHolding())
+        {
+            pickupScript.DropObject();
+        }
+        
+        if (curHoverObject != null &&
+            curHoverObject.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
+        {
+            if (!timeStoppedFlag.GetValue())
+                interactable.Interact();
+        }
+
+        
     }
 }

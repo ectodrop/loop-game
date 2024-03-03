@@ -1986,6 +1986,7 @@ MonoBehaviour:
   textMeshPro: {fileID: 6722855968786460078}
   batteryDraining: {fileID: 11400000, guid: fe6ac462cae99e247862bf00da89c36d, type: 2}
   batteryStopDraining: {fileID: 11400000, guid: bc6d2e6ab98f2644f9459b9aac4f2da1, type: 2}
+  playerDropHeldEvent: {fileID: 11400000, guid: d4be8eac327bce949ab9a46e2c01cb0e, type: 2}
   switchObj: {fileID: 1158549602977910612}
 --- !u!1 &7778834805380258458
 GameObject:

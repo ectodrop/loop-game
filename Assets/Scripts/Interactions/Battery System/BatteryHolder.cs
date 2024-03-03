@@ -11,6 +11,17 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     public string EmptyText;
     public GameObject battery;
     public TextMeshPro textMeshPro;
+    public GameObject switchObj;
+    // Game Events
+
+    [Header("Triggers")]
+    public GameEvent batteryDraining;
+    public GameEvent batteryStopDraining;
+    public GameEvent playerDropHeldEvent;
+    
+    // Switch
+    private PowerModeSwitch _switchScript;
+
     Collider _holder, _batteryCollier;
     Rigidbody _batteryRb;
     private int _holdLayer;
@@ -19,14 +30,6 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
 
     private int _drainRate = 1;
     private bool _draining = false;
-
-    // Game Events
-    public GameEvent batteryDraining;
-    public GameEvent batteryStopDraining;
-
-    // Switch
-    public GameObject switchObj;
-    private PowerModeSwitch _switchScript;
 
 
     // Offsets to place battery perfectly
@@ -53,8 +56,11 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
 
     public string GetLabel()
     {
-        if (!_holding && !IsPlayerHolding())
+        if (_holding)
             return "";
+        
+        if (!_holding && !IsPlayerHolding())
+            return "Missing Battery";
         return IsPlayerHolding() ? HoldingText : EmptyText;
     }
 
@@ -63,6 +69,7 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     {
         if (IsPlayerHolding() && !_holding)
         {
+            playerDropHeldEvent.TriggerEvent();
             Debug.Log("Battery Inserted.");
             textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
             battery.transform.SetParent(gameObject.transform);
