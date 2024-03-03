@@ -69,11 +69,9 @@ public class TimeLoopController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         if (firstFrame)
+        if (firstFrame)
         {
             firstFrame = false;
-            timestopStartSFX.Play();
-            timestopCooldownTimer = 0.0f;
             StopTime();
             timeStopStartEvent.TriggerEvent();
         }       
