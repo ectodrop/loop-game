@@ -19,7 +19,7 @@ public class TimeLoopController : MonoBehaviour
 
     private int currentEvent = 0;
     private float timestopCooldown = 1.2f;
-    private float lastTimestop = 1.2f;
+    private float lastTimestop = 0f;
 
     // Handle battery usage
     private bool _usingBattery = false;
@@ -102,6 +102,9 @@ public class TimeLoopController : MonoBehaviour
 
     private void HandleTimeStop(InputAction.CallbackContext _)
     {
+        if (lastTimestop > 0)
+            return;
+        
         if (Time.time - lastTimestop < timestopCooldown)
             return;
         
