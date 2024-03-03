@@ -6,11 +6,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/GameControls", fileName = "NewGameControls")]
 public class GameControls : ScriptableObject
 {
-    public GameControlsAsset Wrapper { get; private set; }
+    private GameControlsAsset _wrapper;
+    public GameControlsAsset Wrapper
+    {
+        get
+        {
+            if (_wrapper == null) _wrapper = new GameControlsAsset();
+            return _wrapper;
+        }
+    }
 
     private void OnEnable()
     {
-        Wrapper = new GameControlsAsset();
         Wrapper.Enable();
     }
 
