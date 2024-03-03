@@ -376,10 +376,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 323969691817541793, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2645905690333547114, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
       propertyPath: m_Name
       value: PlayerAnimated
@@ -424,17 +420,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4366235366771040254, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2645905690333547114, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
       insertIndex: 4
       addedObject: {fileID: 1694088721}
-    - targetCorrespondingSourceObject: {fileID: 2645905690333547114, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
-      insertIndex: 5
-      addedObject: {fileID: 1694088720}
   m_SourcePrefab: {fileID: 100100000, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
 --- !u!1 &582914744
 GameObject:
@@ -1398,20 +1390,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2645905690333547114, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
   m_PrefabInstance: {fileID: 515357340}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1694088720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1694088710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5a25d34d107d744f91f0b44180f9148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerZapSFX: {fileID: 0}
-  DefaultSpeed: 2
 --- !u!114 &1694088721
 MonoBehaviour:
   m_ObjectHideFlags: 0
