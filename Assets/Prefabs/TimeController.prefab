@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c433679f7315e64eb29f4ee5a32be00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
   debugMode: 0
   timeSettings: {fileID: 11400000, guid: 962a79f424033ff408df9840a81294cb, type: 2}
   scheduleController: {fileID: 11400000, guid: 83de23a067603d640b6f4b857ceb8ecc, type: 2}
@@ -54,5 +55,6 @@ MonoBehaviour:
   timeStopEndEvent: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
   resetLoopEvent: {fileID: 11400000, guid: 8fb932e54d9c1da41a1bb9ab63b79c5d, type: 2}
   timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
+  timeloopEndSFX: {fileID: 0}
   timestopStartSFX: {fileID: 11400000, guid: 26da476182991984aa146ea8b0e2302d, type: 2}
   timestopEndSFX: {fileID: 11400000, guid: 1c69d688c0d56ea4686e877e6c93fcd1, type: 2}

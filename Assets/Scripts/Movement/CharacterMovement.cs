@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public GameControls gameControls;
     public SoundEffect playerZapSFX;
     private CharacterController _controller;
     [SerializeField] private float DefaultSpeed = 2.0f;
@@ -20,8 +21,6 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 BounceDirection = new Vector3(0, 0, 0);
     private float BounceDuration = 0.1f;
     private float BounceTimer = 0.1f;
-    
-
 
 
     // Start is called before the first frame update
@@ -38,28 +37,8 @@ public class CharacterMovement : MonoBehaviour
         // Set to 0 velocity in x and z if no button is being pushed
         _velocity.x = 0f;
         _velocity.z = 0f;
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            _velocity += transform.forward * _playerSpeed;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            _velocity -= transform.forward * _playerSpeed;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            _velocity -= transform.right * _playerSpeed;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            _velocity += transform.right * _playerSpeed;
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
+        
+        if (gameControls.Wrapper.Player.Sprint.IsPressed())
         {
             _playerSpeed = DefaultSpeed * 2;
         }
@@ -67,6 +46,11 @@ public class CharacterMovement : MonoBehaviour
         {
             _playerSpeed = DefaultSpeed;
         }
+
+        Vector3 moveDir = gameControls.Wrapper.Player.Move.ReadValue<Vector2>();
+        _velocity += moveDir.y * _playerSpeed * transform.forward;
+
+        _velocity += moveDir.x * _playerSpeed * transform.right;
 
         // Jumping
         // ----------------------------------------------------------
@@ -84,7 +68,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         // Jump trigger
-        if (Input.GetButtonDown("Jump") && _grounded)
+        if (gameControls.Wrapper.Player.Jump.WasPerformedThisFrame() && _grounded)
         {
             _velocity.y = Mathf.Sqrt(JumpHeight * -2.0f * Gravity);
         }
@@ -97,7 +81,6 @@ public class CharacterMovement : MonoBehaviour
             BounceTimer -= Time.deltaTime;
             if (BounceTimer <= 0.0f)
             {
-                Debug.Log("time 0");
                 _bounce = false;
                 BounceTimer = BounceDuration;
             }

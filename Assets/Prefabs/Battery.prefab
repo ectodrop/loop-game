@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 760385392883417063}
   - component: {fileID: 8745802123152972579}
   - component: {fileID: 1060342275556143975}
+  - component: {fileID: 5555183413175182846}
   - component: {fileID: 81985432503266453}
   - component: {fileID: 1660078009807600430}
   - component: {fileID: 7814336525990849651}
@@ -278,7 +279,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4816473742594666074}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.028055388, y: 1.5255353, z: -8.46}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
@@ -328,6 +329,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   identifier: {fileID: 11400000, guid: 3ee98a5b655d5a942823afbcb322a13d, type: 2}
+--- !u!114 &5555183413175182846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4816473742594666074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f39a31fad10f64b8bfc98a72d429a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: Battery
 --- !u!114 &81985432503266453
 MonoBehaviour:
   m_ObjectHideFlags: 0
