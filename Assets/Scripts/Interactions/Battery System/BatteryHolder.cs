@@ -14,6 +14,7 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     public GameObject switchObj;
     // Game Events
 
+    public SharedBool timeStoppedFlag;
     [Header("Triggers")]
     public GameEvent batteryDraining;
     public GameEvent batteryStopDraining;
@@ -72,6 +73,8 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
             playerDropHeldEvent.TriggerEvent();
             Debug.Log("Battery Inserted.");
             textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
+            GetComponent<BoxCollider>().enabled = false;
+            battery.transform.tag = "Untagged";
             battery.transform.SetParent(gameObject.transform);
             battery.transform.position = gameObject.transform.position;
             battery.transform.localPosition += new Vector3(0, _yOffset, _zOffset);
@@ -106,8 +109,11 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
         // Drain battery until empty
         while (_batteryScript.GetBatteryLevel() != 0 && _draining)
         {
-            _batteryScript.DecreaseBattery(1);
-            textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
+            if (!timeStoppedFlag.GetValue())
+            {
+                _batteryScript.DecreaseBattery(10);
+                textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
+            }
             yield return new WaitForSeconds(_drainRate);
         }
 

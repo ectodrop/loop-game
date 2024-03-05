@@ -3,51 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerGenerator : MonoBehaviour, IInteractable, ILabel
+public class PowerGenerator : MonoBehaviour
 {
     public GameObject fluidParent;
-    public GameObject glassObject;
-    public HoldableItemScriptableObject hammer;
+    public GameObject bigFluid;
 
     [Header("Listening To")]
     public GameEvent OnFluidDrain;
 
-    private AudioSource glassBreakSound;
-    private Collider generatorCollider;
-    private bool drained;
+    public bool drained;
 
-    private void Start()
-    {
-        glassBreakSound = GetComponent<AudioSource>();
-        generatorCollider = GetComponent<BoxCollider>();
-    }
-
-    private bool IsHoldingHammer()
-    {
-        return PickUpHoldScript.heldItemIdentifier == hammer;
-    }
-    public string GetLabel()
-    {
-        if (IsHoldingHammer() && drained)
-        {
-            return "Break Glass (E)";
-        }
-        return "Can't Break";
-    }
-    
     private void OnEnable()
     {
         OnFluidDrain.AddListener(DrainCoolant);
     }
 
-    public void Interact()
+    private void OnDisable()
     {
-        if (drained && IsHoldingHammer())
-        {
-            glassObject.SetActive(false);
-            generatorCollider.enabled = false;
-            glassBreakSound.Play();
-        }
+        OnFluidDrain.RemoveListener(DrainCoolant);
     }
 
     public bool CanInteract()
@@ -66,6 +39,7 @@ public class PowerGenerator : MonoBehaviour, IInteractable, ILabel
         while (fluidParent.transform.localScale.y > 0)
         {
             fluidParent.transform.localScale -= new Vector3(0, 0.05f, 0);
+            bigFluid.transform.position -= new Vector3(0, 0.5f, 0);
             yield return new WaitForSeconds(0.1f);
         }
     }

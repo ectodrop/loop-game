@@ -19,6 +19,6 @@ public class LoadingScreen : MonoBehaviour
         timer = PCObj.GetLoadingCountDown();
         int minutes = Mathf.RoundToInt(timer / 60);
         int seconds = Mathf.RoundToInt(timer % 60);
-        timerText.text = "Loading PC\n" + string.Format("{0:00}:{1:00}", minutes, seconds);
+        timerText.text = "Fetching Passwords\n" + string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

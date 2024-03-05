@@ -19,7 +19,7 @@ public class TimeLoopController : MonoBehaviour
 
     private int currentEvent = 0;
     private float timestopCooldown = 1.2f;
-    private float lastTimestop = 1.2f;
+    private float lastTimestop = 0f;
 
     // Handle battery usage
     private bool _usingBattery = false;
@@ -42,11 +42,12 @@ public class TimeLoopController : MonoBehaviour
     public SoundEffect timestopStartSFX;
     public SoundEffect timestopEndSFX;
 
+    private bool firstFrame = true;
     private void Start()
     {
         timeSettings.ResetTimers();
         timeStoppedFlag.ResetValue();
-        ResumeTime();
+        
     }
 
     private void OnEnable()
@@ -68,7 +69,13 @@ public class TimeLoopController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (firstFrame)
+        {
+            firstFrame = false;
+            StopTime();
+            timeStopStartEvent.TriggerEvent();
+        }       
+
         if (timeStoppedFlag.GetValue() || debugMode)
         {
             return;
@@ -95,6 +102,9 @@ public class TimeLoopController : MonoBehaviour
 
     private void HandleTimeStop(InputAction.CallbackContext _)
     {
+        if (lastTimestop > 0)
+            return;
+        
         if (Time.time - lastTimestop < timestopCooldown)
             return;
         

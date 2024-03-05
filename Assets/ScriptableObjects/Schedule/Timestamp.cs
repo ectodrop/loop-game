@@ -52,7 +52,7 @@ public class Timestamp
 
         if (hour == other.hour) return other.minute - minute;
 
-        return (other.hour - hour) * 60 + (60 - minute) + (other.minute);
+        return (other.hour - hour - 1) * 60 + (60 - minute) + (other.minute);
     }
 
     public void SetHour(int hour)

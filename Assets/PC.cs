@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.XR;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class PC : MonoBehaviour
+public class PC : MonoBehaviour, IInteractable, ILabel
 {
     public GameEvent PowerOn;
     public GameEvent PowerOff;
     public GameObject LoadingScreen;
     public GameObject OnScreen;
-    public GameObject Button;
-    public static bool _canInteract = true;
+    public GameObject CrashScreen;
+
+    public GameEventString hoverTextChangeEvent;
+    public SharedBool timeStopped;
+    private bool _canInteract = true;
     public enum Status
     {
         Off,
@@ -18,8 +19,8 @@ public class PC : MonoBehaviour
         On,
         Crash
     }
-    public static Status PCStatus;
-    private const float LoadingDuration = 5.0f;
+    public Status PCStatus;
+    private const float LoadingDuration = 12.0f;
     private float LoadingCountDown;
 
     private void Start()
@@ -27,54 +28,73 @@ public class PC : MonoBehaviour
         LoadingCountDown = LoadingDuration;
         LoadingScreen.SetActive(false);
         OnScreen.SetActive(false);
+        CrashScreen.SetActive(false);
     }
+    
     void OnEnable()
     {
         PowerOn.AddListener(SetInteractOn);
         PowerOff.AddListener(SetInteractOff);
     }
+    
     void SetInteractOn()
     {
         _canInteract = true;
-        PCStatus = Status.Off;
     }
+    
     void SetInteractOff()
     {
         _canInteract = false;
         Crash();
     }
-    public static void Boot()
+
+    public string GetLabel()
     {
-        PCStatus = Status.Loading;
+        return _canInteract && PCStatus == Status.Off ? "Boot PC (E)" : "";
+    }
+    
+    public bool CanInteract()
+    {
+        return _canInteract;
+    }
+    
+    public void Interact()
+    {
+        if (PCStatus == Status.Off)
+        {
+            PCStatus = Status.Loading;
+            hoverTextChangeEvent.TriggerEvent("");
+        }
     }
     public void Crash()
     {
         PCStatus = Status.Crash;
         LoadingScreen.SetActive(false);
         OnScreen.SetActive(false);
+        
+        CrashScreen.SetActive(true);
         LoadingCountDown = LoadingDuration;
     }
     private void Update()
     {
-        if (PCStatus == Status.Loading)
+        if (!timeStopped.GetValue())
         {
-            LoadingScreen.SetActive(true);
-            LoadingCountDown -= Time.deltaTime;
-            if (LoadingCountDown <= 0f)
+            if (PCStatus == Status.Loading)
             {
-                PCStatus = Status.On;
+                LoadingScreen.SetActive(true);
+                LoadingCountDown -= Time.deltaTime;
+                if (LoadingCountDown <= 0f)
+                {
+                    PCStatus = Status.On;
+                }
+            }
+            if (PCStatus == Status.On)
+            {
+                LoadingScreen.SetActive(false);
+                LoadingCountDown = LoadingDuration;
+                OnScreen.SetActive(true);
             }
         }
-        if (PCStatus == Status.On)
-        {
-            LoadingScreen.SetActive(false);
-            LoadingCountDown = LoadingDuration;
-            OnScreen.SetActive(true);
-        }
-    }
-    public Status GetStatus()
-    {
-        return PCStatus;
     }
     public float GetLoadingCountDown()
     {
