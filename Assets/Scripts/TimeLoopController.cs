@@ -21,9 +21,6 @@ public class TimeLoopController : MonoBehaviour
     private float timestopCooldown = 1.2f;
     private float lastTimestop = 0f;
 
-    // Handle battery usage
-    private bool _usingBattery = false;
-
     [Header("Listening To")]
     public GameEvent batteryDraining;
     public GameEvent batteryStopDraining;
@@ -52,16 +49,12 @@ public class TimeLoopController : MonoBehaviour
 
     private void OnEnable()
     {
-        batteryDraining.AddListener(HandleBatteryDraining);
-        batteryStopDraining.AddListener(HandleBatteryStoppedDraining);
         timeExtendedEvent.AddListener(HandleTimeExtension);
         gameControls.Wrapper.Player.TimeStop.performed += HandleTimeStop;
     }
 
     private void OnDisable()
     {
-        batteryDraining.RemoveListener(HandleBatteryDraining);
-        batteryStopDraining.RemoveListener(HandleBatteryStoppedDraining);
         timeExtendedEvent.RemoveListener(HandleTimeExtension);
         gameControls.Wrapper.Player.TimeStop.performed -= HandleTimeStop;
     }
@@ -154,15 +147,5 @@ public class TimeLoopController : MonoBehaviour
     {
         timeSettings.currentStartTimestamp.AddMinutes(-addedTime);
         resetLoopEvent.TriggerEvent();
-    }
-
-    private void HandleBatteryDraining()
-    {
-        _usingBattery = true;
-    }
-
-    private void HandleBatteryStoppedDraining()
-    {
-        _usingBattery = false;
     }
 }
