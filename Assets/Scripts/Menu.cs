@@ -9,10 +9,7 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("Tutorial-Power");
     }
-    public void OnTutorialButton1()
-    {
-        SceneManager.LoadScene("Tutorial-emily");
-    }
+    
     public void OnPlayButton()
     {
         SceneManager.LoadScene("Level One");

@@ -12,10 +12,10 @@ public class FragileGlass : MonoBehaviour, IInteractable, ILabel
     {
         if (powerGenerator.drained && IsHoldingHammer())
             return "Break Glass (E)";
-        if (!powerGenerator.drained && IsHoldingHammer())
+        
+        if (!powerGenerator.drained)
             return "Can't break when filled with liquid";
-        if (!powerGenerator.drained && !IsHoldingHammer())
-            return "Can't break when filled with liquid";
+        
         return "Need a hammer to break";
     }
     
@@ -26,7 +26,6 @@ public class FragileGlass : MonoBehaviour, IInteractable, ILabel
     
     public void Interact()
     {
-        Debug.Log("Here");
         if (powerGenerator.drained && IsHoldingHammer())
         {
             glassBreakSFX.Play();
