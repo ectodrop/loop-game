@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class TutorialPlayerThoughts : MonoBehaviour
 {
     public TextMeshProUGUI playerThoughts;
-    private bool _bounce = false;
     private int _num_bounces = 0;
 
   
