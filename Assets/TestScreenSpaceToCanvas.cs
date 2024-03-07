@@ -12,14 +12,12 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
     public GameObject promptCirclePrefab;
     public GameControls gameControls;
 
-    public DialogueNode tempDialogue;
     private HintBubble[] _hintBubbles;
     private Camera _cam;
 
     private RectTransform[] _promptCircles;
 
     private PromptScript _currentPromptCircle;
-    private DialogueController _dialogueController;
     
     [Header("Listening To")]
     public GameEvent HUDDisableEvent;
@@ -33,7 +31,6 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _dialogueController = FindObjectOfType<DialogueController>();
         _cam = Camera.main;
         _hintBubbles = GameObject.FindObjectsOfType<HintBubble>();
         _promptCircles = new RectTransform[_hintBubbles.Length];
@@ -72,10 +69,6 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
             {
                 _currentPromptCircle = _promptCircles[candidate].GetComponent<PromptScript>();
                 _currentPromptCircle.ShowHint(_hintBubbles[candidate].hintData.Label);
-                if (gameControls.Wrapper.Player.Interact.WasPerformedThisFrame())
-                {
-                    _dialogueController.StartDialogue(tempDialogue, DialogueOptions.ALLOW_MOVEMENT);
-                }
             }
             else
             {
@@ -85,7 +78,6 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
             if (previousPromptCircle != _currentPromptCircle && previousPromptCircle != null)
             {
                 previousPromptCircle.HideHint();
-                _dialogueController.CancelCurrentDialogue();
             }
                 
         }
