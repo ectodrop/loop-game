@@ -2384,6 +2384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footsteps: {fileID: 11400000, guid: 4cef82d97e6f89748a8a699909f22064, type: 2}
   _playerAnimator: {fileID: 3204282538893352910}
+  gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
 --- !u!1 &8488330297194202679
 GameObject:
   m_ObjectHideFlags: 0

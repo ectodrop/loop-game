@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,7 +10,7 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     public GameObject OnScreen;
     public GameObject CrashScreen;
 
-    public GameEventString hoverTextChangeEvent;
+    public ScheduleEvent displayPasswordEvent;
     public SharedBool timeStopped;
     private bool _canInteract = true;
     public enum Status
@@ -33,10 +34,18 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     
     void OnEnable()
     {
+        displayPasswordEvent.AddListener(ShowPassword);
         PowerOn.AddListener(SetInteractOn);
         PowerOff.AddListener(SetInteractOff);
     }
-    
+
+    private void OnDisable()
+    {
+        displayPasswordEvent.RemoveListener(ShowPassword);
+        PowerOn.RemoveListener(SetInteractOn);
+        PowerOff.RemoveListener(SetInteractOff);
+    }
+
     void SetInteractOn()
     {
         _canInteract = true;
@@ -46,6 +55,16 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     {
         _canInteract = false;
         Crash();
+    }
+
+    void ShowPassword()
+    {
+        if (PCStatus != Status.Crash)
+        {
+            LoadingScreen.SetActive(false);
+            LoadingCountDown = LoadingDuration;
+            OnScreen.SetActive(true);
+        }
     }
 
     public string GetLabel()
@@ -63,7 +82,6 @@ public class PC : MonoBehaviour, IInteractable, ILabel
         if (PCStatus == Status.Off)
         {
             PCStatus = Status.Loading;
-            hoverTextChangeEvent.TriggerEvent("");
         }
     }
     public void Crash()
@@ -87,12 +105,6 @@ public class PC : MonoBehaviour, IInteractable, ILabel
                 {
                     PCStatus = Status.On;
                 }
-            }
-            if (PCStatus == Status.On)
-            {
-                LoadingScreen.SetActive(false);
-                LoadingCountDown = LoadingDuration;
-                OnScreen.SetActive(true);
             }
         }
     }

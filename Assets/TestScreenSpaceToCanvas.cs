@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TestScreenSpaceToCanvas : MonoBehaviour
@@ -9,15 +10,16 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
     public RectTransform canvas;
 
     public GameObject promptCirclePrefab;
+    public GameControls gameControls;
 
+    public DialogueNode tempDialogue;
     private HintBubble[] _hintBubbles;
     private Camera _cam;
 
     private RectTransform[] _promptCircles;
 
     private PromptScript _currentPromptCircle;
-    
-    
+    private DialogueController _dialogueController;
     
     [Header("Listening To")]
     public GameEvent HUDDisableEvent;
@@ -27,6 +29,68 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
 
     private bool _timeStopped = false;
     private bool _hudDisabled = false;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _dialogueController = FindObjectOfType<DialogueController>();
+        _cam = Camera.main;
+        _hintBubbles = GameObject.FindObjectsOfType<HintBubble>();
+        _promptCircles = new RectTransform[_hintBubbles.Length];
+        for (int i = 0; i < _hintBubbles.Length; i++)
+        {
+            var go = Instantiate(promptCirclePrefab, transform);
+            _promptCircles[i] = go.GetComponent<RectTransform>();
+            go.SetActive(false);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (_timeStopped && !_hudDisabled)
+        {
+            AlignPromptCircles();
+            
+            var previousPromptCircle = _currentPromptCircle;
+            float minDist = Mathf.Infinity;
+            int candidate = -1;
+            for (int i = 0; i < _promptCircles.Length; i++)
+            {
+                var rect = _promptCircles[i];
+                if (rect.gameObject.activeInHierarchy)
+                {
+                    if (minDist > rect.anchoredPosition.SqrMagnitude())
+                    {
+                        candidate = i;
+                        minDist = rect.anchoredPosition.SqrMagnitude();
+                    }
+                }
+            }
+
+            if (candidate >= 0 && minDist < thresholdDistance*thresholdDistance)
+            {
+                _currentPromptCircle = _promptCircles[candidate].GetComponent<PromptScript>();
+                _currentPromptCircle.ShowHint(_hintBubbles[candidate].hintData.Label);
+                if (gameControls.Wrapper.Player.Interact.WasPerformedThisFrame())
+                {
+                    _dialogueController.StartDialogue(tempDialogue, DialogueOptions.ALLOW_MOVEMENT);
+                }
+            }
+            else
+            {
+                _currentPromptCircle = null;
+            }
+            
+            if (previousPromptCircle != _currentPromptCircle && previousPromptCircle != null)
+            {
+                previousPromptCircle.HideHint();
+                _dialogueController.CancelCurrentDialogue();
+            }
+                
+        }
+    }
+
     private void OnEnable()
     {
         HUDDisableEvent.AddListener(HandleDisableHUD);
@@ -72,61 +136,6 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
             t.gameObject.SetActive(active);
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        _cam = Camera.main;
-        _hintBubbles = GameObject.FindObjectsOfType<HintBubble>();
-        _promptCircles = new RectTransform[_hintBubbles.Length];
-        for (int i = 0; i < _hintBubbles.Length; i++)
-        {
-            var go = Instantiate(promptCirclePrefab, canvas);
-            _promptCircles[i] = go.GetComponent<RectTransform>();
-            go.SetActive(false);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (_timeStopped && !_hudDisabled)
-        {
-            AlignPromptCircles();
-            
-            var previousPromptCircle = _currentPromptCircle;
-            float minDist = Mathf.Infinity;
-            int candidate = -1;
-            for (int i = 0; i < _promptCircles.Length; i++)
-            {
-                var rect = _promptCircles[i];
-                if (rect.gameObject.activeInHierarchy)
-                {
-                    if (minDist > rect.anchoredPosition.SqrMagnitude())
-                    {
-                        candidate = i;
-                        minDist = rect.anchoredPosition.SqrMagnitude();
-                    }
-                }
-            }
-
-            if (candidate >= 0 && minDist < thresholdDistance*thresholdDistance)
-            {
-                _currentPromptCircle = _promptCircles[candidate].GetComponent<PromptScript>();
-                _currentPromptCircle.ShowHint(_hintBubbles[candidate].hintData.Label);
-            }
-            else
-            {
-                _currentPromptCircle = null;
-            }
-            
-            if (previousPromptCircle != _currentPromptCircle && previousPromptCircle != null)
-            {
-                previousPromptCircle.HideHint();
-            }
-                
-        }
-    }
-
     private void AlignPromptCircles()
     {
         for (int i = 0; i < _hintBubbles.Length; i++)
