@@ -1,7 +1,7 @@
 ---
 name: Bug
 about: Create a bug issue
-title: ''
+title: 'Bug: '
 labels: 'bug'
 assignees: ''
 projects: ['ectodrop/2']
