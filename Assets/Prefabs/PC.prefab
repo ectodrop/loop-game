@@ -476,7 +476,6 @@ GameObject:
   - component: {fileID: 7525269989138206401}
   - component: {fileID: 4226464630513687031}
   - component: {fileID: 6697537854465698280}
-  - component: {fileID: 8656697574705757561}
   m_Layer: 5
   m_Name: Screen UI(Loading)
   m_TagString: Untagged
@@ -568,20 +567,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8656697574705757561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4212625412098872582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cde72c49ef41ca4c91f0a9b30906237, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PCObj: {fileID: 8628469091482211884}
-  timerText: {fileID: 5185102698866189076}
 --- !u!1 &6451377210197418588
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,7 +753,7 @@ MonoBehaviour:
   LoadingScreen: {fileID: 4212625412098872582}
   OnScreen: {fileID: 4009178471217193587}
   CrashScreen: {fileID: 9103814195989357085}
-  hoverTextChangeEvent: {fileID: 11400000, guid: dc0ded10ca1e3ac43b0d60632f7c25d8, type: 2}
+  displayPasswordEvent: {fileID: 0}
   timeStopped: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
   PCStatus: 1
 --- !u!114 &5114103956319722705
