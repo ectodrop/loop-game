@@ -104,6 +104,7 @@ public class PC : MonoBehaviour, IInteractable, ILabel
                 if (LoadingCountDown <= 0f)
                 {
                     PCStatus = Status.On;
+                    ShowPassword(); 
                 }
             }
         }
