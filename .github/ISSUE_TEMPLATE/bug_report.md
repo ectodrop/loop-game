@@ -5,5 +5,4 @@ title: ''
 labels: 'bug'
 assignees: ''
 projects: ['ectodrop/2']
-milestone: 'Playtest Demo'
 ---
