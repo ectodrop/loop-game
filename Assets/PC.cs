@@ -1,45 +1,70 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class PC : MonoBehaviour, IInteractable, ILabel
 {
     public GameEvent PowerOn;
     public GameEvent PowerOff;
     public GameObject LoadingScreen;
+    public Slider LoadingBar;
     public GameObject OnScreen;
+    public GameObject PasswordScreen;
     public GameObject CrashScreen;
 
-    public GameEventString hoverTextChangeEvent;
-    public SharedBool timeStopped;
-    private bool _canInteract = true;
+    public ScheduleEvent displayPasswordEvent;
+    // public SharedBool timeStopped;
+    private bool _canInteract = false;
     public enum Status
     {
-        Off,
         Loading,
         On,
+        Password,
         Crash
     }
-    public Status PCStatus;
-    private const float LoadingDuration = 12.0f;
-    private float LoadingCountDown;
+    private Status PCStatus;
 
     private void Start()
     {
-        LoadingCountDown = LoadingDuration;
-        LoadingScreen.SetActive(false);
+        PCStatus = Status.Loading;
+        LoadingScreen.SetActive(true);
         OnScreen.SetActive(false);
         CrashScreen.SetActive(false);
     }
     
     void OnEnable()
     {
-        PowerOn.AddListener(SetInteractOn);
+        displayPasswordEvent.AddListener(TurnOn);
         PowerOff.AddListener(SetInteractOff);
     }
-    
-    void SetInteractOn()
+
+    private void OnDisable()
     {
-        _canInteract = true;
+        displayPasswordEvent.RemoveListener(TurnOn);
+        PowerOff.RemoveListener(SetInteractOff);
+    }
+
+    public void Interact()
+    {
+        if (PCStatus == Status.On)
+        {
+            _canInteract = false;
+            PCStatus = Status.Password;
+            OnScreen.SetActive(false);
+            PasswordScreen.SetActive(true);
+        }
+    }
+
+    
+    public bool CanInteract()
+    {
+        return _canInteract;
+    }
+
+    public string GetLabel()
+    {
+        return _canInteract ? "Show Password [E]" : "";
     }
     
     void SetInteractOff()
@@ -48,56 +73,22 @@ public class PC : MonoBehaviour, IInteractable, ILabel
         Crash();
     }
 
-    public string GetLabel()
+    void TurnOn()
     {
-        return _canInteract && PCStatus == Status.Off ? "Boot PC (E)" : "";
-    }
-    
-    public bool CanInteract()
-    {
-        return _canInteract;
-    }
-    
-    public void Interact()
-    {
-        if (PCStatus == Status.Off)
+        if (PCStatus != Status.Crash)
         {
-            PCStatus = Status.Loading;
-            hoverTextChangeEvent.TriggerEvent("");
+            PCStatus = Status.On;
+            _canInteract = true;
+            LoadingScreen.SetActive(false);
+            OnScreen.SetActive(true);
         }
     }
+    
     public void Crash()
     {
         PCStatus = Status.Crash;
         LoadingScreen.SetActive(false);
         OnScreen.SetActive(false);
-        
         CrashScreen.SetActive(true);
-        LoadingCountDown = LoadingDuration;
-    }
-    private void Update()
-    {
-        if (!timeStopped.GetValue())
-        {
-            if (PCStatus == Status.Loading)
-            {
-                LoadingScreen.SetActive(true);
-                LoadingCountDown -= Time.deltaTime;
-                if (LoadingCountDown <= 0f)
-                {
-                    PCStatus = Status.On;
-                }
-            }
-            if (PCStatus == Status.On)
-            {
-                LoadingScreen.SetActive(false);
-                LoadingCountDown = LoadingDuration;
-                OnScreen.SetActive(true);
-            }
-        }
-    }
-    public float GetLoadingCountDown()
-    {
-        return LoadingCountDown;
     }
 }

@@ -687,6 +687,8 @@ MonoBehaviour:
   onHoverReadableObject: {fileID: 11400000, guid: dc0ded10ca1e3ac43b0d60632f7c25d8, type: 2}
   timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
   pickupScript: {fileID: 6429575070353933640}
+  timeStopStartEvent: {fileID: 11400000, guid: ff2edae89ca8dc947818500d2d72bcda, type: 2}
+  timeStopEndEvent: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
 --- !u!95 &220946495324720265
 Animator:
   serializedVersion: 5
@@ -2384,6 +2386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footsteps: {fileID: 11400000, guid: 4cef82d97e6f89748a8a699909f22064, type: 2}
   _playerAnimator: {fileID: 3204282538893352910}
+  gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
 --- !u!1 &8488330297194202679
 GameObject:
   m_ObjectHideFlags: 0

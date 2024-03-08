@@ -10,10 +10,10 @@ EditorBuildSettings:
     guid: 1f83330e8c57f4903bfae0d172093452
   - enabled: 1
     path: Assets/Scenes/Level One.unity
-    guid: a8ad7f9bdbede0f48bcfa06921375e12
+    guid: 0f64c6387633217439ddcf3e9fcdbc9a
   - enabled: 1
     path: Assets/Scenes/Tutorial-Power.unity
-    guid: bf3bc4b524e46774fb89db28b67dd5da
+    guid: 7848bfd5faf93a94095b710e98c036c3
   - enabled: 1
     path: Assets/Scenes/Tutorial-emily.unity
     guid: 16fb5fce58bcf784bac66741d09b7fcf

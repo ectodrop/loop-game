@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4946242ab65b77c43a637602d11f8397, type: 3}
   m_Name: PuddleHints
   m_EditorClassIdentifier: 
-  Label: Water Puddle
+  Label: Electric Gate

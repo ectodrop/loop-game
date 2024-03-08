@@ -8,6 +8,7 @@ public class PlayerAnimator : MonoBehaviour
     public SoundEffect footsteps;
     // For character animation
     public Animator _playerAnimator;
+    public GameControls gameControls;
     void Start()
     {
         _playerAnimator = GetComponent<Animator>();
@@ -21,11 +22,11 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (gameControls.Wrapper.Player.Move.IsPressed())
         {
             _playerAnimator.SetBool("isWalking", true);
 
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (gameControls.Wrapper.Player.Sprint.IsPressed())
             {
                 _playerAnimator.SetFloat("walkingSpeed", 2f);
             } else
