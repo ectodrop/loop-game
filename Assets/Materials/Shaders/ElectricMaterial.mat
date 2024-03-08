@@ -60,6 +60,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 10
     - _Enabled: 1
+    - _PowerOn: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale: 2.26

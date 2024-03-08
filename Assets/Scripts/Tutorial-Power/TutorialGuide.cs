@@ -12,7 +12,7 @@ using UnityEngine;
  */
 public class TutorialGuide : MonoBehaviour
 {
-    public TextMeshProUGUI playerThoughts;
+    public DialogueNode playerThoughts;
     public ScheduleEvent powerOutageEvent;
 
     // Event Tracking
@@ -36,6 +36,7 @@ public class TutorialGuide : MonoBehaviour
     public GameEvent switchOn;
     public GameEvent powerOn;
 
+    private DialogueController _dialogueController;
 
     public void Start()
     {
@@ -43,6 +44,8 @@ public class TutorialGuide : MonoBehaviour
         disableBattery.TriggerEvent();
         disableSwitch.TriggerEvent();
         disableDrain.TriggerEvent();
+        _dialogueController = FindObjectOfType<DialogueController>();
+        _dialogueController.StartDialogue(playerThoughts, DialogueOptions.NO_INPUT | DialogueOptions.ALLOW_MOVEMENT);
     }
 
     private void OnEnable()
@@ -70,7 +73,7 @@ public class TutorialGuide : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         powerOutageEvent.TriggerEvent();
-        playerThoughts.text = "Oh no the power seems to have gone out. Maybe I need to change the power source.";
+        _dialogueController.ProgressDialogue();
     }
 
     // 2. Once user switches, disable switch, enable battery
@@ -78,7 +81,7 @@ public class TutorialGuide : MonoBehaviour
     {
         disableSwitch.TriggerEvent();
         enableBattery.TriggerEvent();
-        playerThoughts.text = "The LED seems to indicate there is still no power. I need to find and insert the battery.";
+        _dialogueController.ProgressDialogue();
         _clickedSwitch = true;
     }
 
@@ -87,7 +90,7 @@ public class TutorialGuide : MonoBehaviour
     {
         if (_clickedSwitch)
         {
-            playerThoughts.text = "The power seems to have come back on, I can now open the door.";
+            _dialogueController.ProgressDialogue();
         }
     }
 }

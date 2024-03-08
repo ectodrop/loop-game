@@ -8,9 +8,8 @@ public class PlayerAnimator : MonoBehaviour
     public SoundEffect footsteps;
     // For character animation
     public Animator _playerAnimator;
-
     private string _starting_foot;
-    private bool isWalking = false;
+    private bool _isWalking = false;
 
     void Start()
     {
@@ -25,7 +24,7 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isWalking)
+        if (!_isWalking)
         {
             if (pressedWalking())
             {
@@ -39,26 +38,23 @@ public class PlayerAnimator : MonoBehaviour
                 }
                 _playerAnimator.SetBool(_starting_foot, true);
 
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    _playerAnimator.SetFloat("walkingSpeed", 2f);
-                }
-                else
-                {
-                    _playerAnimator.SetFloat("walkingSpeed", 1f);
-                }
-                isWalking = true;
-            }
-        } else
-        {
-            if (!pressedWalking())
+                // if (gameControls.Wrapper.Player.Sprint.IsPressed())
+                // {
+                //     _playerAnimator.SetFloat("walkingSpeed", 2f);
+                // } else
+                // {
+                //     _playerAnimator.SetFloat("walkingSpeed", 1f);
+                // }
+            } else
             {
-                _playerAnimator.SetFloat("walkingSpeed", 0f);
-                _playerAnimator.SetBool(_starting_foot, false);
-                isWalking = false;
+                if (!pressedWalking())
+                {
+                    _playerAnimator.SetFloat("walkingSpeed", 0f);
+                    _playerAnimator.SetBool(_starting_foot, false);
+                    _isWalking = false;
+                }
             }
         }
-        
     }
 
     bool pressedWalking()

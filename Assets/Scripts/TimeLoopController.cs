@@ -5,22 +5,21 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 
 public class TimeLoopController : MonoBehaviour
 {
+    public GameControls gameControls;
     public bool debugMode = false;
     public TimeSettings timeSettings;
     public ScheduleControllerScriptableObject scheduleController;
 
     private int currentEvent = 0;
     private float timestopCooldown = 1.2f;
-    private float timestopCooldownTimer = 1.2f;
-
-    // Handle battery usage
-    private bool _usingBattery = false;
+    private float lastTimestop = 0f;
 
     [Header("Listening To")]
     public GameEvent batteryDraining;
@@ -40,51 +39,36 @@ public class TimeLoopController : MonoBehaviour
     public SoundEffect timestopStartSFX;
     public SoundEffect timestopEndSFX;
 
+    private bool firstFrame = true;
     private void Start()
     {
         timeSettings.ResetTimers();
         timeStoppedFlag.ResetValue();
-        ResumeTime();
+        
     }
 
     private void OnEnable()
     {
-        batteryDraining.AddListener(HandleBatteryDraining);
-        batteryStopDraining.AddListener(HandleBatteryStoppedDraining);
         timeExtendedEvent.AddListener(HandleTimeExtension);
+        gameControls.Wrapper.Player.TimeStop.performed += HandleTimeStop;
     }
 
     private void OnDisable()
     {
-        batteryDraining.RemoveListener(HandleBatteryDraining);
-        batteryStopDraining.RemoveListener(HandleBatteryStoppedDraining);
         timeExtendedEvent.RemoveListener(HandleTimeExtension);
+        gameControls.Wrapper.Player.TimeStop.performed -= HandleTimeStop;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timestopCooldownTimer < timestopCooldown)
-            timestopCooldownTimer += Time.deltaTime;
-        
-        if (timestopCooldownTimer >= timestopCooldown && Input.GetKeyDown(KeyCode.R))
+        if (firstFrame)
         {
-            if (!timeStoppedFlag.GetValue())
-            {
-                timestopStartSFX.Play();
-                timestopCooldownTimer = 0.0f;
-                StopTime();
-                timeStopStartEvent.TriggerEvent();
-            }
-            else
-            {
-                timestopEndSFX.Play();
-                timestopCooldownTimer = timestopCooldown / 2.0f;
-                ResumeTime();
-                timeStopEndEvent.TriggerEvent();
-            }
-        }
-        
+            firstFrame = false;
+            StopTime();
+            timeStopStartEvent.TriggerEvent();
+        }       
+
         if (timeStoppedFlag.GetValue() || debugMode)
         {
             return;
@@ -93,7 +77,7 @@ public class TimeLoopController : MonoBehaviour
         if (timeSettings.currentTimeSeconds < timeSettings.CurrentMaxTimeSeconds())
         {
             int prevNextIncrement = timeSettings.NextIncrement();
-            timeSettings.currentTimeSeconds += Time.deltaTime;
+            timeSettings.IncrementSeconds(Time.deltaTime);
             int nextIncrement = timeSettings.NextIncrement();
             if (prevNextIncrement < nextIncrement)
             {
@@ -107,6 +91,30 @@ public class TimeLoopController : MonoBehaviour
             timeloopEndSFX.Play();
             resetLoopEvent.TriggerEvent();
         }
+    }
+
+    private void HandleTimeStop(InputAction.CallbackContext _)
+    {
+        if (lastTimestop > 0)
+            return;
+        
+        if (Time.time - lastTimestop < timestopCooldown)
+            return;
+        
+        if (!timeStoppedFlag.GetValue())
+        {
+            timestopStartSFX.Play();
+            StopTime();
+            timeStopStartEvent.TriggerEvent();
+        }
+        else
+        {
+            timestopEndSFX.Play();
+            ResumeTime();
+            timeStopEndEvent.TriggerEvent();
+        }
+
+        lastTimestop = Time.time;
     }
 
     private void StopTime()
@@ -139,15 +147,5 @@ public class TimeLoopController : MonoBehaviour
     {
         timeSettings.currentStartTimestamp.AddMinutes(-addedTime);
         resetLoopEvent.TriggerEvent();
-    }
-
-    private void HandleBatteryDraining()
-    {
-        _usingBattery = true;
-    }
-
-    private void HandleBatteryStoppedDraining()
-    {
-        _usingBattery = false;
     }
 }

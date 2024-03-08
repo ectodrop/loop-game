@@ -1,67 +1,93 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.Events;
-using System.Linq;
+using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
+    public GameControls gameControls;
     public float InteractableDistance = 2.0f;
     public GameEventString onHoverReadableObject;
     public SharedBool timeStoppedFlag;
+    public PickUpHoldScript pickupScript;
+
+    [Header("Listening To")] public GameEvent timeStopStartEvent;
+    public GameEvent timeStopEndEvent;
 
     private Camera mainCamera;
     private IRayHoverable curRayHoverableObj;
     private GameObject curHoverObject;
     private int rayLayerMask;
+
+    private string curHoverString = "";
+    private bool _timeStopAbilityActive;
+
+    private ILabel[] curLabels;
+
+    private RaycastHit interactHit;
+
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;
         rayLayerMask = LayerMask.GetMask("Interactable") | LayerMask.GetMask("Default");
+
     }
 
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        gameControls.Wrapper.Player.Interact.performed += HandleInteract;
+        timeStopStartEvent.AddListener(HandleTimeStopStart);
+        timeStopEndEvent.AddListener(HandleTimeStopEnd);
+    }
+
+    private void OnDisable()
+    {
+        gameControls.Wrapper.Player.Interact.performed -= HandleInteract;
+        timeStopStartEvent.RemoveListener(HandleTimeStopStart);
+        timeStopEndEvent.RemoveListener(HandleTimeStopEnd);
+    }
+
+    public void HandleTimeStopStart() {
+        _timeStopAbilityActive = true;
+    }
+
+    public void HandleTimeStopEnd() {
+        _timeStopAbilityActive = false;
+    }
+    
+// Update is called once per frame
     void Update()
     {
         var prevHoverObject = curHoverObject;
-        RaycastHit hit;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, InteractableDistance, rayLayerMask))
+        var prevHoverString = curHoverString;
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out interactHit, InteractableDistance, rayLayerMask))
         {
-            curHoverObject = hit.transform.gameObject;
-
-            if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
-            {
-                if (!timeStoppedFlag.GetValue() && Input.GetKeyDown("e"))
-                    interactable.Interact();
-            }
+            curHoverObject = interactHit.transform.gameObject;
+            curLabels = curHoverObject.GetComponents<ILabel>();
         }
         else
         {
             curHoverObject = null;
+            curLabels = null;
         }
 
+        curHoverString = "";
+        if (curLabels != null)
+        {
+            for (int i = 0; i < curLabels.Length; i++)
+            {
+                if (curLabels[i].GetLabel() != "")
+                    curHoverString += curLabels[i].GetLabel() + "\n";
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(curHoverString) && _timeStopAbilityActive)
+            curHoverString = "Start time to interact (R)";
+            
+        
         // check if the current interactable we are hovering on has changed, call the corresponding interface methods if yes
         if (curHoverObject != prevHoverObject)
         {
-            // check for labels
-            if (curHoverObject == null)
-            {
-                onHoverReadableObject.TriggerEvent("");
-            }
-            else
-            {
-                string text = "";
-                foreach (var label in curHoverObject.GetComponents<ILabel>())
-                {
-                    text += label.GetLabel() + "\n";
-                }
-
-                if (timeStoppedFlag.GetValue())
-                    text = "Resume time to interact (R)";
-                onHoverReadableObject.TriggerEvent(text);
-            }
-
             // call the enter exit methods if they exist
             if (curHoverObject != null && curHoverObject.TryGetComponent(out IRayHoverable curRayHoverableObj))
                 curRayHoverableObj?.OnHoverEnter();
@@ -69,5 +95,30 @@ public class Interactor : MonoBehaviour
             if (prevHoverObject != null && prevHoverObject.TryGetComponent(out IRayHoverable prevRayHoverableObj))
                 prevRayHoverableObj?.OnHoverExit();
         }
+        
+        if (curHoverString != prevHoverString)
+            onHoverReadableObject.TriggerEvent(curHoverString);
+    }
+
+    private void HandleInteract(InputAction.CallbackContext _)
+    {
+        if (curHoverObject != null && !pickupScript.IsHolding())
+        {
+            if (curHoverObject.CompareTag("canPickUp"))
+                pickupScript.PickUpObject(curHoverObject);
+        }
+        else if (curHoverObject == null && pickupScript.IsHolding())
+        {
+            pickupScript.DropObject();
+        }
+        
+        if (curHoverObject != null &&
+            curHoverObject.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
+        {
+            if (!timeStoppedFlag.GetValue())
+                interactable.Interact();
+        }
+
+        
     }
 }

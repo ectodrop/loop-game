@@ -667,6 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a25d34d107d744f91f0b44180f9148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
   playerZapSFX: {fileID: 11400000, guid: d7b29d8f7b475264f9fb0f0ba3ea0bda, type: 2}
   DefaultSpeed: 4
 --- !u!114 &4173285775985516761
@@ -681,9 +682,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c648075b30b164843a563463792a0f7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractableDistance: 2
+  gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
+  InteractableDistance: 3
   onHoverReadableObject: {fileID: 11400000, guid: dc0ded10ca1e3ac43b0d60632f7c25d8, type: 2}
   timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
+  pickupScript: {fileID: 6429575070353933640}
+  timeStopStartEvent: {fileID: 11400000, guid: ff2edae89ca8dc947818500d2d72bcda, type: 2}
+  timeStopEndEvent: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
 --- !u!95 &220946495324720265
 Animator:
   serializedVersion: 5
@@ -2381,6 +2386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footsteps: {fileID: 11400000, guid: 4cef82d97e6f89748a8a699909f22064, type: 2}
   _playerAnimator: {fileID: 3204282538893352910}
+  gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
 --- !u!1 &8488330297194202679
 GameObject:
   m_ObjectHideFlags: 0
@@ -2853,7 +2859,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db85d46179a8f64daa93cfcd01e8805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sens: 400
+  gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
+  sens: 20
   player: {fileID: 2645905690333547114}
 --- !u!114 &6429575070353933640
 MonoBehaviour:
@@ -2869,8 +2876,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2645905690333547114}
   holdPos: {fileID: 3994474034714676863}
-  pickUpRange: 2
   defaultPickupId: {fileID: 11400000, guid: a80aece38e78a4146bb4aa45685b8307, type: 2}
+  dropHeldEvent: {fileID: 11400000, guid: d4be8eac327bce949ab9a46e2c01cb0e, type: 2}
 --- !u!114 &3976259251182907181
 MonoBehaviour:
   m_ObjectHideFlags: 0

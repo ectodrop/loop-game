@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraLook : MonoBehaviour
 {
+    public GameControls gameControls;
     public float sens = 400;
     public GameObject player;
     
@@ -23,14 +24,13 @@ public class CameraLook : MonoBehaviour
     void Update()
     {
         // Mouse movement rotate along X axis, look up and down, limited range of motion
-        float mouseY = Input.GetAxis("Mouse Y") * sens * Time.deltaTime;
+        Vector2 look = Time.deltaTime * sens * gameControls.Wrapper.Player.Look.ReadValue<Vector2>();
+        float mouseY = look.y;
+        float mouseX = look.x;
         _currentRotationX -= mouseY;
         _currentRotationX = Mathf.Clamp(_currentRotationX, _minAngle, _maxAngle);
         transform.localRotation = Quaternion.Euler(_currentRotationX, 0, 0);
 
-        // Mouse movement rotate along Y axis, look left and right, unlimited range of motion
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sens;
-        
         // Should affect the player object, which will in turn rotate the camera since it is attached
         player.transform.Rotate(0.0f, mouseX, 0.0f, Space.World);
     }

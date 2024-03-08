@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ScheduleControllerSO
   m_EditorClassIdentifier: 
   scheduledEvents:
-  - {fileID: 11400000, guid: f488b13f3f501074aac9deab7aeb0391, type: 2}
   - {fileID: 11400000, guid: ad89c2501c65abb49a9959d383928971, type: 2}
+  - {fileID: 11400000, guid: f488b13f3f501074aac9deab7aeb0391, type: 2}
+  - {fileID: 11400000, guid: 3fc680c4f90137443b465ad1e230bdc1, type: 2}
