@@ -9,6 +9,10 @@ public class PlayerAnimator : MonoBehaviour
     // For character animation
     public Animator _playerAnimator;
     public GameControls gameControls;
+
+    private string _starting_foot = "isWalkingLeft";
+    private bool _isWalking = false;
+
     void Start()
     {
         _playerAnimator = GetComponent<Animator>();
@@ -22,23 +26,43 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameControls.Wrapper.Player.Move.IsPressed())
+        if (!_isWalking)
         {
-            _playerAnimator.SetBool("isWalking", true);
+            if (pressedWalking())
+            {
+                if (Random.Range(0f, 1.0f) < 0.5f)
+                {
+                    _starting_foot = "isWalkingLeft";
+                }
+                else
+                {
+                    _starting_foot = "isWalkingRight";
+                }
 
-            if (gameControls.Wrapper.Player.Sprint.IsPressed())
-            {
-                _playerAnimator.SetFloat("walkingSpeed", 2f);
-            } else
-            {
-                _playerAnimator.SetFloat("walkingSpeed", 1f);
+                _playerAnimator.SetBool(_starting_foot, true);
+
+                if (gameControls.Wrapper.Player.Sprint.IsPressed())
+                {
+                    _playerAnimator.SetFloat("walkingSpeed", 2f);
+                } else
+                {
+                    _playerAnimator.SetFloat("walkingSpeed", 1f);
+                }
+                _isWalking = true;
             }
-            
-        }
-        else
+        } else
         {
-            _playerAnimator.SetFloat("walkingSpeed", 0f);
-            _playerAnimator.SetBool("isWalking", false);
+            if (!pressedWalking())
+            {
+                _playerAnimator.SetFloat("walkingSpeed", 0f);
+                _playerAnimator.SetBool(_starting_foot, false);
+                _isWalking = false;
+            }
         }
+    }
+
+    bool pressedWalking()
+    {
+        return gameControls.Wrapper.Player.Move.IsPressed();
     }
 }
