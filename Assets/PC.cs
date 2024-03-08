@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PC : MonoBehaviour, IInteractable, ILabel
+public class PC : MonoBehaviour
 {
     public GameEvent PowerOn;
     public GameEvent PowerOff;
@@ -11,23 +11,20 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     public GameObject CrashScreen;
 
     public ScheduleEvent displayPasswordEvent;
-    public SharedBool timeStopped;
+    // public SharedBool timeStopped;
     private bool _canInteract = true;
     public enum Status
     {
-        Off,
         Loading,
         On,
         Crash
     }
-    public Status PCStatus;
-    private const float LoadingDuration = 12.0f;
-    private float LoadingCountDown;
+    private Status PCStatus;
 
     private void Start()
     {
-        LoadingCountDown = LoadingDuration;
-        LoadingScreen.SetActive(false);
+        PCStatus = Status.Loading;
+        LoadingScreen.SetActive(true);
         OnScreen.SetActive(false);
         CrashScreen.SetActive(false);
     }
@@ -61,29 +58,12 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     {
         if (PCStatus != Status.Crash)
         {
+            PCStatus = Status.On;
             LoadingScreen.SetActive(false);
-            LoadingCountDown = LoadingDuration;
             OnScreen.SetActive(true);
         }
     }
-
-    public string GetLabel()
-    {
-        return _canInteract && PCStatus == Status.Off ? "Boot PC (E)" : "";
-    }
     
-    public bool CanInteract()
-    {
-        return _canInteract;
-    }
-    
-    public void Interact()
-    {
-        if (PCStatus == Status.Off)
-        {
-            PCStatus = Status.Loading;
-        }
-    }
     public void Crash()
     {
         PCStatus = Status.Crash;
@@ -91,26 +71,5 @@ public class PC : MonoBehaviour, IInteractable, ILabel
         OnScreen.SetActive(false);
         
         CrashScreen.SetActive(true);
-        LoadingCountDown = LoadingDuration;
-    }
-    private void Update()
-    {
-        if (!timeStopped.GetValue())
-        {
-            if (PCStatus == Status.Loading)
-            {
-                LoadingScreen.SetActive(true);
-                LoadingCountDown -= Time.deltaTime;
-                if (LoadingCountDown <= 0f)
-                {
-                    PCStatus = Status.On;
-                    ShowPassword(); 
-                }
-            }
-        }
-    }
-    public float GetLoadingCountDown()
-    {
-        return LoadingCountDown;
     }
 }
