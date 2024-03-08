@@ -17,6 +17,7 @@ public class DialogueController : MonoBehaviour
     public TextMeshProUGUI dialogueBody;
     public GameControls gameControls;
     public SoundEffect typewriterSFX;
+    public SharedBool timeStoppedFlag;
 
 
     private IEnumerator _currentDialogueNodeCoroutine;
@@ -43,6 +44,7 @@ public class DialogueController : MonoBehaviour
     /// <item>INTERRUPTING = interrupt the current dialogue box display</item>
     /// <item>NO_INPUT = dialogue cannot be progressed by pressing a key, this means dialogue will be progressed in your script</item>
     /// <item>ALLOW_MOVEMENT = allows the player to move and look around while the dialogue is playing</item>
+    /// <item>STOP_TIME = sets the timeStopped shared bool scriptableobject</item>
     /// </list>
     /// </param>
     public void StartDialogue(DialogueNode dialogueNode, DialogueOptions options = 0)
@@ -99,6 +101,7 @@ public class DialogueController : MonoBehaviour
     
     private void SkipScrawl(InputAction.CallbackContext _)
     {
+        Debug.Log("Performed");
         if (_dialogueShowing && !_currentFlags.HasFlag(DialogueOptions.NO_INPUT))
             _skipScrawl = true;
     }
@@ -115,6 +118,11 @@ public class DialogueController : MonoBehaviour
     {
         _dialogueShowing = true;
         dialogueBox.SetActive(true);
+        if (_currentFlags.HasFlag(DialogueOptions.STOP_TIME))
+        {
+            timeStoppedFlag.SetValue(true);
+        }
+        
         if (!_currentFlags.HasFlag(DialogueOptions.ALLOW_MOVEMENT))
         {
             gameControls.Wrapper.Player.Move.Disable();
@@ -125,6 +133,10 @@ public class DialogueController : MonoBehaviour
 
     private void CleanupDialogueBox()
     {
+        if (_currentFlags.HasFlag(DialogueOptions.STOP_TIME))
+        {
+            timeStoppedFlag.SetValue(false);
+        }
         if (!_currentFlags.HasFlag(DialogueOptions.ALLOW_MOVEMENT))
         {
             gameControls.Wrapper.Player.Look.Enable();
@@ -166,6 +178,7 @@ public class DialogueController : MonoBehaviour
     {
         dialogueSpeaker.text = dialogue.Speaker;
         dialogueBody.text = "";
+        yield return null;
         _skipScrawl = false;
         for (int i = 0; i < dialogue.Body.Length; i++)
         {
@@ -177,7 +190,7 @@ public class DialogueController : MonoBehaviour
             dialogueBody.text += dialogue.Body[i];
             if (i % charactersPerSFX == 0)
                 typewriterSFX.Play();
-            if (".,!".Contains(dialogue.Body[i]))
+            if (".,!?".Contains(dialogue.Body[i]))
                 yield return new WaitForSeconds(secondsPerCharacter * 20);
             else
                 yield return new WaitForSeconds(secondsPerCharacter);

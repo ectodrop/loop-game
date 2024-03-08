@@ -13,7 +13,7 @@ public enum DialogueOptions
     
     // Current dialogue cannot be cancelled under any circumstances, any calls to StartDialogue will wait for current to finish
     // unimplemented
-    UNCANCELLABLE = 1 << 2,
+    STOP_TIME = 1 << 2,
     
     // Attempts to cancel dialogue that is currently playing
     INTERRUPTING = 1 << 3,

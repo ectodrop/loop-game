@@ -10,15 +10,21 @@ public class Interactor : MonoBehaviour
     public SharedBool timeStoppedFlag;
     public PickUpHoldScript pickupScript;
 
+    [Header("Listening To")] public GameEvent timeStopStartEvent;
+    public GameEvent timeStopEndEvent;
+
     private Camera mainCamera;
     private IRayHoverable curRayHoverableObj;
     private GameObject curHoverObject;
     private int rayLayerMask;
 
     private string curHoverString = "";
+    private bool _timeStopAbilityActive;
 
     private ILabel[] curLabels;
+
     private RaycastHit interactHit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,14 +36,26 @@ public class Interactor : MonoBehaviour
     private void OnEnable()
     {
         gameControls.Wrapper.Player.Interact.performed += HandleInteract;
+        timeStopStartEvent.AddListener(HandleTimeStopStart);
+        timeStopEndEvent.AddListener(HandleTimeStopEnd);
     }
 
     private void OnDisable()
     {
         gameControls.Wrapper.Player.Interact.performed -= HandleInteract;
+        timeStopStartEvent.RemoveListener(HandleTimeStopStart);
+        timeStopEndEvent.RemoveListener(HandleTimeStopEnd);
     }
 
-    // Update is called once per frame
+    public void HandleTimeStopStart() {
+        _timeStopAbilityActive = true;
+    }
+
+    public void HandleTimeStopEnd() {
+        _timeStopAbilityActive = false;
+    }
+    
+// Update is called once per frame
     void Update()
     {
         var prevHoverObject = curHoverObject;
@@ -55,11 +73,17 @@ public class Interactor : MonoBehaviour
 
         curHoverString = "";
         if (curLabels != null)
+        {
             for (int i = 0; i < curLabels.Length; i++)
-                curHoverString += curLabels[i].GetLabel() + "\n";
-        
-        if (curHoverString != "" && timeStoppedFlag.GetValue())
-            curHoverString = "Resume time to interact (R)";
+            {
+                if (curLabels[i].GetLabel() != "")
+                    curHoverString += curLabels[i].GetLabel() + "\n";
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(curHoverString) && _timeStopAbilityActive)
+            curHoverString = "Start time to interact (R)";
+            
         
         // check if the current interactable we are hovering on has changed, call the corresponding interface methods if yes
         if (curHoverObject != prevHoverObject)

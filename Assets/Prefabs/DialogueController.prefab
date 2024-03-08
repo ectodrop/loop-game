@@ -171,6 +171,7 @@ MonoBehaviour:
   dialogueBody: {fileID: 3822868432718728056}
   gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
   typewriterSFX: {fileID: 11400000, guid: 6ace16467fb059a4cb1205626d9b9907, type: 2}
+  timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
 --- !u!1 &6855243043108012845
 GameObject:
   m_ObjectHideFlags: 0
