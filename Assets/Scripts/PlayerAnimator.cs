@@ -8,7 +8,9 @@ public class PlayerAnimator : MonoBehaviour
     public SoundEffect footsteps;
     // For character animation
     public Animator _playerAnimator;
-    private string _starting_foot;
+    public GameControls gameControls;
+
+    private string _starting_foot = "isWalkingLeft";
     private bool _isWalking = false;
 
     void Start()
@@ -30,35 +32,37 @@ public class PlayerAnimator : MonoBehaviour
             {
                 if (Random.Range(0f, 1.0f) < 0.5f)
                 {
-                    _starting_foot = "isWalking";
+                    _starting_foot = "isWalkingLeft";
                 }
                 else
                 {
                     _starting_foot = "isWalkingRight";
                 }
+
                 _playerAnimator.SetBool(_starting_foot, true);
 
-                // if (gameControls.Wrapper.Player.Sprint.IsPressed())
-                // {
-                //     _playerAnimator.SetFloat("walkingSpeed", 2f);
-                // } else
-                // {
-                //     _playerAnimator.SetFloat("walkingSpeed", 1f);
-                // }
-            } else
-            {
-                if (!pressedWalking())
+                if (gameControls.Wrapper.Player.Sprint.IsPressed())
                 {
-                    _playerAnimator.SetFloat("walkingSpeed", 0f);
-                    _playerAnimator.SetBool(_starting_foot, false);
-                    _isWalking = false;
+                    _playerAnimator.SetFloat("walkingSpeed", 2f);
+                } else
+                {
+                    _playerAnimator.SetFloat("walkingSpeed", 1f);
                 }
+                _isWalking = true;
+            }
+        } else
+        {
+            if (!pressedWalking())
+            {
+                _playerAnimator.SetFloat("walkingSpeed", 0f);
+                _playerAnimator.SetBool(_starting_foot, false);
+                _isWalking = false;
             }
         }
     }
 
     bool pressedWalking()
     {
-        return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
+        return gameControls.Wrapper.Player.Move.IsPressed();
     }
 }
