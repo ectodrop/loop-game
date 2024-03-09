@@ -9,6 +9,7 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
     public int maxDoorHeight;
     public GameEvent doorFirstClick;
     public ScheduleEvent powerOutageEvent;
+    public SoundEffect garageDoorOpen;
 
     private bool canInteract = true;
     private bool _firstPress = false;
@@ -91,10 +92,11 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
     IEnumerator AnimateDoor()
     {
         float height = door.transform.position.y;
+        garageDoorOpen.Play();
         while (height < maxDoorHeight)
         {
             yield return new WaitForSeconds(0.01f);
-            Vector3 newPosition = door.transform.position + Vector3.up * 0.01f;
+            Vector3 newPosition = door.transform.position + Vector3.up * 0.008f;
             door.transform.position = newPosition;
             height = door.transform.position.y;
         }
