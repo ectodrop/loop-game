@@ -16,8 +16,7 @@ public class TimeSettings : ScriptableObject
     [Min(1)]
     public int minutesPerIncrement = 5;
 
-    [NonSerialized]
-    public float currentTimeSeconds;
+    public float currentTimeSeconds { get; private set; }
 
     [NonSerialized]
     public Timestamp currentTimestamp;
@@ -26,6 +25,11 @@ public class TimeSettings : ScriptableObject
     public Timestamp currentStartTimestamp;
     [NonSerialized]
     public Timestamp currentEndTimestamp;
+
+    public void IncrementSeconds(float amount)
+    {
+        currentTimeSeconds += amount;
+    }
 
     private void OnEnable()
     {

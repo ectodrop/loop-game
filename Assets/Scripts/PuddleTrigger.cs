@@ -5,16 +5,11 @@ using UnityEngine;
 
 public class PuddleTrigger : MonoBehaviour
 {
+    public GameObject lasers;
     public GameEvent PowerOn;
     public GameEvent PowerOff;
     float DeathCountDown = 1.0f;
 
-    private Material _material;
-
-    private void Start()
-    {
-        _material = GetComponentInParent<MeshRenderer>().material;
-    }
 
     void OnEnable()
     {
@@ -23,12 +18,12 @@ public class PuddleTrigger : MonoBehaviour
     }
     void PuddleOn()
     {
-        _material.SetInt("_PowerOn", 1);
+        lasers.SetActive(true);
         this.gameObject.SetActive(true);
     }
     void PuddleOff()
     {
-        _material.SetInt("_PowerOn", 0);
+        lasers.SetActive(false);
         this.gameObject.SetActive(false);
     }
     void OnTriggerEnter(Collider collider)

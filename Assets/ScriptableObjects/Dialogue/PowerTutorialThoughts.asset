@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adce889d7bd57e243a0b312de15ae9b0, type: 3}
+  m_Name: PowerTutorialThoughts
+  m_EditorClassIdentifier: 
+  sentences:
+  - Speaker: Thinking
+    Body: Hm... I need to find a way out of this room, maybe I should try opening
+      the <color=red>door</color>
+  - Speaker: Thinking
+    Body: Oh no! the power seems to have gone out. Maybe I need to change the power
+      source by <color=red>pulling on the lever</color>.
+  - Speaker: Thinking
+    Body: The <color=red>Power LED</color> seems to indicate there is still no power.
+      I need to find and insert the battery.
+  - Speaker: Thinking
+    Body: The power seems to have come back on, I can now open the door.

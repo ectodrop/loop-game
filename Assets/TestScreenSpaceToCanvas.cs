@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TestScreenSpaceToCanvas : MonoBehaviour
@@ -9,6 +6,7 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
     public RectTransform canvas;
 
     public GameObject promptCirclePrefab;
+    public GameControls gameControls;
 
     private HintBubble[] _hintBubbles;
     private Camera _cam;
@@ -16,8 +14,6 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
     private RectTransform[] _promptCircles;
 
     private PromptScript _currentPromptCircle;
-    
-    
     
     [Header("Listening To")]
     public GameEvent HUDDisableEvent;
@@ -27,51 +23,7 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
 
     private bool _timeStopped = false;
     private bool _hudDisabled = false;
-    private void OnEnable()
-    {
-        HUDDisableEvent.AddListener(HandleDisableHUD);
-        timeStopEndEvent.AddListener(HandleTimeStopEnd);
-        timeStopStartEvent.AddListener(HandleTimeStopStart);
-        HUDEnableEvent.AddListener(HandleEnableHUD);
-    }
 
-    private void OnDisable()
-    {
-        HUDDisableEvent.RemoveListener(HandleDisableHUD);
-        timeStopEndEvent.RemoveListener(HandleTimeStopEnd);
-        timeStopStartEvent.RemoveListener(HandleTimeStopStart);
-        HUDEnableEvent.RemoveListener(HandleEnableHUD);
-    }
-    
-    private void HandleTimeStopStart()
-    {
-        _timeStopped = true;
-    }
-    
-    private void HandleTimeStopEnd()
-    {
-        _timeStopped = false;
-        SetActivePrompts(false);
-    }
-    
-    private void HandleDisableHUD()
-    {
-        _hudDisabled = true;
-        SetActivePrompts(false);
-    }
-    
-    private void HandleEnableHUD()
-    {
-        _hudDisabled = false;
-    }
-    
-    private void SetActivePrompts(bool active)
-    {
-        foreach (var t in _promptCircles)
-        {
-            t.gameObject.SetActive(active);
-        }
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -80,7 +32,7 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
         _promptCircles = new RectTransform[_hintBubbles.Length];
         for (int i = 0; i < _hintBubbles.Length; i++)
         {
-            var go = Instantiate(promptCirclePrefab, canvas);
+            var go = Instantiate(promptCirclePrefab, transform);
             _promptCircles[i] = go.GetComponent<RectTransform>();
             go.SetActive(false);
         }
@@ -127,6 +79,51 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        HUDDisableEvent.AddListener(HandleDisableHUD);
+        timeStopEndEvent.AddListener(HandleTimeStopEnd);
+        timeStopStartEvent.AddListener(HandleTimeStopStart);
+        HUDEnableEvent.AddListener(HandleEnableHUD);
+    }
+
+    private void OnDisable()
+    {
+        HUDDisableEvent.RemoveListener(HandleDisableHUD);
+        timeStopEndEvent.RemoveListener(HandleTimeStopEnd);
+        timeStopStartEvent.RemoveListener(HandleTimeStopStart);
+        HUDEnableEvent.RemoveListener(HandleEnableHUD);
+    }
+    
+    private void HandleTimeStopStart()
+    {
+        _timeStopped = true;
+    }
+    
+    private void HandleTimeStopEnd()
+    {
+        _timeStopped = false;
+        SetActivePrompts(false);
+    }
+    
+    private void HandleDisableHUD()
+    {
+        _hudDisabled = true;
+        SetActivePrompts(false);
+    }
+    
+    private void HandleEnableHUD()
+    {
+        _hudDisabled = false;
+    }
+    
+    private void SetActivePrompts(bool active)
+    {
+        foreach (var t in _promptCircles)
+        {
+            t.gameObject.SetActive(active);
+        }
+    }
     private void AlignPromptCircles()
     {
         for (int i = 0; i < _hintBubbles.Length; i++)

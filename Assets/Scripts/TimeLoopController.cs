@@ -77,7 +77,7 @@ public class TimeLoopController : MonoBehaviour
         if (timeSettings.currentTimeSeconds < timeSettings.CurrentMaxTimeSeconds())
         {
             int prevNextIncrement = timeSettings.NextIncrement();
-            timeSettings.currentTimeSeconds += Time.deltaTime;
+            timeSettings.IncrementSeconds(Time.deltaTime);
             int nextIncrement = timeSettings.NextIncrement();
             if (prevNextIncrement < nextIncrement)
             {
