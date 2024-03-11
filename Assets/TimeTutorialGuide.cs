@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ public class TimeTutorialGuide : MonoBehaviour
 {
     public DialogueController _dialogueController;
     public TimeLoopController _timeLoopController;
-    private bool _firstTime = true;
+    public SharedBool firstTime;
 
     public GameObject QuestionUI;
     public TMP_InputField answerInputField;
@@ -18,6 +19,7 @@ public class TimeTutorialGuide : MonoBehaviour
     public DialogueNode dialogueNotFirstTime;
     public DialogueNode dialogueSuccess;
     public DialogueNode dialogueFail;
+    public DialogueNode dialogueReset;
     [Header("Triggers")]
     public GameEvent resetLoopEvent;
     public GameEvent timeStopStartEvent;
@@ -42,7 +44,8 @@ public class TimeTutorialGuide : MonoBehaviour
         FirstTime,
         NotFirstTime,
         Success,
-        Fail
+        Fail,
+        Reset
     }
     private CurrentDialogue _currentDialogue;
 
@@ -62,10 +65,11 @@ public class TimeTutorialGuide : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log(_firstTime);
+        firstTime.DefaultValue = true;
+        Debug.Log(firstTime.GetValue());
         _timeLoopController.StopTime();
         CountDown = CountDownDuration;
-        if (_firstTime)
+        if (firstTime.GetValue())
         {
             _currentDialogue = CurrentDialogue.FirstTime;
             _dialogueController.StartDialogue(dialogueFirstTime, DialogueOptions.STOP_TIME);
@@ -93,7 +97,7 @@ public class TimeTutorialGuide : MonoBehaviour
         {
             CountDown -= Time.deltaTime;
         }
-        if (CountDown == 7f)
+        if (CountDown <= 7f)
         {
             LightFlicker.TriggerEvent();
         }
@@ -106,9 +110,10 @@ public class TimeTutorialGuide : MonoBehaviour
         {
             Debug.Log("tutorial passed");
         }
-        if (_dialogueController.IsShowingDialogue() & !_passed & _currentDialogue == CurrentDialogue.Fail)
+        if (!_dialogueController.IsShowingDialogue() & !_passed & _currentDialogue == CurrentDialogue.Fail)
         {
-            resetLoopEvent.TriggerEvent();
+            _currentDialogue = CurrentDialogue.Reset;
+            _dialogueController.StartDialogue(dialogueSuccess, DialogueOptions.NO_INPUT | DialogueOptions.STOP_TIME);
         }
     }
 
@@ -162,8 +167,8 @@ public class TimeTutorialGuide : MonoBehaviour
     }
     void Failed()
     {
-        _currentDialogue = CurrentDialogue.Fail;
         _dialogueController.StartDialogue(dialogueFail, DialogueOptions.STOP_TIME);
-        _firstTime = false;
+        _currentDialogue = CurrentDialogue.Fail;
+        firstTime.SetValue(false);
     }
 }
