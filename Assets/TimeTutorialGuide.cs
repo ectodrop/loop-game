@@ -63,16 +63,17 @@ public class TimeTutorialGuide : MonoBehaviour
     void Start()
     {
         Debug.Log(_firstTime);
+        _timeLoopController.StopTime();
         CountDown = CountDownDuration;
         if (_firstTime)
         {
             _currentDialogue = CurrentDialogue.FirstTime;
-            _dialogueController.StartDialogue(dialogueFirstTime);
+            _dialogueController.StartDialogue(dialogueFirstTime, DialogueOptions.STOP_TIME);
         }
         else
         {
             _currentDialogue = CurrentDialogue.NotFirstTime;
-            _dialogueController.StartDialogue(dialogueNotFirstTime);
+            _dialogueController.StartDialogue(dialogueNotFirstTime, DialogueOptions.STOP_TIME);
         }
         
         LookAtJarvis.TriggerEvent();
@@ -82,14 +83,16 @@ public class TimeTutorialGuide : MonoBehaviour
         if  (_currentDialogue == CurrentDialogue.FirstTime | _currentDialogue == CurrentDialogue.NotFirstTime)
         {
             _timeLoopController.ResumeTime();
-            timeStopEndEvent.TriggerEvent();
             LookFree.TriggerEvent();
             CountDown = CountDownDuration;
         }
     }
     private void Update()
     {
-        CountDown -= Time.deltaTime;
+        if (!_dialogueController.IsShowingDialogue())
+        {
+            CountDown -= Time.deltaTime;
+        }
         if (CountDown == 7f)
         {
             LightFlicker.TriggerEvent();
@@ -154,13 +157,13 @@ public class TimeTutorialGuide : MonoBehaviour
     void Passed()
     {
         _currentDialogue = CurrentDialogue.Success;
-        _dialogueController.StartDialogue(dialogueSuccess);
+        _dialogueController.StartDialogue(dialogueSuccess, DialogueOptions.STOP_TIME);
         _passed = true;
     }
     void Failed()
     {
         _currentDialogue = CurrentDialogue.Fail;
-        _dialogueController.StartDialogue(dialogueFail);
+        _dialogueController.StartDialogue(dialogueFail, DialogueOptions.STOP_TIME);
         _firstTime = false;
     }
 }

@@ -6513,6 +6513,10 @@ PrefabInstance:
       value: TimeController
       objectReference: {fileID: 0}
     - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
+      propertyPath: timeTutorial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
       propertyPath: timeloopEndSFX
       value: 
       objectReference: {fileID: 11400000, guid: 473007ff44cc1f8409be7682ab5ffd3a, type: 2}
