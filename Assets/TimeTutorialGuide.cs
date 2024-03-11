@@ -113,7 +113,7 @@ public class TimeTutorialGuide : MonoBehaviour
         if (!_dialogueController.IsShowingDialogue() & !_passed & _currentDialogue == CurrentDialogue.Fail)
         {
             _currentDialogue = CurrentDialogue.Reset;
-            _dialogueController.StartDialogue(dialogueSuccess, DialogueOptions.NO_INPUT | DialogueOptions.STOP_TIME);
+            _dialogueController.StartDialogue(dialogueReset, DialogueOptions.NO_INPUT | DialogueOptions.STOP_TIME);
         }
     }
 

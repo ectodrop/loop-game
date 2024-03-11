@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Jarvis
-    Body: Press <color=red>ESC</color> to access the pause meny, and <color=red>RESTART
+    Body: Press <color=red>ESC</color> to access the pause menu, and <color=red>RESTART
       LOOP</color> there.
