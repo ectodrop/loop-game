@@ -117,13 +117,13 @@ public class TimeLoopController : MonoBehaviour
         lastTimestop = Time.time;
     }
 
-    private void StopTime()
+    public void StopTime()
     {
         timeStoppedFlag.SetValue(true);
         Shader.SetGlobalInteger("_TimeStopped", 1);
     }
 
-    private void ResumeTime()
+    public void ResumeTime()
     {
         timeStoppedFlag.SetValue(false);
         Shader.SetGlobalInteger("_TimeStopped", 0);

@@ -18,6 +18,7 @@ public class DialogueController : MonoBehaviour
     public GameControls gameControls;
     public SoundEffect typewriterSFX;
     public SharedBool timeStoppedFlag;
+    public GameEvent DialogueStop;
 
 
     private IEnumerator _currentDialogueNodeCoroutine;
@@ -95,7 +96,7 @@ public class DialogueController : MonoBehaviour
                 StopCoroutine(_currentDialogueNodeCoroutine);
             if (_currentDialogueCoroutine != null)
                 StopCoroutine(_currentDialogueCoroutine);
-            CleanupDialogueBox();
+            CleanupDialogueBox();  
         }
     }
     
@@ -103,7 +104,9 @@ public class DialogueController : MonoBehaviour
     {
         Debug.Log("Performed");
         if (_dialogueShowing && !_currentFlags.HasFlag(DialogueOptions.NO_INPUT))
+        {
             _skipScrawl = true;
+        }
     }
 
     private void SetHintText(string text)
@@ -146,6 +149,7 @@ public class DialogueController : MonoBehaviour
         _dialogueShowing = false;
         _currentDialogueCoroutine = null;
         _currentDialogueNodeCoroutine = null;
+        DialogueStop.TriggerEvent();
     }
     
     private IEnumerator AnimateDialogueNode(DialogueNode dialogueNode, DialogueOptions options)
@@ -198,5 +202,9 @@ public class DialogueController : MonoBehaviour
         
         dialogueBody.text = dialogue.Body; 
         yield return new WaitForSeconds(0.1f);
+    }
+    public bool IsShowingDialogue()
+    {
+        return _dialogueShowing;
     }
 }
