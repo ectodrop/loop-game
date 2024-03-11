@@ -20,3 +20,6 @@ MonoBehaviour:
     Body: This is some text dialogue <color=red>with color!</color>
   - Speaker: Test
     Body: This is some text dialogue. That. Has. Punctionation.
+  choices:
+  - Yes
+  - No

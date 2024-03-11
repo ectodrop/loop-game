@@ -6,5 +6,12 @@ using UnityEngine;
 public class DialogueNode : ScriptableObject
 {
     public Dialogue[] sentences;
+
+    public string[] choices;
+
+    public bool HasChoices()
+    {
+        return choices != null && choices.Length > 0;
+    }
 }
 

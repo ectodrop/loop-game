@@ -17,3 +17,6 @@ MonoBehaviour:
     Body: This glass is in my way...
   - Speaker: Thinking
     Body: But breaking it with my bare hands doesn't seem practical.
+  choices:
+  - Yes
+  - No
