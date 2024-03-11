@@ -12,6 +12,7 @@ public class DialogueController : MonoBehaviour
     // a sound effect will be played for every "charactersPerSFX" characters
     public int charactersPerSFX = 3;
     public GameObject dialogueBox;
+    public DialogueChoiceBox choiceBox;
     public TextMeshProUGUI dialogueControlsHint;
     public TextMeshProUGUI dialogueSpeaker;
     public TextMeshProUGUI dialogueBody;
@@ -22,6 +23,7 @@ public class DialogueController : MonoBehaviour
 
     private IEnumerator _currentDialogueNodeCoroutine;
     private IEnumerator _currentDialogueCoroutine;
+    private IEnumerator _currentChoiceCoroutine;
     private DialogueOptions _currentFlags;
     
     private bool _dialogueShowing;
@@ -47,7 +49,8 @@ public class DialogueController : MonoBehaviour
     /// <item>STOP_TIME = sets the timeStopped shared bool scriptableobject</item>
     /// </list>
     /// </param>
-    public void StartDialogue(DialogueNode dialogueNode, DialogueOptions options = 0)
+    /// <param name="choiceCallback">calls this function when a choice is made</param>
+    public void StartDialogue(DialogueNode dialogueNode, DialogueOptions options = 0, Action<string> choiceCallback = null)
     {
         if (options.HasFlag(DialogueOptions.INTERRUPTING))
         {
@@ -57,19 +60,19 @@ public class DialogueController : MonoBehaviour
         if (!_dialogueShowing)
         {
             _currentFlags = options;
-            _currentDialogueNodeCoroutine = AnimateDialogueNode(dialogueNode, options);
+            _currentDialogueNodeCoroutine = AnimateDialogueNode(dialogueNode, options, choiceCallback);
             StartCoroutine(_currentDialogueNodeCoroutine);
         }
     }
     
     public void OnEnable()
     {
-        gameControls.Wrapper.Player.Interact.performed += SkipScrawl;
+        gameControls.Wrapper.UI.DialogueAction.performed += SkipScrawl;
     }
 
     public void OnDisable()
     {
-        gameControls.Wrapper.Player.Interact.performed -= SkipScrawl;
+        gameControls.Wrapper.UI.DialogueAction.performed -= SkipScrawl;
     }
 
     /// <summary>
@@ -95,13 +98,15 @@ public class DialogueController : MonoBehaviour
                 StopCoroutine(_currentDialogueNodeCoroutine);
             if (_currentDialogueCoroutine != null)
                 StopCoroutine(_currentDialogueCoroutine);
+            if (_currentChoiceCoroutine != null)
+                StopCoroutine(_currentChoiceCoroutine);
+            
             CleanupDialogueBox();
         }
     }
     
     private void SkipScrawl(InputAction.CallbackContext _)
     {
-        Debug.Log("Performed");
         if (_dialogueShowing && !_currentFlags.HasFlag(DialogueOptions.NO_INPUT))
             _skipScrawl = true;
     }
@@ -128,7 +133,6 @@ public class DialogueController : MonoBehaviour
             gameControls.Wrapper.Player.Move.Disable();
             gameControls.Wrapper.Player.Look.Disable();
         }
-        
     }
 
     private void CleanupDialogueBox()
@@ -148,7 +152,7 @@ public class DialogueController : MonoBehaviour
         _currentDialogueNodeCoroutine = null;
     }
     
-    private IEnumerator AnimateDialogueNode(DialogueNode dialogueNode, DialogueOptions options)
+    private IEnumerator AnimateDialogueNode(DialogueNode dialogueNode, DialogueOptions options, Action<string> choiceCallback)
     {
         InitDialogueBox();
         for (int i = 0; i < dialogueNode.sentences.Length; i++)
@@ -160,17 +164,28 @@ public class DialogueController : MonoBehaviour
             _currentDialogueCoroutine = null;
 
             if (i == dialogueNode.sentences.Length - 1)
-                SetHintText("Close [E]");
+            {
+                if (dialogueNode.HasChoices())
+                {
+                    _currentChoiceCoroutine = WaitForChoice(dialogueNode, choiceCallback);
+                    yield return StartCoroutine(_currentChoiceCoroutine);
+                    SetHintText("Select [E]");
+                }
+                else
+                    SetHintText("Close [E]");
+            }
             else
                 SetHintText("Next [E]");
 
-            while (!_nextDialogue && !(gameControls.Wrapper.Player.Interact.WasPerformedThisFrame() && !options.HasFlag(DialogueOptions.NO_INPUT)))
+            while (!_nextDialogue && !(gameControls.Wrapper.UI.DialogueAction.WasPerformedThisFrame() && !options.HasFlag(DialogueOptions.NO_INPUT)))
             {
                 yield return null;
             }
 
             _nextDialogue = false;
         }
+
+
         CleanupDialogueBox();
     }
     
@@ -198,5 +213,34 @@ public class DialogueController : MonoBehaviour
         
         dialogueBody.text = dialogue.Body; 
         yield return new WaitForSeconds(0.1f);
+    }
+
+    private IEnumerator WaitForChoice(DialogueNode dialogueNode, Action<string> choiceCallback)
+    {
+        Vector2 nav;
+        choiceBox.gameObject.SetActive(true);
+        choiceBox.SetChoices(dialogueNode.choices);
+        // forced pause so they don't accidently miss the choice being made
+        yield return new WaitForSeconds(0.5f);
+        while (!gameControls.Wrapper.UI.DialogueAction.WasPerformedThisFrame())
+        {
+            if (gameControls.Wrapper.UI.Navigate.WasPerformedThisFrame())
+            {
+                nav = gameControls.Wrapper.UI.Navigate.ReadValue<Vector2>();
+                if (nav.y > 0)
+                {
+                    choiceBox.MoveUp();
+                }
+                else if (nav.y < 0)
+                {
+                    choiceBox.MoveDown();
+                }
+            }
+            yield return null;
+        }
+        
+        
+        choiceCallback?.Invoke(choiceBox.CurrentChoice());
+        choiceBox.gameObject.SetActive(false);
     }
 }
