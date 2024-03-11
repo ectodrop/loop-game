@@ -12,6 +12,7 @@ public class PauseMenu : MonoBehaviour
     [Header("Triggers")]
     public GameEvent HUDEnableEvent;
     public GameEvent HUDDisableEvent;
+    public GameEvent resetLoopEvent;
 
     void Start()
     {
@@ -57,6 +58,14 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
+
+    // start loop
+    public void RestartLoop()
+    {
+        resetLoopEvent.TriggerEvent();
+        ResumeGame();
+    }
+
 
     public void QuitGame()
     {
