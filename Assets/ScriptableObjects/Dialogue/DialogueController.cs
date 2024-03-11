@@ -52,6 +52,7 @@ public class DialogueController : MonoBehaviour
     /// <param name="choiceCallback">calls this function when a choice is made</param>
     public void StartDialogue(DialogueNode dialogueNode, DialogueOptions options = 0, Action<string> choiceCallback = null)
     {
+        Debug.Log(options);
         if (options.HasFlag(DialogueOptions.INTERRUPTING))
         {
             CancelCurrentDialogue();
@@ -132,6 +133,7 @@ public class DialogueController : MonoBehaviour
         {
             gameControls.Wrapper.Player.Move.Disable();
             gameControls.Wrapper.Player.Look.Disable();
+            gameControls.Wrapper.Player.Interact.Disable();
         }
     }
 
@@ -145,6 +147,7 @@ public class DialogueController : MonoBehaviour
         {
             gameControls.Wrapper.Player.Look.Enable();
             gameControls.Wrapper.Player.Move.Enable();
+            gameControls.Wrapper.Player.Interact.Enable();
         }
         dialogueBox.SetActive(false);
         _dialogueShowing = false;
