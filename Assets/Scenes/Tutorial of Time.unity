@@ -1369,7 +1369,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6215278878030138095, guid: 2d8b57472db8744f981df59302f73ae0, type: 3}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: RestartLoop
         m_Mode: 1
@@ -7563,7 +7563,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6215278878030138095, guid: 2d8b57472db8744f981df59302f73ae0, type: 3}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -9194,7 +9194,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2581067280978089620, guid: 2d8b57472db8744f981df59302f73ae0, type: 3}
         m_TargetAssemblyTypeName: MixLevels, Assembly-CSharp
         m_MethodName: SetMusicLevel
         m_Mode: 0
@@ -9679,7 +9679,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6215278878030138095, guid: 2d8b57472db8744f981df59302f73ae0, type: 3}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
@@ -11238,7 +11238,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2581067280978089620, guid: 2d8b57472db8744f981df59302f73ae0, type: 3}
         m_TargetAssemblyTypeName: MixLevels, Assembly-CSharp
         m_MethodName: SetSFXLevel
         m_Mode: 0
