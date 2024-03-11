@@ -171,7 +171,8 @@ public class DialogueController : MonoBehaviour
                     yield return StartCoroutine(_currentChoiceCoroutine);
                     SetHintText("Select [E]");
                 }
-                SetHintText("Close [E]");
+                else
+                    SetHintText("Close [E]");
             }
             else
                 SetHintText("Next [E]");
