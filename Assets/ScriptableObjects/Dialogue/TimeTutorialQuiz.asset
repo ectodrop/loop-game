@@ -10,14 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adce889d7bd57e243a0b312de15ae9b0, type: 3}
-  m_Name: TimeTutorialDialogue(NotFirstTime)
+  m_Name: TimeTutorialQuiz
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Jarvis
-    Body: Welcome back, lets try this again
+    Body: 'Ok, it''s 12:10pm so time''s up! '
   - Speaker: Jarvis
-    Body: Observe the room until <color=red>12:10pm</color>, and I'll ask you the
-      same question.
+    Body: 'Here''s you question:'
   - Speaker: Jarvis
-    Body: Remember, I want to know exactly when the lights flicker
-  choices: []
+    Body: At what time did the lights in this room flicker?
+  choices:
+  - 12:00pm
+  - 12:01pm
+  - 12:02pm
+  - 12:03pm
+  - 12:04pm
+  - 12:05pm
+  - 12:06pm
+  - 12:07pm
+  - 12:08pm
+  - 12:09pm
+  - 12:10pm

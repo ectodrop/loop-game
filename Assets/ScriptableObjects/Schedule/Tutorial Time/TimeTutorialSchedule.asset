@@ -9,14 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b66d0962d5dfd8f418a389db2cece9af, type: 3}
-  m_Name: TimeSettings
+  m_Script: {fileID: 11500000, guid: c677fe107590081418d8b1cbf8a94621, type: 3}
+  m_Name: TimeTutorialSchedule
   m_EditorClassIdentifier: 
-  defaultStartTimestamp:
-    hour: 12
-    minute: 0
-  defaultEndTimestamp:
-    hour: 12
-    minute: 20
-  secondsPerMinute: 1
-  minutesPerIncrement: 1
+  scheduledEvents:
+  - {fileID: 11400000, guid: ffe4f8bbc4b2dfb468e55a6e2eaaa99d, type: 2}
+  - {fileID: 11400000, guid: 7f82a1b56e7745f4eab66ccb1fd73636, type: 2}

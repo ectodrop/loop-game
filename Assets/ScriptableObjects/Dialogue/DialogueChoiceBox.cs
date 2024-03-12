@@ -15,8 +15,8 @@ public class DialogueChoiceBoxController : MonoBehaviour
 
     public void SetChoices(string[] choices)
     {
-        if (_dialogueChoices.Count == 0)
-            InitObjectPool();
+        if (_dialogueChoices.Count < choices.Length)
+            ExpandObjectPool(choices.Length);
         
         _currentNumChoices = choices.Length;
         for (int i = 0; i < _currentNumChoices; i++)
@@ -48,9 +48,9 @@ public class DialogueChoiceBoxController : MonoBehaviour
         return _dialogueChoices[_currentIndex].GetChoice();
     }
 
-    private void InitObjectPool()
+    private void ExpandObjectPool(int targetCount)
     {
-        for (int i = 0; i < 10; i++)
+        while (_dialogueChoices.Count < targetCount)
         {
             var go = Instantiate(optionPrefab, transform);
             _dialogueChoices.Add(go.GetComponent<DialogueChoice>());

@@ -50,10 +50,14 @@ public class DialogueController : MonoBehaviour
     /// <item>STOP_TIME = sets the timeStopped shared bool scriptableobject</item>
     /// </list>
     /// </param>
-    /// <param name="choiceCallback">calls this function when a choice is made</param>
-    public void StartDialogue(DialogueNode dialogueNode, DialogueOptions options = 0, Action<string> choiceCallback = null)
+    /// <param name="finishedCallback">calls this function at the very end of the dialogue after it has closed</param>
+    /// <param name="choiceCallback">calls this function when a choice is made in the same location as finishedCallback</param>
+    public void StartDialogue(
+        DialogueNode dialogueNode,
+        DialogueOptions options = 0,
+        Action finishedCallback = null,
+        Action<string> choiceCallback = null)
     {
-        Debug.Log(options);
         if (options.HasFlag(DialogueOptions.INTERRUPTING))
         {
             CancelCurrentDialogue();
@@ -62,7 +66,7 @@ public class DialogueController : MonoBehaviour
         if (!_dialogueShowing)
         {
             _currentFlags = options;
-            _currentDialogueNodeCoroutine = AnimateDialogueNode(dialogueNode, options, choiceCallback);
+            _currentDialogueNodeCoroutine = AnimateDialogueNode(dialogueNode, options, finishedCallback, choiceCallback);
             StartCoroutine(_currentDialogueNodeCoroutine);
         }
     }
@@ -159,9 +163,14 @@ public class DialogueController : MonoBehaviour
         DialogueStop.TriggerEvent();
     }
     
-    private IEnumerator AnimateDialogueNode(DialogueNode dialogueNode, DialogueOptions options, Action<string> choiceCallback)
+    private IEnumerator AnimateDialogueNode(
+        DialogueNode dialogueNode,
+        DialogueOptions options,
+        Action finishedCallback,
+        Action<string> choiceCallback)
     {
         InitDialogueBox();
+        string choice = "";
         for (int i = 0; i < dialogueNode.sentences.Length; i++)
         {
             SetHintText("Skip [E]");
@@ -179,9 +188,12 @@ public class DialogueController : MonoBehaviour
             {
                 if (dialogueNode.HasChoices())
                 {
-                    _currentChoiceCoroutine = WaitForChoice(dialogueNode, choiceCallback);
                     SetHintText("Select [E]");
+                    _currentChoiceCoroutine = WaitForChoice();
                     yield return StartCoroutine(_currentChoiceCoroutine);
+
+                    choice = choiceBox.CurrentChoice();
+                    choiceBox.gameObject.SetActive(false);
                 }
                 else
                     SetHintText("Close [E]");
@@ -196,9 +208,11 @@ public class DialogueController : MonoBehaviour
 
             _nextDialogue = false;
         }
-
-
         CleanupDialogueBox();
+        
+        finishedCallback?.Invoke();
+        if (dialogueNode.HasChoices())
+            choiceCallback?.Invoke(choice);
     }
     
     private IEnumerator AnimateDialogue(Dialogue dialogue)
@@ -231,7 +245,7 @@ public class DialogueController : MonoBehaviour
         return _dialogueShowing;
     }
 
-    private IEnumerator WaitForChoice(DialogueNode dialogueNode, Action<string> choiceCallback)
+    private IEnumerator WaitForChoice()
     {
         Vector2 nav;
         // forced pause so they don't accidently miss the choice being made
@@ -253,8 +267,5 @@ public class DialogueController : MonoBehaviour
             yield return null;
         }
         
-        
-        choiceCallback?.Invoke(choiceBox.CurrentChoice());
-        choiceBox.gameObject.SetActive(false);
     }
 }

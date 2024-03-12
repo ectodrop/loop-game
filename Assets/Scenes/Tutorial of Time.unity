@@ -966,25 +966,17 @@ MonoBehaviour:
   _dialogueController: {fileID: 1488590720}
   _timeLoopController: {fileID: 1133682757}
   firstTime: {fileID: 11400000, guid: 095eb058b77c8d947a0264fa259406dd, type: 2}
-  QuestionUI: {fileID: 1269754950}
-  answerInputField: {fileID: 1900959969}
-  ConfirmButton: {fileID: 1253960609}
+  jarvisObject: {fileID: 76251867}
   dialogueFirstTime: {fileID: 11400000, guid: 57d9a9f4666fb3348b58e0f46eb168e4, type: 2}
   dialogueNotFirstTime: {fileID: 11400000, guid: 51dc1239a09072e448b489a3876a48f3, type: 2}
   dialogueSuccess: {fileID: 11400000, guid: 4d3814bb41eab6d4db22de51a1fdcbe1, type: 2}
   dialogueFail: {fileID: 11400000, guid: 4457217eb1713b446b0ccc327226d16b, type: 2}
   dialogueReset: {fileID: 11400000, guid: 58164ec261277db408bedb861893bb81, type: 2}
-  resetLoopEvent: {fileID: 11400000, guid: 8fb932e54d9c1da41a1bb9ab63b79c5d, type: 2}
-  timeStopStartEvent: {fileID: 11400000, guid: ff2edae89ca8dc947818500d2d72bcda, type: 2}
-  timeStopEndEvent: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
-  LookAtJarvis: {fileID: 11400000, guid: dae31d5a2fec9bc4e85373eede3fbebd, type: 2}
-  LookFree: {fileID: 11400000, guid: 7496f194c18bedc4a87bc83b00f0b5f8, type: 2}
+  dialogueQuiz: {fileID: 11400000, guid: 0bede37ce0b33994e9364f3520e8371f, type: 2}
   LightFlicker: {fileID: 11400000, guid: a1db66499d137ba4f9a043a6e2d09f3c, type: 2}
-  HUDEnableEvent: {fileID: 11400000, guid: b5f5815aa870bd94193305b653618559, type: 2}
-  HUDDisableEvent: {fileID: 11400000, guid: cdf783c48e6ae5146b11be7af6e6f4cd, type: 2}
+  lookAtEvent: {fileID: 11400000, guid: 67bc92a290c6dde4d882319f65ba9518, type: 2}
   DialogueStop: {fileID: 11400000, guid: 63cb6af67ff33e14db9206c143abc455, type: 2}
-  AnswerCorrect: {fileID: 11400000, guid: 1de599ee14b723947aadb219e7886f0e, type: 2}
-  AnswerWrong: {fileID: 11400000, guid: a9773a135d343fd49bf2bf35f312c478, type: 2}
+  studyTimeOverEvent: {fileID: 11400000, guid: 7f82a1b56e7745f4eab66ccb1fd73636, type: 2}
 --- !u!4 &352140151
 Transform:
   m_ObjectHideFlags: 0
@@ -1490,6 +1482,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1228445199569269237, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228445199569269237, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228445199569269237, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228445199569269237, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228445199569269237, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2645905690333547114, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
       propertyPath: m_Name
       value: PlayerAnimated
@@ -4632,22 +4644,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1552960692}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!114 &1253960609 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5695538079806543402, guid: 3ce87ea03d2e10248b9875b3a41a328e, type: 3}
-  m_PrefabInstance: {fileID: 8093836432526383032}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1269754950 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1684882697977780823, guid: 3ce87ea03d2e10248b9875b3a41a328e, type: 3}
-  m_PrefabInstance: {fileID: 8093836432526383032}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1269894209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5593,6 +5589,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimeController
       objectReference: {fileID: 0}
+    - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
+      propertyPath: scheduleController
+      value: 
+      objectReference: {fileID: 11400000, guid: 80f1b0edd73b81341acf91f9a1f985c0, type: 2}
     - target: {fileID: 6650408051653675645, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6854,7 +6854,7 @@ MonoBehaviour:
   lightOff: {fileID: 2100000, guid: 610d8812741194e4f8af4a42ac536a56, type: 2}
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
-  LightFlicker: {fileID: 11400000, guid: a1db66499d137ba4f9a043a6e2d09f3c, type: 2}
+  LightFlicker: {fileID: 11400000, guid: ffe4f8bbc4b2dfb468e55a6e2eaaa99d, type: 2}
 --- !u!1 &1577409841
 GameObject:
   m_ObjectHideFlags: 0
@@ -8324,17 +8324,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1655291018}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1900959969 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1109361042990859921, guid: 3ce87ea03d2e10248b9875b3a41a328e, type: 3}
-  m_PrefabInstance: {fileID: 8093836432526383032}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1922498103 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 599038612093543904, guid: ba80b85bf77952144a7c91245a33d968, type: 3}

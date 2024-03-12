@@ -9,14 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b66d0962d5dfd8f418a389db2cece9af, type: 3}
-  m_Name: TimeSettings
+  m_Script: {fileID: 11500000, guid: 8984eaa5143b78947a13f0b2daf24443, type: 3}
+  m_Name: LookAtEvent
   m_EditorClassIdentifier: 
-  defaultStartTimestamp:
-    hour: 12
-    minute: 0
-  defaultEndTimestamp:
-    hour: 12
-    minute: 20
-  secondsPerMinute: 1
-  minutesPerIncrement: 1

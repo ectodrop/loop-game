@@ -2862,9 +2862,8 @@ MonoBehaviour:
   gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
   sens: 20
   player: {fileID: 2645905690333547114}
-  LookAtObject: {fileID: 0}
-  LookAtJarvis: {fileID: 11400000, guid: dae31d5a2fec9bc4e85373eede3fbebd, type: 2}
-  LookFree: {fileID: 11400000, guid: 7496f194c18bedc4a87bc83b00f0b5f8, type: 2}
+  lookAtEvent: {fileID: 11400000, guid: 67bc92a290c6dde4d882319f65ba9518, type: 2}
+  lookAtSpeed: 2
 --- !u!114 &6429575070353933640
 MonoBehaviour:
   m_ObjectHideFlags: 0
