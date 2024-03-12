@@ -506,8 +506,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7927ccd6f8bd50449ce5ff0d5f03cc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LookAtJarvis: {fileID: 0}
-  LookFree: {fileID: 0}
+  _tutorialGuide: {fileID: 352140150}
+  Panel: {fileID: 870560433}
+  Images:
+  - {fileID: 21300000, guid: d375cb23ba70ef14a9842ca84a533fdd, type: 3}
+  - {fileID: 21300000, guid: e34cf74ee7a146940bc4f241fe9c87f1, type: 3}
+  - {fileID: 21300000, guid: b508473241bb0a3498569891b22f671b, type: 3}
 --- !u!1001 &82245579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3519,7 +3523,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2be90df4f09b74249b2d15c45b1b96e1, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

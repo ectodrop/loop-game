@@ -20,15 +20,15 @@ public class Jarvis : MonoBehaviour
     private void Update()
     {
         _check = _tutorialGuide.GetCurrentDialogue();
-        if (_check == 0 || _check == 1 || _check == 2)
+        if (_check == 0 || _check == 1 || _check == 4)
         {
             Panel.GetComponent<Image>().sprite = Images[0];
         }
-        else if (_check == 3)
+        else if (_check == 2)
         {
             Panel.GetComponent<Image>().sprite = Images[1];
         }
-        else if (_check == 4)
+        else if (_check == 3)
         {
             Panel.GetComponent<Image>().sprite = Images[2];
         }
