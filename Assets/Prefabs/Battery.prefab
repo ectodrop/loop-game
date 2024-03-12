@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 2158671835879741841}
   - component: {fileID: 4948543337567362951}
   m_Layer: 0
-  m_Name: Battery Percent
+  m_Name: PercentText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

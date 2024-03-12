@@ -25,9 +25,6 @@ public class TutorialGuide : MonoBehaviour
 
     public GameEvent disableBattery;
 
-    // Disable the drain feature on the battery
-    public GameEvent disableDrain;
-
     // Enable and disable switch function
     public GameEvent enableSwitch;
     public GameEvent disableSwitch;
@@ -43,7 +40,6 @@ public class TutorialGuide : MonoBehaviour
         // Disable Battery and Switch
         disableBattery.TriggerEvent();
         disableSwitch.TriggerEvent();
-        disableDrain.TriggerEvent();
         _dialogueController = FindObjectOfType<DialogueController>();
         _dialogueController.StartDialogue(playerThoughts, DialogueOptions.NO_INPUT | DialogueOptions.ALLOW_MOVEMENT);
     }
