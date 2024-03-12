@@ -8,7 +8,6 @@ public class CameraLook : MonoBehaviour
     public GameControls gameControls;
     public float sens = 400;
     public GameObject player;
-    public GameEventVector3 lookAtPoint;
     
     // Used for vertical viewing limits
     private float _minAngle = -45.0f;
@@ -21,16 +20,6 @@ public class CameraLook : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    }
-
-    private void OnEnable()
-    {
-        lookAtPoint.AddListener(HandleLookat);
-    }
-
-    private void HandleLookat(Vector3 point)
-    {
-        
     }
 
     // Update is called once per frame

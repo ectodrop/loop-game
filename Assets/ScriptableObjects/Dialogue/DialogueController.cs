@@ -12,7 +12,7 @@ public class DialogueController : MonoBehaviour
     // a sound effect will be played for every "charactersPerSFX" characters
     public int charactersPerSFX = 3;
     public GameObject dialogueBox;
-    public DialogueChoiceBox choiceBox;
+    public DialogueChoiceBoxController choiceBox;
     public TextMeshProUGUI dialogueControlsHint;
     public TextMeshProUGUI dialogueSpeaker;
     public TextMeshProUGUI dialogueBody;
@@ -162,6 +162,11 @@ public class DialogueController : MonoBehaviour
         {
             SetHintText("Skip [E]");
             // blocks and waits for the text to finish animating
+            if (i == dialogueNode.sentences.Length - 1 && dialogueNode.HasChoices())
+            {
+                choiceBox.gameObject.SetActive(true);
+                choiceBox.SetChoices(dialogueNode.choices);
+            }
             _currentDialogueCoroutine = AnimateDialogue(dialogueNode.sentences[i]); 
             yield return StartCoroutine(_currentDialogueCoroutine);
             _currentDialogueCoroutine = null;
@@ -171,8 +176,8 @@ public class DialogueController : MonoBehaviour
                 if (dialogueNode.HasChoices())
                 {
                     _currentChoiceCoroutine = WaitForChoice(dialogueNode, choiceCallback);
-                    yield return StartCoroutine(_currentChoiceCoroutine);
                     SetHintText("Select [E]");
+                    yield return StartCoroutine(_currentChoiceCoroutine);
                 }
                 else
                     SetHintText("Close [E]");
@@ -221,10 +226,8 @@ public class DialogueController : MonoBehaviour
     private IEnumerator WaitForChoice(DialogueNode dialogueNode, Action<string> choiceCallback)
     {
         Vector2 nav;
-        choiceBox.gameObject.SetActive(true);
-        choiceBox.SetChoices(dialogueNode.choices);
         // forced pause so they don't accidently miss the choice being made
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         while (!gameControls.Wrapper.UI.DialogueAction.WasPerformedThisFrame())
         {
             if (gameControls.Wrapper.UI.Navigate.WasPerformedThisFrame())

@@ -26,6 +26,14 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameControls.Wrapper.Player.Sprint.IsPressed())
+        {
+            _playerAnimator.SetFloat("walkingSpeed", 2f);
+        } else
+        {
+            _playerAnimator.SetFloat("walkingSpeed", 1f);
+        }
+        
         if (!_isWalking)
         {
             if (pressedWalking())
@@ -41,13 +49,6 @@ public class PlayerAnimator : MonoBehaviour
 
                 _playerAnimator.SetBool(_starting_foot, true);
 
-                if (gameControls.Wrapper.Player.Sprint.IsPressed())
-                {
-                    _playerAnimator.SetFloat("walkingSpeed", 2f);
-                } else
-                {
-                    _playerAnimator.SetFloat("walkingSpeed", 1f);
-                }
                 _isWalking = true;
             }
         } else

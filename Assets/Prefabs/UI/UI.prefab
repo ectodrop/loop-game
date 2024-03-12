@@ -292,6 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionPrefab: {fileID: 3751068532454073729, guid: 1649755f9173bcf47b207b3a82eca1de, type: 3}
+  choiceBox: {fileID: 0}
 --- !u!1 &990758491647748286
 GameObject:
   m_ObjectHideFlags: 0

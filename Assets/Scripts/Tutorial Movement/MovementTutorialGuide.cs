@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
@@ -24,6 +26,13 @@ public class MovementTutorialGuide : MonoBehaviour
         gameControls.Wrapper.Player.Move.performed += HandleMove;
         gameControls.Wrapper.Player.Look.performed += HandleLook;
         gameControls.Wrapper.Player.Sprint.performed += HandleSprinted;
+    }
+
+    private void OnDisable()
+    {
+        gameControls.Wrapper.Player.Move.performed -= HandleMove;
+        gameControls.Wrapper.Player.Look.performed -= HandleLook;
+        gameControls.Wrapper.Player.Sprint.performed -= HandleSprinted;
     }
 
     private void HandleLook(InputAction.CallbackContext _)
@@ -53,9 +62,18 @@ public class MovementTutorialGuide : MonoBehaviour
     {
         if (Vector3.Distance(player.transform.position, phone.position) < 5f)
         {
-            Debug.Log(player.transform.position);
-            Debug.Log(transform.position);
             player.TeleportTo(transform.position);
+            StartCoroutine(FreezeMovement());
         }
+    }
+
+
+    private IEnumerator FreezeMovement()
+    {
+        gameControls.Wrapper.Player.Move.Disable();
+        gameControls.Wrapper.Player.Look.Disable();
+        yield return new WaitForSeconds(0.5f);
+        gameControls.Wrapper.Player.Move.Enable();
+        gameControls.Wrapper.Player.Look.Enable();
     }
 }
