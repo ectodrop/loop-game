@@ -16,9 +16,14 @@ public class LabLightsController : MonoBehaviour
     [Header("Listening To")]
     public GameEvent powerOn;
     public GameEvent powerOff;
+    public GameEvent LightFlicker;
+    private const float _flickerDuration = 1.0f;
+    private float _flickerCountDown;
+    private bool _flickering = false;
 
     private void Start()
     {
+        _flickerCountDown = _flickerDuration;
         List<LightmapData> dlightMap = new List<LightmapData>();
         for (int i = 0; i < darkLightmapColor.Length; i++)
         {
@@ -48,12 +53,14 @@ public class LabLightsController : MonoBehaviour
     {
         powerOn.AddListener(HandlePowerOn);
         powerOff.AddListener(HandlePowerOff);
+        LightFlicker.AddListener(Flicker);
     }
 
     private void OnDisable()
     {
         powerOn.RemoveListener(HandlePowerOn);
         powerOff.RemoveListener(HandlePowerOff);
+        LightFlicker.RemoveListener(Flicker);
     }
 
     private void HandlePowerOn()
@@ -72,5 +79,23 @@ public class LabLightsController : MonoBehaviour
         {
             light.material = lightOff;
         }
+    }
+    private void Update()
+    {
+        if (_flickering)
+        {
+            _flickerCountDown -= Time.deltaTime;
+            if (_flickerCountDown <= 0f)
+            {
+                powerOn.TriggerEvent();
+            }
+        }
+        
+        
+    }
+    void Flicker()
+    {
+        _flickering = true;
+        powerOff.TriggerEvent();
     }
 }
