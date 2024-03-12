@@ -32,6 +32,7 @@ public class TutorialGuide : MonoBehaviour
     [Header("Listening To")]
     public GameEvent switchOn;
     public GameEvent powerOn;
+    public GameEvent powerOff;
 
     private DialogueController _dialogueController;
 
@@ -49,13 +50,15 @@ public class TutorialGuide : MonoBehaviour
         doorFirstClick.AddListener(HandleDoorFirstClick);
         switchOn.AddListener(HandleSwitchOn);
         powerOn.AddListener(HandlePowerOn);
+        powerOff.AddListener(HandlePowerOff);
     }
 
     private void OnDisable()
     {
         doorFirstClick.RemoveListener(HandleDoorFirstClick);
         switchOn.RemoveListener(HandleSwitchOn);
-        powerOn.AddListener(HandlePowerOn);
+        powerOn.RemoveListener(HandlePowerOn);
+        powerOff.RemoveListener(HandlePowerOff);
     }
 
     // 1. User clicks the door button, trigger the power outage, enable power switch
@@ -88,5 +91,11 @@ public class TutorialGuide : MonoBehaviour
         {
             _dialogueController.ProgressDialogue();
         }
+    }
+
+    // 4. User did not exit the tutorial fast enough prompt them to loop reset
+    private void HandlePowerOff()
+    {
+        _dialogueController.ProgressDialogue();
     }
 }
