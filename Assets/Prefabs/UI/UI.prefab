@@ -1659,6 +1659,7 @@ RectTransform:
   - {fileID: 8066536482951941235}
   - {fileID: 4125091359568263942}
   - {fileID: 177305493049630283}
+  - {fileID: 2986825445554634718}
   m_Father: {fileID: 8542436065141596277}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3359,6 +3360,7 @@ MonoBehaviour:
   secondsPerCharacter: 0.01666667
   charactersPerSFX: 4
   dialogueBox: {fileID: 3060949847846330310}
+  choiceBox: {fileID: 6106730699236403275}
   dialogueControlsHint: {fileID: 3590442518978604122}
   dialogueSpeaker: {fileID: 5167239123395411733}
   dialogueBody: {fileID: 3761588809177868547}
