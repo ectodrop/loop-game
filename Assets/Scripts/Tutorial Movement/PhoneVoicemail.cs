@@ -9,6 +9,7 @@ public class PhoneVoicemail : MonoBehaviour, IInteractable, ILabel
     private DialogueController _dialogueControlller;
 
     public DialogueNode[] voicemails;
+    public MovementTutorialGuide movementTutorial;
 
     private void Start()
     {
@@ -19,13 +20,14 @@ public class PhoneVoicemail : MonoBehaviour, IInteractable, ILabel
     {
         _dialogueControlller.StartDialogue(readVoiceMail, choiceCallback: PlayVoiceMails);
     }
+    
 
     public void PlayVoiceMails(string voicemail)
     {
         switch (voicemail)
         {
             case "Voicemail 1":
-                _dialogueControlller.StartDialogue(voicemails[0], DialogueOptions.INTERRUPTING);
+                _dialogueControlller.StartDialogue(voicemails[0], finishedCallback: () => movementTutorial.StartJarvisFirstDialogue());
                 break;
         }
     }

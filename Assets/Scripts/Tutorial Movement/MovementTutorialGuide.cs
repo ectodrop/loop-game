@@ -13,12 +13,23 @@ public class MovementTutorialGuide : MonoBehaviour
     public GameObject lookObject;
     public GameObject movementObject;
     public GameObject sprintObject;
+    public GameObject jarvisObject;
+    public GameObject timeDoor;
+    public GameObject powerDoor;
     public GameControls gameControls;
+    public DialogueNode dialogueJarvisExplanation;
 
+    [Header("Triggers")] public GameEventVector3 lookAtEvent;
 
+    private DialogueController _dialogueController;
     private bool _hasLooked;
     private bool _hasMoved;
     private bool _hasSprinted;
+
+    private void Start()
+    {
+        _dialogueController = FindObjectOfType<DialogueController>();
+    }
 
     private void OnEnable()
     {
@@ -67,6 +78,30 @@ public class MovementTutorialGuide : MonoBehaviour
         }
     }
 
+    public void StartJarvisFirstDialogue()
+    {
+        lookAtEvent.TriggerEvent(jarvisObject.transform.position);
+        _dialogueController.StartDialogue(dialogueJarvisExplanation, finishedCallback: () => StartCoroutine(OpenDoor(timeDoor.transform)));
+    }
+
+
+    public void OpenPowerDoor()
+    {
+        StartCoroutine(OpenDoor(powerDoor.transform));
+    }
+
+
+    public IEnumerator OpenDoor(Transform door)
+    {
+        lookAtEvent.TriggerEvent(door.position);
+        float y = 0;
+        while (y < 5f)
+        {
+            door.position += new Vector3(0, Time.deltaTime, 0);
+            y += Time.deltaTime;
+            yield return null;
+        }
+    }
 
     private IEnumerator FreezeMovement()
     {

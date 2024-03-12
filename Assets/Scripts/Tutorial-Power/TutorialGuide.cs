@@ -81,7 +81,7 @@ public class TutorialGuide : MonoBehaviour
     IEnumerator TriggerPowerOutage()
     {
         yield return new WaitForSeconds(1);
-        powerOutageEvent.TriggerEvent();
+        // powerOutageEvent.TriggerEvent();
         _dialogueController.ProgressDialogue(true);
     }
 

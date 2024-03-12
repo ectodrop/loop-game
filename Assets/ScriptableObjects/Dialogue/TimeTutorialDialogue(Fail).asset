@@ -16,4 +16,5 @@ MonoBehaviour:
   - Speaker: Jarvis
     Body: Wrong. Hmm... Seems like your observing ability has also been hindered.
   - Speaker: Jarvis
-    Body: 'We have to activate our backup plan then. Let''s reset the time. '
+    Body: 'That''s fine however, we can keep doing this for as long as it takes. '
+  choices: []

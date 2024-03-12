@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adce889d7bd57e243a0b312de15ae9b0, type: 3}
   m_Name: WakeupJarvisDialogue
   m_EditorClassIdentifier: 
-  sentences: []
+  sentences:
+  - Speaker: Jarvis
+    Body: Hey! You're finally awake.
+  - Speaker: Jarvis
+    Body: You looked like you were having quite a good nap there. What were you dreaming
+      about?
+  - Speaker: You
+    Body: That's none of your business.
+  - Speaker: Jarvis
+    Body: Well you woke up just in time for your psych eval. Follow me to the next
+      room.
   choices: []

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class TimeTutorialGuide : MonoBehaviour
     public TimeLoopController _timeLoopController;
     public SharedBool firstTime;
 
+    public SoundEffect powerOffSFX;
     public GameObject jarvisObject;
     [Header("Dialogues")]
     public DialogueNode dialogueFirstTime;
@@ -19,8 +21,11 @@ public class TimeTutorialGuide : MonoBehaviour
     public DialogueNode dialogueFail;
     public DialogueNode dialogueReset;
     public DialogueNode dialogueQuiz;
+    public DialogueNode dialoguePlayerPowerOutageThoughts;
     [Header("Triggers")]
     public GameEventVector3 lookAtEvent;
+
+    public GameEvent powerOffEvent;
     [Header("Listening To")]    
     public GameEvent DialogueStop;
 
@@ -35,7 +40,8 @@ public class TimeTutorialGuide : MonoBehaviour
         NotFirstTime, // 1
         Success, // 2
         Fail, // 3
-        Reset // 4
+        Reset, // 4
+        PowerOutage, // 5
     }
     private CurrentDialogue _currentDialogue;
 
@@ -48,6 +54,7 @@ public class TimeTutorialGuide : MonoBehaviour
     {
         DialogueStop.RemoveListener(StartObservation);
         studyTimeOverEvent.RemoveListener(Ask);
+        _timeLoopController.ResumeTime();
     }
     void Start()
     {
@@ -85,7 +92,7 @@ public class TimeTutorialGuide : MonoBehaviour
         {
             _currentDialogue = CurrentDialogue.Success;
             _timeLoopController.StopTime();
-            _dialogueController.StartDialogue(dialogueSuccess);
+            _dialogueController.StartDialogue(dialogueSuccess, finishedCallback: () => StartCoroutine(ShowPlayerThoughts()));
             _passed = true;
         }
         else
@@ -94,6 +101,15 @@ public class TimeTutorialGuide : MonoBehaviour
             _currentDialogue = CurrentDialogue.Fail;
             firstTime.SetValue(false);
         }
+    }
+
+    private IEnumerator ShowPlayerThoughts()
+    {
+        powerOffSFX.Play();
+        powerOffEvent.TriggerEvent();
+        _currentDialogue = CurrentDialogue.PowerOutage;
+        yield return new WaitForSeconds(3f);
+        _dialogueController.StartDialogue(dialoguePlayerPowerOutageThoughts, options: DialogueOptions.ALLOW_MOVEMENT | DialogueOptions.NO_INPUT);
     }
 
     private void ShowResetDialogue()
@@ -114,6 +130,8 @@ public class TimeTutorialGuide : MonoBehaviour
                 return 2;
             case CurrentDialogue.Fail:
                 return 3;
+            case CurrentDialogue.PowerOutage:
+                return 5;
             default:
                 return 4;
         }

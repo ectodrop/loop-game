@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee70da3093629ee4c80f3e4b2a97a092, type: 3}
   m_Name: FirstTime
   m_EditorClassIdentifier: 
-  DefaultValue: 0
+  DefaultValue: 1

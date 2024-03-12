@@ -176,6 +176,7 @@ MonoBehaviour:
   gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
   sens: 20
   player: {fileID: 8283829006946360855}
+  lookAtEvent: {fileID: 11400000, guid: 67bc92a290c6dde4d882319f65ba9518, type: 2}
 --- !u!114 &9002164438334457627
 MonoBehaviour:
   m_ObjectHideFlags: 0
