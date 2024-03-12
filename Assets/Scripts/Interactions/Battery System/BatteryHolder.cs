@@ -3,15 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
+using UnityEngine.Serialization;
 
 public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
 {
     public string HoldingText;
     public string EmptyText;
     public GameObject battery;
-    public TextMeshPro textMeshPro;
     public GameObject switchObj;
+    
+    // Battery UI
+    private TextMeshPro _batteryPercentageText;
+    private GameObject _batteryPercentageBar;
+    private float _originalBatteryScale;
+    private Vector3 _originalBatteryPos;
+
     // Game Events
 
     public SharedBool timeStoppedFlag;
@@ -19,7 +27,7 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     public GameEvent batteryDraining;
     public GameEvent batteryStopDraining;
     public GameEvent playerDropHeldEvent;
-    
+
     // Switch
     private PowerModeSwitch _switchScript;
 
@@ -28,8 +36,11 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     private int _holdLayer;
     private bool _holding = false;
     private Battery _batteryScript;
-
-    private int _drainRate = 1;
+    
+    [Header("Battery Drain Parameters")]
+    public int drainRate = 5;
+    public int drainIntervalSeconds = 1;
+    
     private bool _draining = false;
 
 
@@ -48,6 +59,12 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
         Debug.Log(_batteryScript.GetBatteryLevel().ToString());
 
         _switchScript = switchObj.GetComponent<PowerModeSwitch>();
+
+        // Get objects from battery
+        _batteryPercentageText = battery.transform.Find("PercentText").GetComponent<TextMeshPro>();
+        _batteryPercentageBar = battery.transform.Find("PercentBar").GameObject();
+        _originalBatteryScale = _batteryPercentageBar.transform.localScale.x;
+        _originalBatteryPos = _batteryPercentageBar.transform.localPosition;
     }
 
     private bool IsPlayerHolding()
@@ -59,7 +76,7 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     {
         if (_holding)
             return "";
-        
+
         if (!_holding && !IsPlayerHolding())
             return "Missing Battery";
         return IsPlayerHolding() ? HoldingText : EmptyText;
@@ -72,7 +89,6 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
         {
             playerDropHeldEvent.TriggerEvent();
             Debug.Log("Battery Inserted.");
-            textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
             GetComponent<BoxCollider>().enabled = false;
             battery.transform.tag = "Untagged";
             battery.transform.SetParent(gameObject.transform);
@@ -111,10 +127,12 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
         {
             if (!timeStoppedFlag.GetValue())
             {
-                _batteryScript.DecreaseBattery(10);
-                textMeshPro.text = _batteryScript.GetBatteryLevel().ToString();
+                _batteryScript.DecreaseBattery(drainRate);
+                _batteryPercentageText.text = _batteryScript.GetBatteryLevel().ToString();
+                AnimateBar();
             }
-            yield return new WaitForSeconds(_drainRate);
+
+            yield return new WaitForSeconds(drainIntervalSeconds);
         }
 
         // Battery is empty stop draining
@@ -144,5 +162,23 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     public bool IsBatteryEmpty()
     {
         return _batteryScript.GetBatteryLevel() <= 0;
+    }
+
+    private float CalculateScale(int percentage)
+    {
+        return percentage * 0.01f * _originalBatteryScale;
+    }
+
+    private void AnimateBar()
+    {
+        float scale = CalculateScale(_batteryScript.GetBatteryLevel());
+
+        _batteryPercentageBar.transform.localScale = new Vector3(scale,
+            _batteryPercentageBar.transform.localScale.y, _batteryPercentageBar.transform.localScale.z);
+
+        // Offset the position so the bottom of the bar stays fixed
+        _batteryPercentageBar.transform.localPosition = _originalBatteryPos - new Vector3(0,
+            1 - _batteryScript.GetBatteryLevel() * 0.01f,
+            0);
     }
 }

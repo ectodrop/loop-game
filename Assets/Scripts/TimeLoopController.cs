@@ -14,6 +14,7 @@ public class TimeLoopController : MonoBehaviour
 {
     public GameControls gameControls;
     public bool debugMode = false;
+    public bool timeTutorial = false;
     public TimeSettings timeSettings;
     public ScheduleControllerScriptableObject scheduleController;
 
@@ -66,7 +67,11 @@ public class TimeLoopController : MonoBehaviour
         {
             firstFrame = false;
             StopTime();
-            timeStopStartEvent.TriggerEvent();
+            if (!timeTutorial)
+            {
+                timeStopStartEvent.TriggerEvent();
+            }
+            
         }       
 
         if (timeStoppedFlag.GetValue() || debugMode)
@@ -117,13 +122,13 @@ public class TimeLoopController : MonoBehaviour
         lastTimestop = Time.time;
     }
 
-    private void StopTime()
+    public void StopTime()
     {
         timeStoppedFlag.SetValue(true);
         Shader.SetGlobalInteger("_TimeStopped", 1);
     }
 
-    private void ResumeTime()
+    public void ResumeTime()
     {
         timeStoppedFlag.SetValue(false);
         Shader.SetGlobalInteger("_TimeStopped", 0);
