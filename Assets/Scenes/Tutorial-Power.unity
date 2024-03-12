@@ -1074,11 +1074,11 @@ MonoBehaviour:
   doorFirstClick: {fileID: 11400000, guid: 2343f350184441447a467a6782b66563, type: 2}
   enableBattery: {fileID: 11400000, guid: 246d6ba8b6fd1a642bcb43650bbbfb39, type: 2}
   disableBattery: {fileID: 11400000, guid: 16acbc6daa870c54e9ccffe7a688b884, type: 2}
-  disableDrain: {fileID: 11400000, guid: 3965a3a7f6d768643a7afc8ad64720a2, type: 2}
   enableSwitch: {fileID: 11400000, guid: 6debaa38eb26ec84a92a4e0409ed3df0, type: 2}
   disableSwitch: {fileID: 11400000, guid: 9d006a4d94e2a7a4485d3b4cdc01d525, type: 2}
   switchOn: {fileID: 11400000, guid: cc9659571e034437db7d33d9139631c2, type: 2}
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
+  powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
 --- !u!4 &582914746
 Transform:
   m_ObjectHideFlags: 0
