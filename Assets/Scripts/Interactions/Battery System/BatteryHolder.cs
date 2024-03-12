@@ -36,10 +36,10 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     private int _holdLayer;
     private bool _holding = false;
     private Battery _batteryScript;
-
+    
     [Header("Battery Drain Parameters")]
-    public int DrainRate = 5;
-    public int DrainIntervalSeconds = 1;
+    public int drainRate = 5;
+    public int drainIntervalSeconds = 1;
     
     private bool _draining = false;
 
@@ -127,12 +127,12 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
         {
             if (!timeStoppedFlag.GetValue())
             {
-                _batteryScript.DecreaseBattery(DrainRate);
+                _batteryScript.DecreaseBattery(drainRate);
                 _batteryPercentageText.text = _batteryScript.GetBatteryLevel().ToString();
                 AnimateBar();
             }
 
-            yield return new WaitForSeconds(DrainIntervalSeconds);
+            yield return new WaitForSeconds(drainIntervalSeconds);
         }
 
         // Battery is empty stop draining
