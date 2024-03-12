@@ -41,11 +41,11 @@ public class TimeTutorialGuide : MonoBehaviour
 
     private enum CurrentDialogue
     {
-        FirstTime,
-        NotFirstTime,
-        Success,
-        Fail,
-        Reset
+        FirstTime, // 0
+        NotFirstTime, // 1
+        Success, // 2
+        Fail, // 3
+        Reset // 4
     }
     private CurrentDialogue _currentDialogue;
 
@@ -170,5 +170,21 @@ public class TimeTutorialGuide : MonoBehaviour
         _dialogueController.StartDialogue(dialogueFail, DialogueOptions.STOP_TIME);
         _currentDialogue = CurrentDialogue.Fail;
         firstTime.SetValue(false);
+    }
+    public int GetCurrentDialogue()
+    {
+        switch (_currentDialogue)
+        {
+            case CurrentDialogue.FirstTime:
+                return 0;
+            case CurrentDialogue.NotFirstTime:
+                return 1;
+            case CurrentDialogue.Success:
+                return 2;
+            case CurrentDialogue.Fail:
+                return 3;
+            default:
+                return 4;
+        }
     }
 }

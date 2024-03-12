@@ -16,4 +16,5 @@ MonoBehaviour:
   - Speaker: Jarvis
     Body: Alright, I'm gonna test your observing ability now.
   - Speaker: Jarvis
-    Body: Observe the room for 10 seconds, and you'll be asked a question.
+    Body: Observe the room unitil <color=red>12:10pm</color>, and you'll be asked
+      a question.
