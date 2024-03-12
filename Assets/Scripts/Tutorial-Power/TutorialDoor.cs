@@ -10,6 +10,7 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
     public GameEvent doorFirstClick;
     public ScheduleEvent powerOutageEvent;
     public SoundEffect garageDoorOpen;
+    public SoundEffect buttonClick;
 
     private bool canInteract = true;
     private bool _firstPress = false;
@@ -19,7 +20,7 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
     public GameEvent powerOn;
     public GameEvent powerOff;
     private bool _hasPower = true;
-    
+
     // Event to indicate the door is opening
     public GameEvent doorOpened;
 
@@ -72,6 +73,7 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
         // First click
         if (!_firstPress)
         {
+            buttonClick.Play();
             _firstPress = true;
             _hasPower = false;
             SetGreen();
@@ -81,6 +83,7 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
         // Power && Not first press
         else if (_firstPress && _hasPower)
         {
+            buttonClick.Play();
             SetGreen();
             StartCoroutine(AnimateDoor());
             doorOpened.TriggerEvent();
