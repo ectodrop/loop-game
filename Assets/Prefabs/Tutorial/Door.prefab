@@ -571,8 +571,10 @@ MonoBehaviour:
   doorFirstClick: {fileID: 11400000, guid: 2343f350184441447a467a6782b66563, type: 2}
   powerOutageEvent: {fileID: 11400000, guid: f488b13f3f501074aac9deab7aeb0391, type: 2}
   garageDoorOpen: {fileID: 11400000, guid: d74972dc5a9734d099399d84e7b72420, type: 2}
+  buttonClick: {fileID: 11400000, guid: 21da6927b1e7b49b89b22f866cf82356, type: 2}
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
+  doorOpened: {fileID: 11400000, guid: 8c84099be481a4b1b9216e38035c94f7, type: 2}
 --- !u!1 &7727589621651586665
 GameObject:
   m_ObjectHideFlags: 0

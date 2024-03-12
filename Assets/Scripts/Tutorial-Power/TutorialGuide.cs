@@ -25,9 +25,6 @@ public class TutorialGuide : MonoBehaviour
 
     public GameEvent disableBattery;
 
-    // Disable the drain feature on the battery
-    public GameEvent disableDrain;
-
     // Enable and disable switch function
     public GameEvent enableSwitch;
     public GameEvent disableSwitch;
@@ -35,15 +32,18 @@ public class TutorialGuide : MonoBehaviour
     [Header("Listening To")]
     public GameEvent switchOn;
     public GameEvent powerOn;
+    public GameEvent powerOff;
+    public GameEvent doorOpened;
 
     private DialogueController _dialogueController;
 
+    // Is the door opened already or not
+    private bool _doorOpened = false;
     public void Start()
     {
         // Disable Battery and Switch
         disableBattery.TriggerEvent();
         disableSwitch.TriggerEvent();
-        disableDrain.TriggerEvent();
         _dialogueController = FindObjectOfType<DialogueController>();
         _dialogueController.StartDialogue(playerThoughts, DialogueOptions.NO_INPUT | DialogueOptions.ALLOW_MOVEMENT);
     }
@@ -53,13 +53,22 @@ public class TutorialGuide : MonoBehaviour
         doorFirstClick.AddListener(HandleDoorFirstClick);
         switchOn.AddListener(HandleSwitchOn);
         powerOn.AddListener(HandlePowerOn);
+        powerOff.AddListener(HandlePowerOff);
+        doorOpened.AddListener(HandleDoorOpened);
     }
 
     private void OnDisable()
     {
         doorFirstClick.RemoveListener(HandleDoorFirstClick);
         switchOn.RemoveListener(HandleSwitchOn);
-        powerOn.AddListener(HandlePowerOn);
+        powerOn.RemoveListener(HandlePowerOn);
+        powerOff.RemoveListener(HandlePowerOff);
+        doorOpened.RemoveListener(HandleDoorOpened);
+    }
+
+    private void HandleDoorOpened()
+    {
+        _doorOpened = true;
     }
 
     // 1. User clicks the door button, trigger the power outage, enable power switch
@@ -73,7 +82,7 @@ public class TutorialGuide : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         powerOutageEvent.TriggerEvent();
-        _dialogueController.ProgressDialogue();
+        _dialogueController.ProgressDialogue(true);
     }
 
     // 2. Once user switches, disable switch, enable battery
@@ -81,7 +90,7 @@ public class TutorialGuide : MonoBehaviour
     {
         disableSwitch.TriggerEvent();
         enableBattery.TriggerEvent();
-        _dialogueController.ProgressDialogue();
+        _dialogueController.ProgressDialogue(true);
         _clickedSwitch = true;
     }
 
@@ -90,7 +99,16 @@ public class TutorialGuide : MonoBehaviour
     {
         if (_clickedSwitch)
         {
-            _dialogueController.ProgressDialogue();
+            _dialogueController.ProgressDialogue(true);
+        }
+    }
+
+    // 4. User did not exit the tutorial fast enough prompt them to loop reset
+    private void HandlePowerOff()
+    {
+        if (!_doorOpened)
+        {
+            _dialogueController.ProgressDialogue(true);
         }
     }
 }

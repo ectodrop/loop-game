@@ -736,6 +736,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1982057670417163552, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982057670417163552, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288142967553830877, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345943782213423821, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+      propertyPath: m_Name
+      value: PercentText
+      objectReference: {fileID: 0}
     - target: {fileID: 4816473742594666074, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
       propertyPath: m_Name
       value: Battery
@@ -751,7 +767,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3345943782213423821, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
 --- !u!1 &1147103333
 GameObject:
