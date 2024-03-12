@@ -23,4 +23,5 @@ MonoBehaviour:
     Body: The <color=red>Power LED</color> seems to indicate there is still no power.
       I need to find and insert the battery.
   - Speaker: Thinking
-    Body: The power seems to have come back on, I can now open the door.
+    Body: The power seems to have come back on, I can now open the door. The number
+      shows the battery level, I must hurry before the battery drains.
