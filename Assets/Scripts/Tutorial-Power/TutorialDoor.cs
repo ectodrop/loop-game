@@ -19,6 +19,9 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
     public GameEvent powerOn;
     public GameEvent powerOff;
     private bool _hasPower = true;
+    
+    // Event to indicate the door is opening
+    public GameEvent doorOpened;
 
     private void OnEnable()
     {
@@ -80,6 +83,7 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
         {
             SetGreen();
             StartCoroutine(AnimateDoor());
+            doorOpened.TriggerEvent();
         }
     }
 
