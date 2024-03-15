@@ -506,9 +506,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fluidParent: {fileID: 7357953238625705264}
-  glassObject: {fileID: 3806627381274657857}
-  hammer: {fileID: 11400000, guid: 0fee0f63d5b217f48ab2e3610c1857a1, type: 2}
+  bigFluid: {fileID: 0}
+  drainCoolantSFX: {fileID: 11400000, guid: 487dddffe9d424026a5f4387160b3c64, type: 2}
   OnFluidDrain: {fileID: 11400000, guid: e50e4f34bf1744aae9ce6bbf9ed0b394, type: 2}
+  drained: 0
 --- !u!82 &3015821289416567041
 AudioSource:
   m_ObjectHideFlags: 0

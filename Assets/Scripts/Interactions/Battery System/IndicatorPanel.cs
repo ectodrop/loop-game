@@ -12,6 +12,8 @@ public class IndicatorPanel : MonoBehaviour
 
     public GameObject batteryLed;
 
+    public bool isPowerOn = true;
+
     private bool _usingGenerator = true;
 
     // Is power being drawn from the battery
@@ -19,6 +21,7 @@ public class IndicatorPanel : MonoBehaviour
 
     // Is there a power outage?
     private bool _powerOutage = false;
+
 
     [Header("Listening To")]
     public GameEvent switchOn;
@@ -126,14 +129,18 @@ public class IndicatorPanel : MonoBehaviour
     private void TriggerPowerOff(GameObject obj)
     {
         obj.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.red);
-        powerOffSFX.Play();
+        if (isPowerOn)
+            powerOffSFX.Play();
+        isPowerOn = false;
         powerOff.TriggerEvent();
     }
 
     private void TriggerPowerOn(GameObject obj)
     {
         obj.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.green);
-        powerOnSFX.Play();
+        if (!isPowerOn)
+            powerOnSFX.Play();
+        isPowerOn = true;
         powerOn.TriggerEvent();
     }
 

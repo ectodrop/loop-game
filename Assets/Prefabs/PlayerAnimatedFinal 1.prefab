@@ -192,6 +192,8 @@ MonoBehaviour:
   player: {fileID: 8283829006946360855}
   holdPos: {fileID: 6869015666431666942}
   defaultPickupId: {fileID: 11400000, guid: a80aece38e78a4146bb4aa45685b8307, type: 2}
+  pickupSFX: {fileID: 11400000, guid: 94ad4fadc4b984420a8292f0c7606cd2, type: 2}
+  dropSFX: {fileID: 11400000, guid: d8320c9839d7945c1905e432a9ccb949, type: 2}
   dropHeldEvent: {fileID: 11400000, guid: d4be8eac327bce949ab9a46e2c01cb0e, type: 2}
 --- !u!114 &9169729297399253732
 MonoBehaviour:

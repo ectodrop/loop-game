@@ -118,7 +118,5 @@ public class Interactor : MonoBehaviour
             if (!timeStoppedFlag.GetValue())
                 interactable.Interact();
         }
-
-        
     }
 }

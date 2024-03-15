@@ -48,8 +48,10 @@ public class MovementTutorialGuide : MonoBehaviour
 
     private void HandleLook(InputAction.CallbackContext _)
     {
-        _hasLooked = true;
+        if (!_hasLooked)
+            lookAtEvent.TriggerEvent(phone.position);
         lookObject.SetActive(false);
+        _hasLooked = true;
         if (!_hasMoved)
             movementObject.SetActive(true);
     }

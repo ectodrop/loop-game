@@ -231,6 +231,7 @@ public class DialogueController : MonoBehaviour
             // tag detection
             if (dialogue.Body[i] == '<')
             {
+                // advance pointer until end of tag
                 while (i < dialogue.Body.Length && dialogue.Body[i] != '>')
                 {
                     dialogueBody.text += dialogue.Body[i];

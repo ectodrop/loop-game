@@ -13,9 +13,13 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     public GameObject PasswordScreen;
     public GameObject CrashScreen;
 
+    public SoundEffect computerUpdateSFX;
+    public SoundEffect computerUpdateCompleteSFX;
+    [Header("Listening To")]
     public ScheduleEvent displayPasswordEvent;
     // public SharedBool timeStopped;
     private bool _canInteract = false;
+    private AudioSource _audioSource;
     public enum Status
     {
         Loading,
@@ -31,6 +35,8 @@ public class PC : MonoBehaviour, IInteractable, ILabel
         LoadingScreen.SetActive(true);
         OnScreen.SetActive(false);
         CrashScreen.SetActive(false);
+        _audioSource = GetComponent<AudioSource>();
+        computerUpdateSFX.Play(_audioSource);
     }
     
     void OnEnable()
@@ -55,7 +61,6 @@ public class PC : MonoBehaviour, IInteractable, ILabel
             PasswordScreen.SetActive(true);
         }
     }
-
     
     public bool CanInteract()
     {
@@ -77,6 +82,7 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     {
         if (PCStatus != Status.Crash)
         {
+            computerUpdateCompleteSFX.Play(_audioSource);
             PCStatus = Status.On;
             _canInteract = true;
             LoadingScreen.SetActive(false);
@@ -86,6 +92,7 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     
     public void Crash()
     {
+        _audioSource.Stop();
         PCStatus = Status.Crash;
         LoadingScreen.SetActive(false);
         OnScreen.SetActive(false);
