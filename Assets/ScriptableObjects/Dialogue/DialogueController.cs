@@ -228,6 +228,18 @@ public class DialogueController : MonoBehaviour
                 _skipScrawl = false;
                 break;
             }
+            // tag detection
+            if (dialogue.Body[i] == '<')
+            {
+                while (i < dialogue.Body.Length && dialogue.Body[i] != '>')
+                {
+                    dialogueBody.text += dialogue.Body[i];
+                    i++;
+                }
+
+                if (i >= dialogue.Body.Length)
+                    break;
+            }
             dialogueBody.text += dialogue.Body[i];
             if (i % charactersPerSFX == 0)
                 typewriterSFX.Play();
