@@ -94,8 +94,6 @@ public class CameraLook : MonoBehaviour
         float sourceYRotation, targetYRotation;
         GetShortestRotationTarget(sourceRotation.x, targetRotation.x, out sourceXRotation, out targetXRotation);
         GetShortestRotationTarget(sourceRotation.y, targetRotation.y, out sourceYRotation, out targetYRotation);
-        Debug.Log(new Vector3(sourceXRotation, sourceYRotation, 0));
-        Debug.Log(new Vector3(targetXRotation, targetYRotation, 0));
         while (t < 1.0f)
         {
             this.transform.localRotation = Quaternion.Euler(Vector3.Lerp(new Vector3(sourceXRotation, 0, 0), new Vector3(targetXRotation, 0, 0), t));

@@ -29,6 +29,9 @@ public class PhoneVoicemail : MonoBehaviour, IInteractable, ILabel
             case "Voicemail 1":
                 _dialogueControlller.StartDialogue(voicemails[0], finishedCallback: () => movementTutorial.StartJarvisFirstDialogue());
                 break;
+            default:
+                Debug.Log("Invalid Voicemail");
+                break;
         }
     }
 

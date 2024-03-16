@@ -13,7 +13,6 @@ using UnityEngine;
 public class TutorialGuide : MonoBehaviour
 {
     public DialogueNode playerThoughts;
-    public ScheduleEvent powerOutageEvent;
 
     public GameObject doorSwitch;
     
@@ -78,14 +77,13 @@ public class TutorialGuide : MonoBehaviour
     // 1. User clicks the door button, trigger the power outage, enable power switch
     private void HandleDoorFirstClick()
     {
-        StartCoroutine(TriggerPowerOutage());
+        StartCoroutine(TryOpenDoor());
         enableSwitch.TriggerEvent();
     }
 
-    IEnumerator TriggerPowerOutage()
+    IEnumerator TryOpenDoor()
     {
         yield return new WaitForSeconds(1);
-        // powerOutageEvent.TriggerEvent();
         _dialogueController.ProgressDialogue(true);
     }
 
