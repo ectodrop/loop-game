@@ -15,6 +15,8 @@ public class TutorialGuide : MonoBehaviour
     public DialogueNode playerThoughts;
     public ScheduleEvent powerOutageEvent;
 
+    public GameObject doorSwitch;
+    
     // Event Tracking
     public GameEvent doorFirstClick;
     private bool _clickedSwitch = false;
@@ -28,6 +30,7 @@ public class TutorialGuide : MonoBehaviour
     // Enable and disable switch function
     public GameEvent enableSwitch;
     public GameEvent disableSwitch;
+    public GameEventVector3 lookAtEvent;
 
     [Header("Listening To")]
     public GameEvent switchOn;
@@ -42,6 +45,7 @@ public class TutorialGuide : MonoBehaviour
     public void Start()
     {
         // Disable Battery and Switch
+        lookAtEvent.TriggerEvent(doorSwitch.transform.position);
         disableBattery.TriggerEvent();
         disableSwitch.TriggerEvent();
         _dialogueController = FindObjectOfType<DialogueController>();

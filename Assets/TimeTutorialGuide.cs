@@ -47,18 +47,17 @@ public class TimeTutorialGuide : MonoBehaviour
 
     private void OnEnable()
     {
-        DialogueStop.AddListener(StartObservation);
+        // DialogueStop.AddListener(StartObservation);
         studyTimeOverEvent.AddListener(Ask);
     }
     private void OnDisable()
     {
-        DialogueStop.RemoveListener(StartObservation);
+        // DialogueStop.RemoveListener(StartObservation);
         studyTimeOverEvent.RemoveListener(Ask);
         _timeLoopController.ResumeTime();
     }
     void Start()
     {
-        Debug.Log(firstTime.GetValue());
         _timeLoopController.StopTime();
         if (firstTime.GetValue())
         {

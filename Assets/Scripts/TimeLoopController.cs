@@ -14,7 +14,8 @@ public class TimeLoopController : MonoBehaviour
 {
     public GameControls gameControls;
     public bool debugMode = false;
-    public bool timeTutorial = false;
+    public bool freezeTimeAtStart = false;
+    public int numTimeStops = 0;
     public TimeSettings timeSettings;
     public ScheduleControllerScriptableObject scheduleController;
 
@@ -44,7 +45,7 @@ public class TimeLoopController : MonoBehaviour
     private void Start()
     {
         timeSettings.ResetTimers();
-        timeStoppedFlag.ResetValue();
+        // timeStoppedFlag.ResetValue();
         
     }
 
@@ -63,15 +64,11 @@ public class TimeLoopController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (firstFrame)
+        if (firstFrame && freezeTimeAtStart)
         {
             firstFrame = false;
             StopTime();
-            if (!timeTutorial)
-            {
-                timeStopStartEvent.TriggerEvent();
-            }
-            
+            timeStopStartEvent.TriggerEvent();
         }       
 
         if (timeStoppedFlag.GetValue() || debugMode)
@@ -108,7 +105,10 @@ public class TimeLoopController : MonoBehaviour
         
         if (!timeStoppedFlag.GetValue())
         {
+            if (numTimeStops <= 0)
+                return;
             timestopStartSFX.Play();
+            numTimeStops--;
             StopTime();
             timeStopStartEvent.TriggerEvent();
         }

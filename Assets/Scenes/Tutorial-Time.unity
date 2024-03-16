@@ -7139,6 +7139,14 @@ PrefabInstance:
       value: TimeController
       objectReference: {fileID: 0}
     - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
+      propertyPath: numTimeStops
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
+      propertyPath: freezeTimeAtStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
       propertyPath: scheduleController
       value: 
       objectReference: {fileID: 11400000, guid: 80f1b0edd73b81341acf91f9a1f985c0, type: 2}
