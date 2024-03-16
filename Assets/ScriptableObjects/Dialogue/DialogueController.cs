@@ -140,6 +140,8 @@ public class DialogueController : MonoBehaviour
         {
             gameControls.Wrapper.Player.Move.Disable();
             gameControls.Wrapper.Player.Look.Disable();
+            gameControls.Wrapper.Player.Sprint.Disable();
+            gameControls.Wrapper.Player.Jump.Disable();
             gameControls.Wrapper.Player.Interact.Disable();
         }
     }
@@ -154,6 +156,8 @@ public class DialogueController : MonoBehaviour
         {
             gameControls.Wrapper.Player.Look.Enable();
             gameControls.Wrapper.Player.Move.Enable();
+            gameControls.Wrapper.Player.Sprint.Enable();
+            gameControls.Wrapper.Player.Jump.Enable();
             gameControls.Wrapper.Player.Interact.Enable();
         }
         dialogueBox.SetActive(false);

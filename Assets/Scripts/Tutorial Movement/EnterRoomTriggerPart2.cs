@@ -8,6 +8,14 @@ public class LookAtTrigger : MonoBehaviour
     public GameObject powerDoor;
     [Header("Triggers")]
     public GameEventVector3 lookAtEvent;
+
+    private BoxCollider _collider;
+
+    private void Start()
+    {
+        _collider = GetComponent<BoxCollider>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -18,6 +26,7 @@ public class LookAtTrigger : MonoBehaviour
     public IEnumerator OpenDoor()
     {
         lookAtEvent.TriggerEvent(powerDoor.transform.position);
+        _collider.enabled = false;
         float y = 0;
         while (y < 5f)
         {
@@ -25,7 +34,6 @@ public class LookAtTrigger : MonoBehaviour
             y += Time.deltaTime;
             yield return null;
         }
-        Destroy(gameObject);
     }
 
 }
