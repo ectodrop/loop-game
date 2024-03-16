@@ -18,10 +18,11 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     [Header("Listening To")]
     public ScheduleEvent displayPasswordEvent;
     // public SharedBool timeStopped;
-    private bool _canInteract = false;
+    private bool _canInteract = true;
     private AudioSource _audioSource;
     public enum Status
     {
+        Off,
         Loading,
         On,
         Password,
@@ -31,8 +32,8 @@ public class PC : MonoBehaviour, IInteractable, ILabel
 
     private void Start()
     {
-        PCStatus = Status.Loading;
-        LoadingScreen.SetActive(true);
+        PCStatus = Status.Off;
+        LoadingScreen.SetActive(false);
         OnScreen.SetActive(false);
         CrashScreen.SetActive(false);
         _audioSource = GetComponent<AudioSource>();
@@ -53,7 +54,12 @@ public class PC : MonoBehaviour, IInteractable, ILabel
 
     public void Interact()
     {
-        if (PCStatus == Status.On)
+        if (PCStatus == Status.Off)
+        {
+            _canInteract = false;
+            LoadingScreen.SetActive(true);
+        }
+        else if (PCStatus == Status.On)
         {
             _canInteract = false;
             PCStatus = Status.Password;
@@ -69,7 +75,7 @@ public class PC : MonoBehaviour, IInteractable, ILabel
 
     public string GetLabel()
     {
-        return _canInteract ? "Show Password [E]" : "";
+        return _canInteract ? "Interact [E]" : "";
     }
     
     void SetInteractOff()

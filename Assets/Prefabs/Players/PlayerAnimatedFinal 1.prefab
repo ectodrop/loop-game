@@ -2509,12 +2509,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
-  InteractableDistance: 2
+  InteractableDistance: 2.5
   onHoverReadableObject: {fileID: 11400000, guid: dc0ded10ca1e3ac43b0d60632f7c25d8, type: 2}
   timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
   pickupScript: {fileID: 9002164438334457627}
   timeStopStartEvent: {fileID: 11400000, guid: ff2edae89ca8dc947818500d2d72bcda, type: 2}
   timeStopEndEvent: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
+  setWarningTextEvent: {fileID: 11400000, guid: f36bd54496846104d9628e1e61dca71e, type: 2}
+  flashWarningTextEvent: {fileID: 11400000, guid: 8d196ff26b18f72478f3df52efa4e803, type: 2}
 --- !u!95 &322750102899720705
 Animator:
   serializedVersion: 5

@@ -32,6 +32,9 @@ public class TimeLoopController : MonoBehaviour
     public GameEvent timeStopStartEvent;
     public GameEvent timeStopEndEvent;
     public GameEvent resetLoopEvent;
+    public GameEventString setWarningTextEvent;
+    public GameEvent flashWarningTextEvent;
+    public GameEvent fadeWarningTextEvent;
 
     [Header("Sets Shared Variables")]
     public SharedBool timeStoppedFlag;
@@ -45,8 +48,6 @@ public class TimeLoopController : MonoBehaviour
     private void Start()
     {
         timeSettings.ResetTimers();
-        // timeStoppedFlag.ResetValue();
-        
     }
 
     private void OnEnable()
@@ -97,16 +98,17 @@ public class TimeLoopController : MonoBehaviour
 
     private void HandleTimeStop(InputAction.CallbackContext _)
     {
-        if (lastTimestop > 0)
-            return;
-        
         if (Time.time - lastTimestop < timestopCooldown)
             return;
         
         if (!timeStoppedFlag.GetValue())
         {
             if (numTimeStops <= 0)
+            {
+                setWarningTextEvent.TriggerEvent("Time Stops Remaining: 0");
+                flashWarningTextEvent.TriggerEvent();
                 return;
+            }
             timestopStartSFX.Play();
             numTimeStops--;
             StopTime();
@@ -114,6 +116,8 @@ public class TimeLoopController : MonoBehaviour
         }
         else
         {
+            setWarningTextEvent.TriggerEvent($"Time Stops Remaining: {numTimeStops}");
+            fadeWarningTextEvent.TriggerEvent();
             timestopEndSFX.Play();
             ResumeTime();
             timeStopEndEvent.TriggerEvent();
