@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,32 +12,26 @@ public class TimeTutorialGuide : MonoBehaviour
     public TimeLoopController _timeLoopController;
     public SharedBool firstTime;
 
-    public GameObject QuestionUI;
-    public TMP_InputField answerInputField;
-    public Button ConfirmButton;
+    public SoundEffect powerOffSFX;
+    public GameObject jarvisObject;
     [Header("Dialogues")]
     public DialogueNode dialogueFirstTime;
     public DialogueNode dialogueNotFirstTime;
     public DialogueNode dialogueSuccess;
     public DialogueNode dialogueFail;
     public DialogueNode dialogueReset;
+    public DialogueNode dialogueQuiz;
+    public DialogueNode dialoguePlayerPowerOutageThoughts;
     [Header("Triggers")]
-    public GameEvent resetLoopEvent;
-    public GameEvent timeStopStartEvent;
-    public GameEvent timeStopEndEvent;
-    public GameEvent LookAtJarvis;
-    public GameEvent LookFree;
-    public GameEvent LightFlicker;
-    public GameEvent HUDEnableEvent;
-    public GameEvent HUDDisableEvent;
+    public GameEventVector3 lookAtEvent;
+
+    public GameEvent powerOffEvent;
     [Header("Listening To")]    
     public GameEvent DialogueStop;
-    public GameEvent AnswerCorrect;
-    public GameEvent AnswerWrong;
-    private const float CountDownDuration = 10f;
-    private float CountDown;
-    private bool _result;
-    private string _answer = "12:03";
+
+    public ScheduleEvent studyTimeOverEvent;
+    
+    readonly string _answer = "12:03pm";
     private bool _passed = false;
 
     private enum CurrentDialogue
@@ -45,132 +40,83 @@ public class TimeTutorialGuide : MonoBehaviour
         NotFirstTime, // 1
         Success, // 2
         Fail, // 3
-        Reset // 4
+        Reset, // 4
+        PowerOutage, // 5
     }
     private CurrentDialogue _currentDialogue;
 
     private void OnEnable()
     {
-        DialogueStop.AddListener(StartObservation);
-        ConfirmButton.onClick.AddListener(QuestionOff);
-        AnswerCorrect.AddListener(Passed);
-        AnswerWrong.AddListener(Failed);
+        // DialogueStop.AddListener(StartObservation);
+        studyTimeOverEvent.AddListener(Ask);
     }
     private void OnDisable()
     {
-        DialogueStop.RemoveListener(StartObservation);
-        ConfirmButton.onClick.RemoveListener(QuestionOff);
-        AnswerCorrect.RemoveListener(Passed);
-        AnswerWrong.RemoveListener(Failed);
+        // DialogueStop.RemoveListener(StartObservation);
+        studyTimeOverEvent.RemoveListener(Ask);
+        _timeLoopController.ResumeTime();
     }
     void Start()
     {
-        firstTime.DefaultValue = true;
-        Debug.Log(firstTime.GetValue());
         _timeLoopController.StopTime();
-        CountDown = CountDownDuration;
         if (firstTime.GetValue())
         {
             _currentDialogue = CurrentDialogue.FirstTime;
-            _dialogueController.StartDialogue(dialogueFirstTime, DialogueOptions.STOP_TIME);
+            _dialogueController.StartDialogue(dialogueFirstTime, options: DialogueOptions.STOP_TIME);
         }
         else
         {
             _currentDialogue = CurrentDialogue.NotFirstTime;
-            _dialogueController.StartDialogue(dialogueNotFirstTime, DialogueOptions.STOP_TIME);
+            _dialogueController.StartDialogue(dialogueNotFirstTime, options: DialogueOptions.STOP_TIME);
         }
         
-        LookAtJarvis.TriggerEvent();
+        lookAtEvent.TriggerEvent(jarvisObject.transform.position);
     }
     void StartObservation()
     {
         if  (_currentDialogue == CurrentDialogue.FirstTime | _currentDialogue == CurrentDialogue.NotFirstTime)
         {
             _timeLoopController.ResumeTime();
-            LookFree.TriggerEvent();
-            CountDown = CountDownDuration;
         }
     }
-    private void Update()
+    void Ask()
     {
-        if (!_dialogueController.IsShowingDialogue())
+        lookAtEvent.TriggerEvent(jarvisObject.transform.position);
+        _dialogueController.StartDialogue(dialogueQuiz, options: DialogueOptions.STOP_TIME, choiceCallback: VerifyPassword);
+    }
+    
+    void VerifyPassword(string enteredPassword)
+    {
+        if (enteredPassword == _answer)
         {
-            CountDown -= Time.deltaTime;
-        }
-        if (CountDown <= 7f)
-        {
-            LightFlicker.TriggerEvent();
-        }
-        if (CountDown <= 0f & (_currentDialogue == CurrentDialogue.FirstTime | _currentDialogue == CurrentDialogue.NotFirstTime))
-        {
+            _currentDialogue = CurrentDialogue.Success;
             _timeLoopController.StopTime();
-            Ask();
+            _dialogueController.StartDialogue(dialogueSuccess, finishedCallback: () => StartCoroutine(ShowPlayerThoughts()));
+            _passed = true;
         }
-        if (!_dialogueController.IsShowingDialogue() & _passed)
+        else
         {
-            Debug.Log("tutorial passed");
-        }
-        if (!_dialogueController.IsShowingDialogue() & !_passed & _currentDialogue == CurrentDialogue.Fail)
-        {
-            _currentDialogue = CurrentDialogue.Reset;
-            _dialogueController.StartDialogue(dialogueReset, DialogueOptions.NO_INPUT | DialogueOptions.STOP_TIME);
+            _dialogueController.StartDialogue(dialogueFail, DialogueOptions.STOP_TIME, finishedCallback: ShowResetDialogue);
+            _currentDialogue = CurrentDialogue.Fail;
+            firstTime.SetValue(false);
         }
     }
 
-    void Ask()
+    private IEnumerator ShowPlayerThoughts()
     {
-        LookAtJarvis.TriggerEvent();
-        QuestionOn();
-        answerInputField.onValueChanged.AddListener(delegate { VerifyPassword(); });
+        powerOffSFX.Play();
+        powerOffEvent.TriggerEvent();
+        _currentDialogue = CurrentDialogue.PowerOutage;
+        yield return new WaitForSeconds(3f);
+        _dialogueController.StartDialogue(dialoguePlayerPowerOutageThoughts, options: DialogueOptions.ALLOW_MOVEMENT | DialogueOptions.NO_INPUT);
     }
-    void VerifyPassword()
+
+    private void ShowResetDialogue()
     {
-        string enteredPassword = answerInputField.text;
-        if (enteredPassword == _answer)
-        {
-            _result = true;
-        }
-        else
-        {
-            _result = false;
-        }
+        _currentDialogue = CurrentDialogue.Reset;
+        _dialogueController.StartDialogue(dialogueReset, options: DialogueOptions.NO_INPUT | DialogueOptions.STOP_TIME);
     }
-    void QuestionOn()
-    {
-        HUDDisableEvent.TriggerEvent();
-        QuestionUI.SetActive(true);
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-    void QuestionOff()
-    {
-        if (_result)
-        {
-            AnswerCorrect.TriggerEvent();
-        }
-        else
-        {
-            AnswerWrong.TriggerEvent();
-        }
-        HUDEnableEvent.TriggerEvent();
-        Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        QuestionUI.SetActive(false);
-    }
-    void Passed()
-    {
-        _currentDialogue = CurrentDialogue.Success;
-        _dialogueController.StartDialogue(dialogueSuccess, DialogueOptions.STOP_TIME);
-        _passed = true;
-    }
-    void Failed()
-    {
-        _dialogueController.StartDialogue(dialogueFail, DialogueOptions.STOP_TIME);
-        _currentDialogue = CurrentDialogue.Fail;
-        firstTime.SetValue(false);
-    }
+    
     public int GetCurrentDialogue()
     {
         switch (_currentDialogue)
@@ -183,6 +129,8 @@ public class TimeTutorialGuide : MonoBehaviour
                 return 2;
             case CurrentDialogue.Fail:
                 return 3;
+            case CurrentDialogue.PowerOutage:
+                return 5;
             default:
                 return 4;
         }

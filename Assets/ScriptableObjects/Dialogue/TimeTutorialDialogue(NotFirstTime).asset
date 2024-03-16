@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Jarvis
-    Body: Everything is reset, let's do this again.
+    Body: Welcome back to 10 minutes ago, lets try this again.
   - Speaker: Jarvis
-    Body: Observe the room until <color=red>12:10pm</color>, and I'll ask you the
-      same question.
+    Body: Observe the room until <color=red>12:10pm</color>.
+  - Speaker: Jarvis
+    Body: Remember, I want to know exactly when the lights flicker.
+  choices: []

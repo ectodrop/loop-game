@@ -12,7 +12,7 @@ public class DialogueController : MonoBehaviour
     // a sound effect will be played for every "charactersPerSFX" characters
     public int charactersPerSFX = 3;
     public GameObject dialogueBox;
-    public DialogueChoiceBox choiceBox;
+    public DialogueChoiceBoxController choiceBox;
     public TextMeshProUGUI dialogueControlsHint;
     public TextMeshProUGUI dialogueSpeaker;
     public TextMeshProUGUI dialogueBody;
@@ -50,8 +50,13 @@ public class DialogueController : MonoBehaviour
     /// <item>STOP_TIME = sets the timeStopped shared bool scriptableobject</item>
     /// </list>
     /// </param>
-    /// <param name="choiceCallback">calls this function when a choice is made</param>
-    public void StartDialogue(DialogueNode dialogueNode, DialogueOptions options = 0, Action<string> choiceCallback = null)
+    /// <param name="finishedCallback">calls this function at the very end of the dialogue after it has closed</param>
+    /// <param name="choiceCallback">calls this function when a choice is made in the same location as finishedCallback</param>
+    public void StartDialogue(
+        DialogueNode dialogueNode,
+        DialogueOptions options = 0,
+        Action finishedCallback = null,
+        Action<string> choiceCallback = null)
     {
         if (options.HasFlag(DialogueOptions.INTERRUPTING))
         {
@@ -61,7 +66,7 @@ public class DialogueController : MonoBehaviour
         if (!_dialogueShowing)
         {
             _currentFlags = options;
-            _currentDialogueNodeCoroutine = AnimateDialogueNode(dialogueNode, options, choiceCallback);
+            _currentDialogueNodeCoroutine = AnimateDialogueNode(dialogueNode, options, finishedCallback, choiceCallback);
             StartCoroutine(_currentDialogueNodeCoroutine);
         }
     }
@@ -135,6 +140,11 @@ public class DialogueController : MonoBehaviour
         {
             gameControls.Wrapper.Player.Move.Disable();
             gameControls.Wrapper.Player.Look.Disable();
+            gameControls.Wrapper.Player.Sprint.Disable();
+            gameControls.Wrapper.Player.Jump.Disable();
+            gameControls.Wrapper.Player.Interact.Disable();
+            gameControls.Wrapper.Player.TimeStop.Disable();
+            
         }
     }
 
@@ -148,6 +158,10 @@ public class DialogueController : MonoBehaviour
         {
             gameControls.Wrapper.Player.Look.Enable();
             gameControls.Wrapper.Player.Move.Enable();
+            gameControls.Wrapper.Player.Sprint.Enable();
+            gameControls.Wrapper.Player.Jump.Enable();
+            gameControls.Wrapper.Player.Interact.Enable();
+            gameControls.Wrapper.Player.TimeStop.Enable();
         }
         dialogueBox.SetActive(false);
         _dialogueShowing = false;
@@ -156,13 +170,23 @@ public class DialogueController : MonoBehaviour
         DialogueStop.TriggerEvent();
     }
     
-    private IEnumerator AnimateDialogueNode(DialogueNode dialogueNode, DialogueOptions options, Action<string> choiceCallback)
+    private IEnumerator AnimateDialogueNode(
+        DialogueNode dialogueNode,
+        DialogueOptions options,
+        Action finishedCallback,
+        Action<string> choiceCallback)
     {
         InitDialogueBox();
+        string choice = "";
         for (int i = 0; i < dialogueNode.sentences.Length; i++)
         {
             SetHintText("Skip [E]");
             // blocks and waits for the text to finish animating
+            if (i == dialogueNode.sentences.Length - 1 && dialogueNode.HasChoices())
+            {
+                choiceBox.gameObject.SetActive(true);
+                choiceBox.SetChoices(dialogueNode.choices);
+            }
             _currentDialogueCoroutine = AnimateDialogue(dialogueNode.sentences[i]); 
             yield return StartCoroutine(_currentDialogueCoroutine);
             _currentDialogueCoroutine = null;
@@ -171,9 +195,12 @@ public class DialogueController : MonoBehaviour
             {
                 if (dialogueNode.HasChoices())
                 {
-                    _currentChoiceCoroutine = WaitForChoice(dialogueNode, choiceCallback);
-                    yield return StartCoroutine(_currentChoiceCoroutine);
                     SetHintText("Select [E]");
+                    _currentChoiceCoroutine = WaitForChoice();
+                    yield return StartCoroutine(_currentChoiceCoroutine);
+
+                    choice = choiceBox.CurrentChoice();
+                    choiceBox.gameObject.SetActive(false);
                 }
                 else
                     SetHintText("Close [E]");
@@ -188,9 +215,11 @@ public class DialogueController : MonoBehaviour
 
             _nextDialogue = false;
         }
-
-
         CleanupDialogueBox();
+        
+        finishedCallback?.Invoke();
+        if (dialogueNode.HasChoices())
+            choiceCallback?.Invoke(choice);
     }
     
     private IEnumerator AnimateDialogue(Dialogue dialogue)
@@ -205,6 +234,19 @@ public class DialogueController : MonoBehaviour
             {
                 _skipScrawl = false;
                 break;
+            }
+            // tag detection
+            if (dialogue.Body[i] == '<')
+            {
+                // advance pointer until end of tag
+                while (i < dialogue.Body.Length && dialogue.Body[i] != '>')
+                {
+                    dialogueBody.text += dialogue.Body[i];
+                    i++;
+                }
+
+                if (i >= dialogue.Body.Length)
+                    break;
             }
             dialogueBody.text += dialogue.Body[i];
             if (i % charactersPerSFX == 0)
@@ -223,13 +265,11 @@ public class DialogueController : MonoBehaviour
         return _dialogueShowing;
     }
 
-    private IEnumerator WaitForChoice(DialogueNode dialogueNode, Action<string> choiceCallback)
+    private IEnumerator WaitForChoice()
     {
         Vector2 nav;
-        choiceBox.gameObject.SetActive(true);
-        choiceBox.SetChoices(dialogueNode.choices);
         // forced pause so they don't accidently miss the choice being made
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         while (!gameControls.Wrapper.UI.DialogueAction.WasPerformedThisFrame())
         {
             if (gameControls.Wrapper.UI.Navigate.WasPerformedThisFrame())
@@ -247,8 +287,5 @@ public class DialogueController : MonoBehaviour
             yield return null;
         }
         
-        
-        choiceCallback?.Invoke(choiceBox.CurrentChoice());
-        choiceBox.gameObject.SetActive(false);
     }
 }

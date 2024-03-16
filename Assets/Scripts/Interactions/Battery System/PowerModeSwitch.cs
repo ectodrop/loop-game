@@ -97,6 +97,7 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable, ILab
         if (_holderScript.HasBattery() && !_holderScript.IsBatteryEmpty())
         {
             _holderScript.StartBatteryDrain();
+            
         }
 
         _emergencyPower = true;

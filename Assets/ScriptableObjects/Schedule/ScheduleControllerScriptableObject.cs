@@ -8,6 +8,7 @@ public class ScheduleControllerScriptableObject : ScriptableObject
 
     public void OnEnable()
     {
-        Array.Sort(scheduledEvents, (x, y) => x.time.CompareTo(y.time) );
+        if (scheduledEvents != null)
+            Array.Sort(scheduledEvents, (x, y) => x.time.CompareTo(y.time) );
     }
 }

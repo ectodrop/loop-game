@@ -114,7 +114,6 @@ GameObject:
   - component: {fileID: 8569818895425906627}
   - component: {fileID: 7260251591532657364}
   - component: {fileID: 2543306223873256604}
-  - component: {fileID: 8460623397963475524}
   m_Layer: 0
   m_Name: Jarvis
   m_TagString: Untagged
@@ -209,24 +208,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8460623397963475524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6300289252695381235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7927ccd6f8bd50449ce5ff0d5f03cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tutorialGuide: {fileID: 0}
-  Panel: {fileID: 8118903474662148667}
-  Images:
-  - {fileID: 21300000, guid: d375cb23ba70ef14a9842ca84a533fdd, type: 3}
-  - {fileID: 21300000, guid: e34cf74ee7a146940bc4f241fe9c87f1, type: 3}
-  - {fileID: 21300000, guid: b508473241bb0a3498569891b22f671b, type: 3}
 --- !u!1 &8118903474662148667
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

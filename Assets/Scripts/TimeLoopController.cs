@@ -14,7 +14,8 @@ public class TimeLoopController : MonoBehaviour
 {
     public GameControls gameControls;
     public bool debugMode = false;
-    public bool timeTutorial = false;
+    public bool freezeTimeAtStart = false;
+    public int numTimeStops = 0;
     public TimeSettings timeSettings;
     public ScheduleControllerScriptableObject scheduleController;
 
@@ -31,6 +32,9 @@ public class TimeLoopController : MonoBehaviour
     public GameEvent timeStopStartEvent;
     public GameEvent timeStopEndEvent;
     public GameEvent resetLoopEvent;
+    public GameEventString setWarningTextEvent;
+    public GameEvent flashWarningTextEvent;
+    public GameEvent fadeWarningTextEvent;
 
     [Header("Sets Shared Variables")]
     public SharedBool timeStoppedFlag;
@@ -44,8 +48,6 @@ public class TimeLoopController : MonoBehaviour
     private void Start()
     {
         timeSettings.ResetTimers();
-        timeStoppedFlag.ResetValue();
-        
     }
 
     private void OnEnable()
@@ -63,15 +65,11 @@ public class TimeLoopController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (firstFrame)
+        if (firstFrame && freezeTimeAtStart)
         {
             firstFrame = false;
             StopTime();
-            if (!timeTutorial)
-            {
-                timeStopStartEvent.TriggerEvent();
-            }
-            
+            timeStopStartEvent.TriggerEvent();
         }       
 
         if (timeStoppedFlag.GetValue() || debugMode)
@@ -100,20 +98,26 @@ public class TimeLoopController : MonoBehaviour
 
     private void HandleTimeStop(InputAction.CallbackContext _)
     {
-        if (lastTimestop > 0)
-            return;
-        
         if (Time.time - lastTimestop < timestopCooldown)
             return;
         
         if (!timeStoppedFlag.GetValue())
         {
+            if (numTimeStops <= 0)
+            {
+                setWarningTextEvent.TriggerEvent("Time Stops Remaining: 0");
+                flashWarningTextEvent.TriggerEvent();
+                return;
+            }
             timestopStartSFX.Play();
+            numTimeStops--;
             StopTime();
             timeStopStartEvent.TriggerEvent();
         }
         else
         {
+            setWarningTextEvent.TriggerEvent($"Time Stops Remaining: {numTimeStops}");
+            fadeWarningTextEvent.TriggerEvent();
             timestopEndSFX.Play();
             ResumeTime();
             timeStopEndEvent.TriggerEvent();

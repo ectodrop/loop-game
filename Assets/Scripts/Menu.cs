@@ -12,7 +12,7 @@ public class Menu : MonoBehaviour
     
     public void OnPlayButton()
     {
-        SceneManager.LoadScene("Level One");
+        SceneManager.LoadScene("Tutorial-Movement");
     }
 
     public void OnQuitButton()

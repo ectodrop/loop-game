@@ -13,6 +13,11 @@ public class Interactor : MonoBehaviour
     [Header("Listening To")] public GameEvent timeStopStartEvent;
     public GameEvent timeStopEndEvent;
 
+    [Header("Triggers")]
+    public GameEventString setWarningTextEvent;
+
+    public GameEvent flashWarningTextEvent;
+    
     private Camera mainCamera;
     private IRayHoverable curRayHoverableObj;
     private GameObject curHoverObject;
@@ -81,8 +86,8 @@ public class Interactor : MonoBehaviour
             }
         }
 
-        if (!string.IsNullOrWhiteSpace(curHoverString) && _timeStopAbilityActive)
-            curHoverString = "Start time to interact (R)";
+        // if (!string.IsNullOrWhiteSpace(curHoverString) && _timeStopAbilityActive)
+        //     curHoverString = "Start time to interact (R)";
             
         
         // check if the current interactable we are hovering on has changed, call the corresponding interface methods if yes
@@ -116,9 +121,14 @@ public class Interactor : MonoBehaviour
             curHoverObject.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
         {
             if (!timeStoppedFlag.GetValue())
+            {
                 interactable.Interact();
+            }
+            else
+            {
+                setWarningTextEvent.TriggerEvent("Resume time to Interact (R)");
+                flashWarningTextEvent.TriggerEvent();
+            }
         }
-
-        
     }
 }

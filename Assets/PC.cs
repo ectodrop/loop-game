@@ -13,11 +13,16 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     public GameObject PasswordScreen;
     public GameObject CrashScreen;
 
+    public SoundEffect computerUpdateSFX;
+    public SoundEffect computerUpdateCompleteSFX;
+    [Header("Listening To")]
     public ScheduleEvent displayPasswordEvent;
     // public SharedBool timeStopped;
-    private bool _canInteract = false;
+    private bool _canInteract = true;
+    private AudioSource _audioSource;
     public enum Status
     {
+        Off,
         Loading,
         On,
         Password,
@@ -27,10 +32,12 @@ public class PC : MonoBehaviour, IInteractable, ILabel
 
     private void Start()
     {
-        PCStatus = Status.Loading;
-        LoadingScreen.SetActive(true);
+        PCStatus = Status.Off;
+        LoadingScreen.SetActive(false);
         OnScreen.SetActive(false);
         CrashScreen.SetActive(false);
+        _audioSource = GetComponent<AudioSource>();
+        computerUpdateSFX.Play(_audioSource);
     }
     
     void OnEnable()
@@ -47,7 +54,12 @@ public class PC : MonoBehaviour, IInteractable, ILabel
 
     public void Interact()
     {
-        if (PCStatus == Status.On)
+        if (PCStatus == Status.Off)
+        {
+            _canInteract = false;
+            LoadingScreen.SetActive(true);
+        }
+        else if (PCStatus == Status.On)
         {
             _canInteract = false;
             PCStatus = Status.Password;
@@ -55,7 +67,6 @@ public class PC : MonoBehaviour, IInteractable, ILabel
             PasswordScreen.SetActive(true);
         }
     }
-
     
     public bool CanInteract()
     {
@@ -64,7 +75,7 @@ public class PC : MonoBehaviour, IInteractable, ILabel
 
     public string GetLabel()
     {
-        return _canInteract ? "Show Password [E]" : "";
+        return _canInteract ? "Interact [E]" : "";
     }
     
     void SetInteractOff()
@@ -77,6 +88,7 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     {
         if (PCStatus != Status.Crash)
         {
+            computerUpdateCompleteSFX.Play(_audioSource);
             PCStatus = Status.On;
             _canInteract = true;
             LoadingScreen.SetActive(false);
@@ -86,6 +98,7 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     
     public void Crash()
     {
+        _audioSource.Stop();
         PCStatus = Status.Crash;
         LoadingScreen.SetActive(false);
         OnScreen.SetActive(false);

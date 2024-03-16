@@ -8,6 +8,8 @@ public class PickUpHoldScript : MonoBehaviour
     public GameObject player;
     public Transform holdPos;
     public HoldableItemScriptableObject defaultPickupId;
+    public SoundEffect pickupSFX;
+    public SoundEffect dropSFX;
     [Header("Listening To")]
     public GameEvent dropHeldEvent;
 
@@ -42,6 +44,7 @@ public class PickUpHoldScript : MonoBehaviour
     {
         if (pickUpObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
         {
+            pickupSFX.Play();
             heldObj = pickUpObj; //assign heldObj to the object that was hit by the raycast (no longer == null)
             heldObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
             heldObjRb.isKinematic = true;
@@ -65,6 +68,7 @@ public class PickUpHoldScript : MonoBehaviour
 
     public void DropObject()
     {
+        dropSFX.Play();
         StopClipping(); //prevents object from clipping through walls
         //re-enable collision with player
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);

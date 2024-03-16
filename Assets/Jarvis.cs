@@ -32,5 +32,9 @@ public class Jarvis : MonoBehaviour
         {
             Panel.GetComponent<Image>().sprite = Images[2];
         }
+        else
+        {
+            Panel.GetComponent<Image>().sprite = null;
+        }
     }
 }

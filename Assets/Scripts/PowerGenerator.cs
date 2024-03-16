@@ -7,6 +7,7 @@ public class PowerGenerator : MonoBehaviour
 {
     public GameObject fluidParent;
     public GameObject bigFluid;
+    public SoundEffect drainCoolantSFX;
 
     [Header("Listening To")]
     public GameEvent OnFluidDrain;
@@ -30,6 +31,7 @@ public class PowerGenerator : MonoBehaviour
 
     private void DrainCoolant()
     {
+        drainCoolantSFX.Play();
         drained = true;
         StartCoroutine(DrainCoolantCoroutine());
     }

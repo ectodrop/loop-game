@@ -14,17 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Thinking
-    Body: Hm... I need to find a way out of this room, maybe I should try opening
-      the <color=red>door</color>
+    Body: Looks like the breaker is behind this <color=red>door</color>, let's see
+      if I can open it without any power.
   - Speaker: Thinking
-    Body: Oh no! the power seems to have gone out. Maybe I need to change the power
-      source by <color=red>pulling on the lever</color>.
+    Body: Nothing, figures... I think there's an emergency power unit <color=red>with
+      a lever</color> somewhere in this room that I can turn on.
   - Speaker: Thinking
-    Body: The <color=red>Power LED</color> seems to indicate there is still no power.
-      I need to find and insert the battery.
+    Body: This thing is useless without a <color=red>battery</color>. The battery
+      must be somewhere in this room.
   - Speaker: Thinking
-    Body: The power seems to have come back on, I can now open the door. The number
-      shows the battery level, I must hurry before the battery drains.
+    Body: Nice! I think the door switch just regained power, I better hurry though,
+      it looks like the battery drains super fast!
   - Speaker: Thinking
-    Body: Oh not the battery drained before I could make it out. I will now have
-      to manually reset the loop.
+    Body: Damn, battery drained before I could make it out. (Press <color=red>ESC</color>
+      to restart)
+  choices: []

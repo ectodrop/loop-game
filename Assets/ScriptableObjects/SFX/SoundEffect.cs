@@ -11,7 +11,8 @@ public class SoundEffect : ScriptableObject
 
     [Range(-3f, 3f)]
     public float pitch = 1f;
-    
+
+    private AudioSource _currentAudioSource;
     public AudioClip GetAudioClip()
     {
         if (audioClips.Length == 0) return null;
@@ -32,6 +33,7 @@ public class SoundEffect : ScriptableObject
             source.playOnAwake = false;
             destroy = true;
         }
+        source.Stop();
 
         source.clip = GetAudioClip();
         source.pitch = pitch;

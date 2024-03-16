@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "GameEvent", menuName = "ScriptableObjects/GameEvent")]
+[CreateAssetMenu(fileName = "GameEvent", menuName = "GameEvent/GameEvent")]
 [Serializable]
 public class GameEvent : ScriptableObject
 {

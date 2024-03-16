@@ -13,6 +13,7 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     public string EmptyText;
     public GameObject battery;
     public GameObject switchObj;
+    public SoundEffect emergencyPowerOnSFX;
     
     // Battery UI
     private TextMeshPro _batteryPercentageText;
@@ -116,6 +117,7 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
 
     public void StartBatteryDrain()
     {
+        emergencyPowerOnSFX.Play();
         AllowDrain();
         StartCoroutine(DrainBattery());
     }

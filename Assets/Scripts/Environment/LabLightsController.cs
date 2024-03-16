@@ -17,7 +17,7 @@ public class LabLightsController : MonoBehaviour
     public GameEvent powerOn;
     public GameEvent powerOff;
     public GameEvent LightFlicker;
-    private const float _flickerDuration = 1.0f;
+    private const float _flickerDuration = 0.3f;
     private float _flickerCountDown;
     private bool _flickering = false;
 
@@ -88,6 +88,7 @@ public class LabLightsController : MonoBehaviour
             if (_flickerCountDown <= 0f)
             {
                 powerOn.TriggerEvent();
+                _flickering = false;
             }
         }
         

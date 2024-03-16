@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Jarvis
-    Body: There you go. Let's move on to the next test.
+    Body: There you go!
+  - Speaker: Jarvis
+    Body: Let's move on to the next te-
+  choices: []

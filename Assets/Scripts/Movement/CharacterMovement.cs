@@ -29,6 +29,14 @@ public class CharacterMovement : MonoBehaviour
         _controller = gameObject.AddComponent<CharacterController>();
     }
 
+
+    public void TeleportTo(Vector3 position)
+    {
+        _controller.enabled = false;
+        transform.position = position;
+        _controller.enabled = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
