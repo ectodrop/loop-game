@@ -27,6 +27,7 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
         _controller = gameObject.AddComponent<CharacterController>();
+        _controller.slopeLimit = 70;
     }
 
 
@@ -40,13 +41,18 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Jumping
+        // ----------------------------------------------------------
+        // Check if the player is on the ground (Adjust as needed)
+        _grounded = Physics.Raycast(transform.position, Vector3.down, _controller.height / 2 + 0.1f);
+        
         // Horizontal Movement
         // ----------------------------------------------------------
         // Set to 0 velocity in x and z if no button is being pushed
         _velocity.x = 0f;
         _velocity.z = 0f;
         
-        if (gameControls.Wrapper.Player.Sprint.IsPressed())
+        if (_grounded && gameControls.Wrapper.Player.Sprint.IsPressed())
         {
             _playerSpeed = DefaultSpeed * 2;
         }
@@ -60,10 +66,6 @@ public class CharacterMovement : MonoBehaviour
 
         _velocity += moveDir.x * _playerSpeed * transform.right;
 
-        // Jumping
-        // ----------------------------------------------------------
-        // Check if the player is on the ground (Adjust as needed)
-        _grounded = Physics.Raycast(transform.position, Vector3.down, _controller.height / 2 + 0.1f);
 
         // Gravity
         if (!_grounded)
