@@ -25,60 +25,41 @@ public class TimeTutorialGuide : MonoBehaviour
     [Header("Triggers")]
     public GameEventVector3 lookAtEvent;
 
+    public GameEventInt changeExpressionEvent;
+
     public GameEvent powerOffEvent;
-    [Header("Listening To")]    
-    public GameEvent DialogueStop;
 
     public ScheduleEvent studyTimeOverEvent;
     
     readonly string _answer = "12:03pm";
     private bool _passed = false;
 
-    private enum CurrentDialogue
-    {
-        FirstTime, // 0
-        NotFirstTime, // 1
-        Success, // 2
-        Fail, // 3
-        Reset, // 4
-        PowerOutage, // 5
-    }
-    private CurrentDialogue _currentDialogue;
-
     private void OnEnable()
     {
-        // DialogueStop.AddListener(StartObservation);
         studyTimeOverEvent.AddListener(Ask);
     }
+    
     private void OnDisable()
     {
-        // DialogueStop.RemoveListener(StartObservation);
         studyTimeOverEvent.RemoveListener(Ask);
         _timeLoopController.ResumeTime();
     }
+    
     void Start()
     {
         _timeLoopController.StopTime();
         if (firstTime.GetValue())
         {
-            _currentDialogue = CurrentDialogue.FirstTime;
             _dialogueController.StartDialogue(dialogueFirstTime, options: DialogueOptions.STOP_TIME);
         }
         else
         {
-            _currentDialogue = CurrentDialogue.NotFirstTime;
             _dialogueController.StartDialogue(dialogueNotFirstTime, options: DialogueOptions.STOP_TIME);
         }
         
         lookAtEvent.TriggerEvent(jarvisObject.transform.position);
     }
-    void StartObservation()
-    {
-        if  (_currentDialogue == CurrentDialogue.FirstTime | _currentDialogue == CurrentDialogue.NotFirstTime)
-        {
-            _timeLoopController.ResumeTime();
-        }
-    }
+    
     void Ask()
     {
         lookAtEvent.TriggerEvent(jarvisObject.transform.position);
@@ -89,15 +70,15 @@ public class TimeTutorialGuide : MonoBehaviour
     {
         if (enteredPassword == _answer)
         {
-            _currentDialogue = CurrentDialogue.Success;
             _timeLoopController.StopTime();
             _dialogueController.StartDialogue(dialogueSuccess, finishedCallback: () => StartCoroutine(ShowPlayerThoughts()));
+            changeExpressionEvent.TriggerEvent((int)JarvisExpression.Happy);
             _passed = true;
         }
         else
         {
+            changeExpressionEvent.TriggerEvent((int)JarvisExpression.Suprised);
             _dialogueController.StartDialogue(dialogueFail, DialogueOptions.STOP_TIME, finishedCallback: ShowResetDialogue);
-            _currentDialogue = CurrentDialogue.Fail;
             firstTime.SetValue(false);
         }
     }
@@ -106,33 +87,15 @@ public class TimeTutorialGuide : MonoBehaviour
     {
         powerOffSFX.Play();
         powerOffEvent.TriggerEvent();
-        _currentDialogue = CurrentDialogue.PowerOutage;
+        
+        changeExpressionEvent.TriggerEvent((int)JarvisExpression.Empty);
         yield return new WaitForSeconds(3f);
         _dialogueController.StartDialogue(dialoguePlayerPowerOutageThoughts, options: DialogueOptions.ALLOW_MOVEMENT | DialogueOptions.NO_INPUT);
     }
 
     private void ShowResetDialogue()
     {
-        _currentDialogue = CurrentDialogue.Reset;
+        changeExpressionEvent.TriggerEvent((int)JarvisExpression.Neutral);
         _dialogueController.StartDialogue(dialogueReset, options: DialogueOptions.NO_INPUT | DialogueOptions.STOP_TIME);
-    }
-    
-    public int GetCurrentDialogue()
-    {
-        switch (_currentDialogue)
-        {
-            case CurrentDialogue.FirstTime:
-                return 0;
-            case CurrentDialogue.NotFirstTime:
-                return 1;
-            case CurrentDialogue.Success:
-                return 2;
-            case CurrentDialogue.Fail:
-                return 3;
-            case CurrentDialogue.PowerOutage:
-                return 5;
-            default:
-                return 4;
-        }
     }
 }
