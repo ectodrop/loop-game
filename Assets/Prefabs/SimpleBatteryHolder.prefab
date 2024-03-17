@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec8553682fea43d1ac3070dcb31c2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battery: {fileID: 4816473742594666074, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+  battery: {fileID: 0}
   HoldingText: Insert Battery (E)
   EmptyText: Missing Battery
   timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}

@@ -1107,6 +1107,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524226204}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1725485881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4816473742594666074, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+  m_PrefabInstance: {fileID: 1135997362}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1807080681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1637,6 +1642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SimpleBatteryHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 7293416976577938382, guid: 4a51a762e48e9487e976e0d5c2961cd5, type: 3}
+      propertyPath: battery
+      value: 
+      objectReference: {fileID: 1725485881}
     - target: {fileID: 7982561689498199249, guid: 4a51a762e48e9487e976e0d5c2961cd5, type: 3}
       propertyPath: switchObj
       value: 

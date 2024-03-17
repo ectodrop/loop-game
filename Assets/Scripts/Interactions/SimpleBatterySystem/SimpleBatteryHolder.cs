@@ -30,7 +30,7 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
     Rigidbody _batteryRb;
 
     // Booleans for the battery holder state
-    private bool _hasBattery;
+    private bool _hasBattery = false;
     private bool _isDraining = false;
 
     // Offsets to place battery perfectly
@@ -67,6 +67,7 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
             _batteryRb.isKinematic = true;
             
             _hasBattery = true;
+            _isDraining = true;
             StartCoroutine(DrainBattery());
         }
     }
