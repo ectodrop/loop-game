@@ -10543,46 +10543,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16f5ce5dc066d946837b8709603a710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  darkLightmapDir:
-  - {fileID: 2800000, guid: 0ae80aa3fd780594ca662fd3429d230e, type: 3}
-  - {fileID: 2800000, guid: b47366aeee5f1fe41bc1960e31eef0bb, type: 3}
-  - {fileID: 2800000, guid: 67e8e7790d0b4a24ba1f2f206df64629, type: 3}
-  - {fileID: 2800000, guid: a636b345801f5564f8d7ec48c4030679, type: 3}
-  - {fileID: 2800000, guid: a213e991aa97d9b4a84ced1e9b40a79d, type: 3}
-  - {fileID: 2800000, guid: aa56f860c200a5a44ae586e1968b4182, type: 3}
-  - {fileID: 2800000, guid: fb8afd3556b0aaa4883682219e8caafe, type: 3}
-  - {fileID: 2800000, guid: 4b4b550cf38b885489abc302e06e0af3, type: 3}
-  - {fileID: 2800000, guid: cf8e53514f5b7e4459c99c4d9f9ecff6, type: 3}
-  darkLightmapColor:
-  - {fileID: 2800000, guid: 44219ce7825bef841b91f11dbdb63fa8, type: 3}
-  - {fileID: 2800000, guid: a121bfe2d5ee48f4a844bfe8a7282261, type: 3}
-  - {fileID: 2800000, guid: 4bab88bbdd4d1db4d9e0bca08fb36c8b, type: 3}
-  - {fileID: 2800000, guid: 2d24586d2e3244a4b90d337013f82e49, type: 3}
-  - {fileID: 2800000, guid: 04869217629048845b963eadf72d2010, type: 3}
-  - {fileID: 2800000, guid: b6d7902e3843d66479f6a668906205dc, type: 3}
-  - {fileID: 2800000, guid: 1c043137b4858b04aa6ef15cd8f8e685, type: 3}
-  - {fileID: 2800000, guid: 81e64314b7d04504eb3f771906acca94, type: 3}
-  - {fileID: 2800000, guid: 1e0aa06e9b0be8641818e95209ccdb15, type: 3}
-  brightLightmapDir:
-  - {fileID: 2800000, guid: 6275b53c3b28e264b9af697944cd7228, type: 3}
-  - {fileID: 2800000, guid: 49eb83e05966aad4b99bb9518ee9b09c, type: 3}
-  - {fileID: 2800000, guid: 11a28d8ffa9de914d9452c28636d8b05, type: 3}
-  - {fileID: 2800000, guid: 41186244d66d7f74a90d35df78954b3d, type: 3}
-  - {fileID: 2800000, guid: 478f8ed8310f8e542a172e91959c6907, type: 3}
-  - {fileID: 2800000, guid: f79e52bef7577f94887b749cfea1d52f, type: 3}
-  - {fileID: 2800000, guid: 5ffe6fd8922ee024880e51390401054c, type: 3}
-  - {fileID: 2800000, guid: 40e5cde3dcbfeeb49aaa4ab91e21b4cd, type: 3}
-  - {fileID: 2800000, guid: c81adc13a14dfe248951bd822418e35b, type: 3}
-  brightLightmapColor:
-  - {fileID: 2800000, guid: 52bb8cdc3dcd3a545b8befc697ef1cfa, type: 3}
-  - {fileID: 2800000, guid: 3631f432d5398484da2d4f5afa862185, type: 3}
-  - {fileID: 2800000, guid: bfd7d4e66a0e2514ca652164e1cde6b9, type: 3}
-  - {fileID: 2800000, guid: 4fb4829f01be30245be2a62e4bb8522f, type: 3}
-  - {fileID: 2800000, guid: 6345e67b6109cf64b95bf6d456ca4d1c, type: 3}
-  - {fileID: 2800000, guid: f02d53e7caa64124283dec21bfb97325, type: 3}
-  - {fileID: 2800000, guid: 3a7b0d21349a49445b4b2f34257dd4c1, type: 3}
-  - {fileID: 2800000, guid: 6380f90475824834293ef33c566daddd, type: 3}
-  - {fileID: 2800000, guid: b34b48d34a901be4586a3df6aa547f5d, type: 3}
+  brightLightMapAsset: {fileID: 11400000, guid: 09452263cac1b2c40baa1096123b0830, type: 2}
+  darkLightMapAsset: {fileID: 11400000, guid: fc37ad7c1db51e442bae8bc7efb8e51a, type: 2}
   lightOn: {fileID: 2100000, guid: f6f9c1997916f864599d1dc772891f12, type: 2}
   lightOff: {fileID: 2100000, guid: 610d8812741194e4f8af4a42ac536a56, type: 2}
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}

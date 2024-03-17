@@ -7788,8 +7788,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16f5ce5dc066d946837b8709603a710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brightLightMapAsset: {fileID: 11400000, guid: 5f7bf219a6d8f0d4eb34a15ea8185a93, type: 2}
-  darkLightMapAsset: {fileID: 11400000, guid: ecba60e89ccd74f4fb6c1e1cbe9c9843, type: 2}
+  darkLightmapDir:
+  - {fileID: 2800000, guid: 87b025b1dccb9ac41a1b9656386474f1, type: 3}
+  darkLightmapColor:
+  - {fileID: 2800000, guid: 29aa16af0a134034d93e8bb3fc5a67c2, type: 3}
+  brightLightmapDir:
+  - {fileID: 2800000, guid: e65ef3a911a59c444848b6e9de5638b7, type: 3}
+  brightLightmapColor:
+  - {fileID: 2800000, guid: 69f6591ba6f2edd47a3a829ee787bacf, type: 3}
   lightOn: {fileID: 2100000, guid: f6f9c1997916f864599d1dc772891f12, type: 2}
   lightOff: {fileID: 2100000, guid: 610d8812741194e4f8af4a42ac536a56, type: 2}
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
