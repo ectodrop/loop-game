@@ -7,40 +7,43 @@ public class Mushroom : MonoBehaviour
 {
     public GameEvent batteryDraining;
     public GameEvent batteryStopDraining;
-    public float GrowSpeed = 0.1f;
-    private float t = 0.0f;
+    public float GrowSpeed = 0.001f;
+    private float growHeightLimit = 4.0f;
+    private bool _growing = false;
+    private Vector3 startPos;
+    private Vector3 endPos;
+    private void Start()
+    {
+        startPos = gameObject.transform.position;
+        endPos = new Vector3(startPos.x, growHeightLimit, startPos.z);
+    }
     private void OnEnable()
     {
-        batteryDraining.AddListener(OnBatteryDraining);
-        batteryStopDraining.AddListener(OnBatteryStopDraining);
+        batteryDraining.AddListener(Grow);
+        batteryStopDraining.AddListener(StopGrow);
     }
     private void OnDisable()
     {
-        batteryDraining.RemoveListener(OnBatteryDraining);
-        batteryStopDraining.RemoveListener(OnBatteryStopDraining);
+        batteryDraining.RemoveListener(Grow);
+        batteryStopDraining.RemoveListener(StopGrow);
     }
-
-    void OnBatteryDraining()
+    private void FixedUpdate()
     {
-        StartCoroutine(Grow());
-    }
-    void OnBatteryStopDraining()
-    {
-        StopCoroutine(Grow());
-    }
-    IEnumerator Grow()
-    {
-        yield return new WaitForSeconds(2);
-        Debug.Log("grow");
-        Vector3 startSize = transform.localScale;
-        Vector3 endSize = new Vector3(startSize.x, 8.0f, startSize.z);
-        do
+        if (_growing)
         {
-            Debug.Log("loop");
-            transform.localScale = new Vector3(startSize.x, Mathf.Lerp(startSize.y, endSize.y, t), startSize.z);
-            t += GrowSpeed * Time.deltaTime;
-            yield return null;
+            gameObject.transform.position = gameObject.transform.position + new Vector3(0, GrowSpeed, 0);
+            if (gameObject.transform.position.y >= growHeightLimit)
+            {
+                StopGrow();
+            }
         }
-        while (true);
+    }
+    void Grow()
+    {
+        _growing = true;
+    }
+    void StopGrow()
+    {
+        _growing = false;
     }
 }

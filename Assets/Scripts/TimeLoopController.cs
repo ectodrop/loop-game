@@ -15,7 +15,6 @@ public class TimeLoopController : MonoBehaviour
     public GameControls gameControls;
     public bool debugMode = false;
     public bool timeTutorial = false;
-    public bool mushroomTest = false;
     public TimeSettings timeSettings;
     public ScheduleControllerScriptableObject scheduleController;
 
@@ -42,13 +41,6 @@ public class TimeLoopController : MonoBehaviour
     public SoundEffect timestopEndSFX;
 
     private bool firstFrame = true;
-    private void Awake()
-    {
-        if (mushroomTest)
-        {
-            HandleTimeExtension(200);
-        }
-    }
     private void Start()
     {
         timeSettings.ResetTimers();
