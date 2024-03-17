@@ -2864,8 +2864,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8257893408254051794, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8257893408254051794, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12022,6 +12026,7 @@ GameObject:
   - component: {fileID: 1935435657}
   - component: {fileID: 1935435656}
   - component: {fileID: 1935435660}
+  - component: {fileID: 1935435661}
   m_Layer: 0
   m_Name: Mushroom
   m_TagString: Untagged
@@ -12128,6 +12133,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   batteryDraining: {fileID: 11400000, guid: fe6ac462cae99e247862bf00da89c36d, type: 2}
+  batteryStopDraining: {fileID: 11400000, guid: bc6d2e6ab98f2644f9459b9aac4f2da1, type: 2}
+  GrowSpeed: 0.1
+--- !u!54 &1935435661
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935435655}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!4 &1948772186 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7672729602167259591, guid: 2588ea7ddbc74c648bbeeff01e031312, type: 3}
