@@ -15,8 +15,9 @@ public class Interactor : MonoBehaviour
 
     [Header("Triggers")]
     public GameEventString setWarningTextEvent;
-
+    
     public GameEvent flashWarningTextEvent;
+    public GameEvent pickedUp;
     
     private Camera mainCamera;
     private IRayHoverable curRayHoverableObj;
@@ -110,7 +111,10 @@ public class Interactor : MonoBehaviour
         if (curHoverObject != null && !pickupScript.IsHolding())
         {
             if (curHoverObject.CompareTag("canPickUp"))
+            {
                 pickupScript.PickUpObject(curHoverObject);
+                pickedUp.TriggerEvent();
+            }
         }
         else if (curHoverObject == null && pickupScript.IsHolding())
         {
