@@ -17,6 +17,7 @@ public class Battery : MonoBehaviour, IInteractable, IRayHoverable, ILabel
     public GameEvent disableDrain;
 
     private bool _canDrain = true;
+    private bool _canCharge = true;
     
     private int _batteryLevel = 100;
 
@@ -91,6 +92,14 @@ public class Battery : MonoBehaviour, IInteractable, IRayHoverable, ILabel
         if (_canDrain)
         {
             _batteryLevel -= amount;
+        }
+    }
+    
+    public void IncreaseBattery(int amount)
+    {
+        if (_canCharge)
+        {
+            _batteryLevel += amount;
         }
     }
 
