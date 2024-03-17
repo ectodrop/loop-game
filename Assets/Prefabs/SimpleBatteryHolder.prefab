@@ -122,6 +122,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec8553682fea43d1ac3070dcb31c2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battery: {fileID: 4816473742594666074, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
+  HoldingText: Insert Battery (E)
+  EmptyText: Missing Battery
+  timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
+  drainRate: 5
+  drainIntervalSeconds: 1
+  powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
+  powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
+  playerDropHeldEvent: {fileID: 11400000, guid: d4be8eac327bce949ab9a46e2c01cb0e, type: 2}
 --- !u!1 &1727836828221304231
 GameObject:
   m_ObjectHideFlags: 0
