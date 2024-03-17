@@ -131,6 +131,7 @@ MonoBehaviour:
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
   playerDropHeldEvent: {fileID: 11400000, guid: d4be8eac327bce949ab9a46e2c01cb0e, type: 2}
+  playerPickedUp: {fileID: 11400000, guid: 5f394644264c546b6910395e88654e82, type: 2}
 --- !u!1 &1727836828221304231
 GameObject:
   m_ObjectHideFlags: 0

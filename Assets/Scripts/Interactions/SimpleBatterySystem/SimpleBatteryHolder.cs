@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
 {
@@ -10,7 +12,7 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
     public string HoldingText = "Insert Battery (E)";
     public string EmptyText = "Missing Battery";
     public SharedBool timeStoppedFlag;
-    
+
     [Header("Battery Drain Parameters")]
     public int drainRate = 5;
     public int drainIntervalSeconds = 1;
@@ -19,6 +21,9 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
     public GameEvent powerOn;
     public GameEvent powerOff;
     public GameEvent playerDropHeldEvent;
+
+    [Header("Listening To")]
+    public GameEvent playerPickedUp;
 
     // Battery Object
     private TextMeshPro _batteryPercentageText;
@@ -36,7 +41,25 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
     // Offsets to place battery perfectly
     private readonly float _yOffset = 0.2f;
     private readonly float _zOffset = 0.2f;
-    
+
+    private void OnEnable()
+    {
+        playerPickedUp.AddListener(HandlePlayerPickedUp);
+    }
+
+    private void OnDisable()
+    {
+        playerPickedUp.RemoveListener(HandlePlayerPickedUp);
+    }
+    private void HandlePlayerPickedUp()
+    {
+        if (IsPlayerHolding() && _hasBattery)
+        {
+            _hasBattery = false;
+            StopDrain();
+            GetComponent<BoxCollider>().enabled = true;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +72,7 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
         _originalBatteryScale = _batteryPercentageBar.transform.localScale.x;
         _originalBatteryPos = _batteryPercentageBar.transform.localPosition;
     }
-    
+
     public void Interact()
     {
         // Put battery inside
@@ -58,20 +81,26 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
             playerDropHeldEvent.TriggerEvent();
             Debug.Log("Battery Inserted.");
             GetComponent<BoxCollider>().enabled = false;
-            battery.transform.tag = "Untagged";
+            battery.transform.tag = "canPickUp";
+            battery.layer = LayerMask.NameToLayer("Interactable");
             battery.transform.SetParent(gameObject.transform);
             battery.transform.position = gameObject.transform.position;
             battery.transform.localPosition += new Vector3(0, _yOffset, _zOffset);
             battery.transform.rotation = gameObject.transform.rotation;
-            battery.layer = LayerMask.GetMask("Default");
             _batteryRb.isKinematic = true;
-            
+
             _hasBattery = true;
             _isDraining = true;
+
+            // Only trigger if battery has charge
+            if (_batteryScript.GetBatteryLevel() > 0)
+            {
+                powerOn.TriggerEvent();
+            }
             StartCoroutine(DrainBattery());
         }
     }
-    
+
     public bool CanInteract()
     {
         return true;
@@ -92,7 +121,7 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
 
         return IsPlayerHolding() ? HoldingText : EmptyText;
     }
-    
+
     private IEnumerator DrainBattery()
     {
         // Drain battery until empty
@@ -100,7 +129,6 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
         {
             if (!timeStoppedFlag.GetValue())
             {
-                powerOn.TriggerEvent();
                 _batteryScript.DecreaseBattery(drainRate);
                 _batteryPercentageText.text = _batteryScript.GetBatteryLevel().ToString();
                 AnimateBar();
@@ -115,7 +143,7 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
             StopDrain();
         }
     }
-    
+
     private void StopDrain()
     {
         powerOff.TriggerEvent();

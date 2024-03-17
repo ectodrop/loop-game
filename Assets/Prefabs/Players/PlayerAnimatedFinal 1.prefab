@@ -2517,6 +2517,7 @@ MonoBehaviour:
   timeStopEndEvent: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
   setWarningTextEvent: {fileID: 11400000, guid: f36bd54496846104d9628e1e61dca71e, type: 2}
   flashWarningTextEvent: {fileID: 11400000, guid: 8d196ff26b18f72478f3df52efa4e803, type: 2}
+  pickedUp: {fileID: 11400000, guid: 5f394644264c546b6910395e88654e82, type: 2}
 --- !u!95 &322750102899720705
 Animator:
   serializedVersion: 5
