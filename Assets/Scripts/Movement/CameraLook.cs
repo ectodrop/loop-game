@@ -39,7 +39,7 @@ public class CameraLook : MonoBehaviour
         _fixlook = false;
     }
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (!_fixlook) 
         {
