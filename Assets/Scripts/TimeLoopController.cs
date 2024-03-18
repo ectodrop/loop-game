@@ -136,7 +136,6 @@ public class TimeLoopController : MonoBehaviour
     {
         timeStoppedFlag.SetValue(false);
         Shader.SetGlobalInteger("_TimeStopped", 0);
-        
     }
 
     private void InvokeNextEvent()

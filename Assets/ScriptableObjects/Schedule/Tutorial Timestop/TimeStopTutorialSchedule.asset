@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c677fe107590081418d8b1cbf8a94621, type: 3}
+  m_Name: TimeStopTutorialSchedule
+  m_EditorClassIdentifier: 
+  scheduledEvents:
+  - {fileID: 11400000, guid: 24067d7f5ff8c794abcb83de6f9f6d68, type: 2}

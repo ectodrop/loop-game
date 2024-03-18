@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3009681892884810910}
   - component: {fileID: 1780776859976368635}
   - component: {fileID: 1126934119637483531}
+  - component: {fileID: 2704539988155041743}
   m_Layer: 0
   m_Name: FlowerCapsule
-  m_TagString: Untagged
+  m_TagString: canPickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,6 +89,20 @@ CapsuleCollider:
   m_Height: 3.69447
   m_Direction: 1
   m_Center: {x: -0.5967704, y: 1.2413899, z: 1.2990894}
+--- !u!114 &2704539988155041743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2608677264011597752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5850b63832cf17548baa882ffd63fea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeStopStartEvent: {fileID: 11400000, guid: ff2edae89ca8dc947818500d2d72bcda, type: 2}
+  timeStopEndEvent: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
 --- !u!1 &4292710173818467275
 GameObject:
   m_ObjectHideFlags: 0
@@ -3422,7 +3437,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2d2f671c359d10648aa98c658fff29a7, type: 2}
+  - {fileID: 2100000, guid: 06f9030d152b38b46a2ac4992fcca097, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
