@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject controlPanelUI;
     public GameObject loginPanelUI;
     public GameObject soundMenuUI;
+    public TimeLoopController _timeLoopController;
 
     public GameObject controlMenuUI;
 
@@ -47,6 +48,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        _timeLoopController.StopTime();
     }
 
     // start loop
@@ -110,6 +112,7 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 1f;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            _timeLoopController.ResumeTime();
         }
     }
 }

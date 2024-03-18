@@ -24,21 +24,29 @@ public class FastForward : MonoBehaviour
 
     public void HandleFastForwardStart(InputAction.CallbackContext _)
     {
-        if (timeStoppedFlag.GetValue())
+        if (!timeStoppedFlag.GetValue())
         {
-            return; // Do nothing if time is stopped
+            Time.timeScale = 2f; // Start fast-forwarding
+            gameControls.Wrapper.Player.Move.Disable();
+            gameControls.Wrapper.Player.Look.Disable();
+            gameControls.Wrapper.Player.Sprint.Disable();
+            gameControls.Wrapper.Player.Jump.Disable();
+            gameControls.Wrapper.Player.Interact.Disable();
+            gameControls.Wrapper.Player.TimeStop.Disable();
         }
-
-        Time.timeScale = 2f; // Start fast-forwarding
     }
 
     public void HandleFastForwardStop(InputAction.CallbackContext _)
     {
-        if (timeStoppedFlag.GetValue())
+        if (!timeStoppedFlag.GetValue())
         {
-            return; // Do nothing if time is stopped
+            Time.timeScale = 1f; // Stop fast-forwarding and return to normal time scale
+            gameControls.Wrapper.Player.Look.Enable();
+            gameControls.Wrapper.Player.Move.Enable();
+            gameControls.Wrapper.Player.Sprint.Enable();
+            gameControls.Wrapper.Player.Jump.Enable();
+            gameControls.Wrapper.Player.Interact.Enable();
+            gameControls.Wrapper.Player.TimeStop.Enable();
         }
-
-        Time.timeScale = 1f; // Stop fast-forwarding and return to normal time scale
     }
 }
