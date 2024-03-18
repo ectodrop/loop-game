@@ -37,14 +37,7 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         pauseMenuUI.SetActive(false);
-        // If both UI panels are closed, continue timer and hide cursor
-        if (!loginPanelUI.activeInHierarchy && !controlPanelUI.activeInHierarchy)
-        {
-            HUDEnableEvent.TriggerEvent();
-            Time.timeScale = 1f;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        BacktoGame();
     }
 
     void PauseGame()
@@ -93,13 +86,7 @@ public class PauseMenu : MonoBehaviour
     public void ExitfromSoundSetting()
     {
         soundMenuUI.SetActive(false);
-        if (!loginPanelUI.activeInHierarchy && !controlPanelUI.activeInHierarchy)
-        {
-            HUDEnableEvent.TriggerEvent();
-            Time.timeScale = 1f;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        BacktoGame();
     }
 
     public void OpenControlMenu()
@@ -111,6 +98,12 @@ public class PauseMenu : MonoBehaviour
     public void ExitfromControlMenu()
     {
         controlMenuUI.SetActive(false);
+        BacktoGame();
+    }
+
+    public void BacktoGame()
+    {
+        // If both UI panels are closed, continue timer and hide cursor
         if (!loginPanelUI.activeInHierarchy && !controlPanelUI.activeInHierarchy)
         {
             HUDEnableEvent.TriggerEvent();
@@ -119,5 +112,4 @@ public class PauseMenu : MonoBehaviour
             Cursor.visible = false;
         }
     }
-
 }
