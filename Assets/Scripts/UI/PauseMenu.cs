@@ -36,7 +36,6 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        // GameIsPaused = false;
         pauseMenuUI.SetActive(false);
         // If both UI panels are closed, continue timer and hide cursor
         if (!loginPanelUI.activeInHierarchy && !controlPanelUI.activeInHierarchy)
