@@ -8,18 +8,22 @@ public class Radio : MonoBehaviour
     public SoundEffect station1;
     public SoundEffect station2;
     public SoundEffect station3;
+    public float _interval = 20f;
+    public bool debug = false;
+    
+    // The station that will trigger the growth
+    [Range(1, 3)]
+    public int correctStation = 2;
 
     [Header("Listening To")]
     public GameEvent powerOn;
     public GameEvent powerOff;
     public GameEvent radioButtonClick;
 
+    // Listen to these for the mushroom growth
     [Header("Triggers")]
     public GameEvent startGrow;
     public GameEvent stopGrow;
-
-    public float _interval = 20f;
-    public bool debug = false;
     // State of the radio
     private bool _hasPower = false;
     private bool _timerOn = false;
@@ -99,6 +103,22 @@ public class Radio : MonoBehaviour
                 currentStation = station1;
                 break;
         }
+        if (station == correctStation)
+        {
+            startGrow.TriggerEvent();
+            if (debug) // For Debug
+            {
+                Debug.Log("Growing");
+            }
+        }
+        else
+        {
+            stopGrow.TriggerEvent();
+            if (debug) // For Debug
+            {
+                Debug.Log("Stopped Growing");
+            }
+        }
         currentStation.Play();
     }
 
@@ -119,8 +139,7 @@ public class Radio : MonoBehaviour
 
         while (_elapsedTime < _interval)
         {
-            // ---------- For Debugging -----------
-            if (debug)
+            if (debug) // For Debug
             {
                 int currentSecond = Mathf.FloorToInt(_elapsedTime);
                 if (currentSecond != lastSecond)
@@ -129,7 +148,6 @@ public class Radio : MonoBehaviour
                 }
                 lastSecond = currentSecond;
             }
-            // ------------------------------------
             if (!_hasPower)
             {
                 break;
