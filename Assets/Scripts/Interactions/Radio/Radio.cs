@@ -18,7 +18,7 @@ public class Radio : MonoBehaviour
     public GameEvent startGrow;
     public GameEvent stopGrow;
 
-    private float _interval = 20f;
+    public float _interval = 20f;
     // State of the radio
     private bool _hasPower = false;
     private bool _timerOn = false;
@@ -42,6 +42,7 @@ public class Radio : MonoBehaviour
     private void HandlePowerOn()
     {
         _hasPower = true;
+        StartTimer();
         PlayStation(_station);
     }
 
@@ -59,7 +60,6 @@ public class Radio : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartTimer();
         currentStation = station1;
     }
 
@@ -114,15 +114,21 @@ public class Radio : MonoBehaviour
 
         while (elapsedTime < _interval)
         {
+            if (!_hasPower)
+            {
+                break;
+            }
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Play next radio station
-        PlayNextStation();
-
         // Restart
         _timerOn = false;
-        StartTimer();
+        if (_hasPower)
+        {
+            // Play next radio station
+            PlayNextStation();
+            StartTimer();
+        }
     }
 }
