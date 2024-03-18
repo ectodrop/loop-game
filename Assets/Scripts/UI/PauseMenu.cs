@@ -28,18 +28,6 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        // {
-
-        //     if (GameIsPaused)
-        //     {
-        //         ResumeGame();
-        //     }
-        //     else
-        //     {
-        //         PauseGame();
-        //     }
-        // }
         if (Keyboard.current.escapeKey.wasPressedThisFrame && !pauseMenuUI.activeInHierarchy && !soundMenuUI.activeInHierarchy && !controlMenuUI.activeInHierarchy)
         {
             PauseGame();
