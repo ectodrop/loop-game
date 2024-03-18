@@ -45,4 +45,9 @@ public class SoundEffect : ScriptableObject
             Destroy(source.gameObject, source.clip.length / source.pitch);
         }
     }
+
+    public void Stop(AudioSource source)
+    {
+        source.Stop();
+    }
 }
