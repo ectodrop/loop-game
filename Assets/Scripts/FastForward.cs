@@ -32,7 +32,7 @@ public class FastForward : MonoBehaviour
             gameControls.Wrapper.Player.Sprint.Disable();
             gameControls.Wrapper.Player.Jump.Disable();
             gameControls.Wrapper.Player.Interact.Disable();
-            // gameControls.Wrapper.Player.TimeStop.Disable();
+            gameControls.Wrapper.Player.TimeStop.Disable();
         }
     }
 
@@ -46,7 +46,7 @@ public class FastForward : MonoBehaviour
             gameControls.Wrapper.Player.Sprint.Enable();
             gameControls.Wrapper.Player.Jump.Enable();
             gameControls.Wrapper.Player.Interact.Enable();
-            // gameControls.Wrapper.Player.TimeStop.Enable();
+            gameControls.Wrapper.Player.TimeStop.Enable();
         }
     }
 }
