@@ -11,7 +11,7 @@ public class Radio : MonoBehaviour
     public AudioSource melody3;
     public float _interval = 20f;
     public bool debug = false;
-    
+
     // The station that will trigger the growth
     [Range(0, 2)]
     public int correctStation = 2;
@@ -90,13 +90,29 @@ public class Radio : MonoBehaviour
     private void HandlePowerOff()
     {
         _hasPower = false;
-        stations[_station].mute = true;
+        MuteAllStations();
     }
 
     private void HandleRadioButton()
     {
         _elapsedTime = 0f;
         PlayNextStation();
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        currentStation = station1;
+        station1.PlayLoop();
+        station2.PlayLoop();
+        station3.PlayLoop();
+        MuteAllStations();
+    }
+
+    void MuteAllStations()
+    {
+        station1.Mute();
+        station2.Mute();
+        station3.Mute();
     }
 
     void PlayNextStation()
@@ -109,6 +125,30 @@ public class Radio : MonoBehaviour
 
     void PlayStation(int station)
     {
+        switch (station)
+        {
+            case 1:
+                currentStation = station1;
+                station1.Unmute();
+                station2.Mute();
+                station3.Mute();
+                break;
+            case 2:
+                currentStation = station2;
+                station1.Mute();
+                station2.Unmute();
+                station3.Mute();
+                break;
+            case 3:
+                currentStation = station3;
+                station1.Mute();
+                station2.Mute();
+                station3.Unmute();
+                break;
+            default:
+                currentStation = station1;
+                break;
+        }
         if (station == correctStation)
         {
             startGrow.TriggerEvent();
