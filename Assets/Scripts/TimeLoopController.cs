@@ -38,7 +38,7 @@ public class TimeLoopController : MonoBehaviour
 
     [Header("Sets Shared Variables")]
     public SharedBool timeStoppedFlag;
-    
+
     [Header("Sound Effects")]
     public SoundEffect timeloopEndSFX;
     public SoundEffect timestopStartSFX;
@@ -48,6 +48,13 @@ public class TimeLoopController : MonoBehaviour
     private void Start()
     {
         timeSettings.ResetTimers();
+        Time.timeScale = 1f;
+        gameControls.Wrapper.Player.Look.Enable();
+        gameControls.Wrapper.Player.Move.Enable();
+        gameControls.Wrapper.Player.Sprint.Enable();
+        gameControls.Wrapper.Player.Jump.Enable();
+        gameControls.Wrapper.Player.Interact.Enable();
+        gameControls.Wrapper.Player.TimeStop.Enable();
     }
 
     private void OnEnable()
@@ -70,7 +77,7 @@ public class TimeLoopController : MonoBehaviour
             firstFrame = false;
             StopTime();
             timeStopStartEvent.TriggerEvent();
-        }       
+        }
 
         if (timeStoppedFlag.GetValue() || debugMode)
         {
@@ -100,7 +107,7 @@ public class TimeLoopController : MonoBehaviour
     {
         if (Time.time - lastTimestop < timestopCooldown)
             return;
-        
+
         if (!timeStoppedFlag.GetValue())
         {
             if (numTimeStops <= 0)
@@ -136,7 +143,7 @@ public class TimeLoopController : MonoBehaviour
     {
         timeStoppedFlag.SetValue(false);
         Shader.SetGlobalInteger("_TimeStopped", 0);
-        
+
     }
 
     private void InvokeNextEvent()

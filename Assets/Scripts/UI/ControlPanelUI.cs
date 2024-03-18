@@ -5,6 +5,7 @@ using UnityEngine;
 public class ControlPanelUI : MonoBehaviour
 {
     public GameObject controlPanelUI;
+    public TimeLoopController _timeLoopController;
 
     [Header("Triggers")]
     public GameEvent HUDEnableEvent;
@@ -29,6 +30,7 @@ public class ControlPanelUI : MonoBehaviour
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        _timeLoopController.StopTime();
     }
 
     public void CloseControlPanel()
@@ -38,5 +40,6 @@ public class ControlPanelUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         controlPanelUI.SetActive(false);
+        _timeLoopController.ResumeTime();
     }
 }
