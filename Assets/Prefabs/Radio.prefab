@@ -277,3 +277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3985d94f4fb473191766651e05298c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
+  powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
+  radioButtonClick: {fileID: 11400000, guid: 396cd591bd7cf4922afb2213044391db, type: 2}

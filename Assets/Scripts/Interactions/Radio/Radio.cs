@@ -8,7 +8,7 @@ public class Radio : MonoBehaviour
     public SoundEffect station1;
     public SoundEffect station2;
     public SoundEffect station3;
-    
+
     [Header("Listening To")]
     public GameEvent powerOn;
     public GameEvent powerOff;
@@ -48,6 +48,7 @@ public class Radio : MonoBehaviour
     private void HandlePowerOff()
     {
         _hasPower = false;
+        currentStation.Stop();
     }
 
     private void HandleRadioButton()
