@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 BounceDirection = new Vector3(0, 0, 0);
     private float BounceDuration = 0.1f;
     private float BounceTimer = 0.1f;
+    private float _yVelocity = 0f;
 
 
     // Start is called before the first frame update
@@ -44,7 +46,8 @@ public class CharacterMovement : MonoBehaviour
         // Jumping
         // ----------------------------------------------------------
         // Check if the player is on the ground (Adjust as needed)
-        _grounded = Physics.Raycast(transform.position, Vector3.down, _controller.height / 2 + 0.1f);
+        RaycastHit hit;
+        _grounded = Physics.Raycast(transform.position, Vector3.down, out hit, _controller.height / 2 + 0.1f);
         
         // Horizontal Movement
         // ----------------------------------------------------------
@@ -65,26 +68,23 @@ public class CharacterMovement : MonoBehaviour
         _velocity += moveDir.y * _playerSpeed * transform.forward;
 
         _velocity += moveDir.x * _playerSpeed * transform.right;
-
-        // Jumping
-        // ----------------------------------------------------------
-        // Check if the player is on the ground (Adjust as needed)
-        RaycastHit hit;
-        _grounded = Physics.Raycast(transform.position, Vector3.down, out hit, _controller.height / 2 + 0.1f);
         
-
         // Gravity
         if (!_grounded)
         {
             _velocity.y += Gravity * Time.deltaTime;
         }
-        else if (hit.collider.tag == "Mushroom")
+        else
         {
-            _velocity.y = hit.collider.GetComponent<Rigidbody>().velocity.y;
-        }
-        else if (_velocity.y < 0)
-        {
-            _velocity.y = 0f;
+            if (hit.rigidbody != null)
+            {
+                _yVelocity = hit.rigidbody.velocity.y;
+            }
+            else
+            {
+                _yVelocity = 0f;
+                _velocity.y = 0f;
+            }
         }
 
         // Jump trigger
@@ -110,6 +110,12 @@ public class CharacterMovement : MonoBehaviour
         // Update ALL movement after compute
         _controller.Move(_velocity * Time.deltaTime);
     }
+
+    private void FixedUpdate()
+    {
+        _controller.Move(new Vector3(0, _yVelocity, 0) * Time.fixedDeltaTime);
+    }
+
     // When player contacts the electrified puddle, the player will bounce back.
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {

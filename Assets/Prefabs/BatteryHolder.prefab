@@ -790,8 +790,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8991cec658f847e0ad5926527611c2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EmergencyOnText: Press E
-  EmergencyOffText: Press E
+  EmergencyOnText: Turn off [E]
+  EmergencyOffText: Turn on [E]
   holder: {fileID: 6952632585083689287}
   switchOn: {fileID: 11400000, guid: cc9659571e034437db7d33d9139631c2, type: 2}
   switchOff: {fileID: 11400000, guid: 7f5c559cea2a447f7847d814ad044b79, type: 2}
@@ -1707,6 +1707,7 @@ MonoBehaviour:
   powerLed: {fileID: 8636147607223601715}
   generatorLed: {fileID: 1812429954922552907}
   batteryLed: {fileID: 7778834805380258458}
+  isPowerOn: 1
   switchOn: {fileID: 11400000, guid: cc9659571e034437db7d33d9139631c2, type: 2}
   switchOff: {fileID: 11400000, guid: 7f5c559cea2a447f7847d814ad044b79, type: 2}
   batteryDraining: {fileID: 11400000, guid: fe6ac462cae99e247862bf00da89c36d, type: 2}

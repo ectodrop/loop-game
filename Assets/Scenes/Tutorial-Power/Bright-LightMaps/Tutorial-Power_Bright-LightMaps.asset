@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a0d58359e7f35428741e3557964cf3, type: 3}
+  m_Name: Tutorial-Power_Bright-LightMaps
+  m_EditorClassIdentifier: 
+  lightMapColors:
+  - {fileID: 2800000, guid: f39eb49b802375941984eb5a1521a9b5, type: 3}
+  lightMapDirs:
+  - {fileID: 2800000, guid: ce5c89b69864bde44b2d4b7f983c73ea, type: 3}

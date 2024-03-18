@@ -5,16 +5,14 @@ using UnityEngine;
 
 public class Mushroom : MonoBehaviour
 {
+    public Transform mushroom;
+    public Transform head;
+    public Rigidbody movingPlatform;
     public GameEvent startGrow;
     public GameEvent stopGrow;
-    private Rigidbody rb;
     public float GrowSpeed = 0.01f;
     private float growHeightLimit = 4.0f;
     private bool _growing = false;
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
     private void OnEnable()
     {
         startGrow.AddListener(Grow);
@@ -35,7 +33,9 @@ public class Mushroom : MonoBehaviour
             }
             else
             {
-                rb.MovePosition(rb.position + new Vector3(0, GrowSpeed, 0));
+                mushroom.localScale += new Vector3(GrowSpeed, GrowSpeed, GrowSpeed);
+                movingPlatform.transform.localScale += new Vector3(GrowSpeed, 0, GrowSpeed) * 2;
+                movingPlatform.MovePosition(head.position);
             }
         }
     }
