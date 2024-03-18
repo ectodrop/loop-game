@@ -19,11 +19,13 @@ public class Radio : MonoBehaviour
     public GameEvent stopGrow;
 
     public float _interval = 20f;
+    public bool debug = false;
     // State of the radio
     private bool _hasPower = false;
     private bool _timerOn = false;
     private int _station = 1; // Stations 0, 1, 2
     private SoundEffect currentStation;
+    private float _elapsedTime = 0f;
 
     private void OnEnable()
     {
@@ -55,6 +57,7 @@ public class Radio : MonoBehaviour
     private void HandleRadioButton()
     {
         currentStation.Stop();
+        _elapsedTime = 0f;
         PlayNextStation();
     }
     // Start is called before the first frame update
@@ -75,6 +78,7 @@ public class Radio : MonoBehaviour
         }
 
         // Play station
+        currentStation.Stop();
         PlayStation(_station);
     }
 
@@ -110,15 +114,27 @@ public class Radio : MonoBehaviour
     IEnumerator Timer()
     {
         _timerOn = true;
-        float elapsedTime = 0f;
+        _elapsedTime = 0f;
+        int lastSecond = 0; // For Debug
 
-        while (elapsedTime < _interval)
+        while (_elapsedTime < _interval)
         {
+            // ---------- For Debugging -----------
+            if (debug)
+            {
+                int currentSecond = Mathf.FloorToInt(_elapsedTime);
+                if (currentSecond != lastSecond)
+                {
+                    Debug.Log(_elapsedTime);
+                }
+                lastSecond = currentSecond;
+            }
+            // ------------------------------------
             if (!_hasPower)
             {
                 break;
             }
-            elapsedTime += Time.deltaTime;
+            _elapsedTime += Time.deltaTime;
             yield return null;
         }
 
