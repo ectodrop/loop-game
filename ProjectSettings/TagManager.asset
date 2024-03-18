@@ -8,6 +8,7 @@ TagManager:
   - canPickUp
   - Battery
   - puddle
+  - Mushroom
   layers:
   - Default
   - TransparentFX
