@@ -9,10 +9,16 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject controlPanelUI;
     public GameObject loginPanelUI;
+    public GameObject soundMenuUI;
+
+    public GameObject controlMenuUI;
+
     [Header("Triggers")]
     public GameEvent HUDEnableEvent;
     public GameEvent HUDDisableEvent;
     public GameEvent resetLoopEvent;
+
+
 
     void Start()
     {
@@ -22,38 +28,22 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && !pauseMenuUI.activeInHierarchy && !soundMenuUI.activeInHierarchy && !controlMenuUI.activeInHierarchy)
         {
-            if (GameIsPaused)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
+            PauseGame();
         }
     }
 
     public void ResumeGame()
     {
-        GameIsPaused = false;
         pauseMenuUI.SetActive(false);
-        // If both UI panels are closed, continue timer and hide cursor
-        if (!loginPanelUI.activeInHierarchy && !controlPanelUI.activeInHierarchy)
-        {
-            HUDEnableEvent.TriggerEvent();
-            Time.timeScale = 1f;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        BacktoGame();
     }
 
     void PauseGame()
     {
         HUDDisableEvent.TriggerEvent();
         Time.timeScale = 0f;
-        GameIsPaused = true;
         pauseMenuUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -71,5 +61,55 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+
+    public void OpenSoundMenu()
+    {
+        soundMenuUI.SetActive(true);
+        pauseMenuUI.SetActive(false);
+    }
+
+    public void ReturnToPauseMenu()
+    {
+        if (soundMenuUI.activeInHierarchy)
+        {
+            soundMenuUI.SetActive(false);
+            pauseMenuUI.SetActive(true);
+        }
+        else if (controlMenuUI.activeInHierarchy)
+        {
+            controlMenuUI.SetActive(false);
+            pauseMenuUI.SetActive(true);
+        }
+    }
+
+    public void ExitfromSoundSetting()
+    {
+        soundMenuUI.SetActive(false);
+        BacktoGame();
+    }
+
+    public void OpenControlMenu()
+    {
+        controlMenuUI.SetActive(true);
+        pauseMenuUI.SetActive(false);
+    }
+
+    public void ExitfromControlMenu()
+    {
+        controlMenuUI.SetActive(false);
+        BacktoGame();
+    }
+
+    public void BacktoGame()
+    {
+        // If both UI panels are closed, continue timer and hide cursor
+        if (!loginPanelUI.activeInHierarchy && !controlPanelUI.activeInHierarchy)
+        {
+            HUDEnableEvent.TriggerEvent();
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }

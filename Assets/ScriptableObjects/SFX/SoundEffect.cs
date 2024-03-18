@@ -21,7 +21,7 @@ public class SoundEffect : ScriptableObject
         int rand = Random.Range(0, audioClips.Length - 1);
         return audioClips[rand];
     }
-    
+
     public void Play(AudioSource source = null)
     {
         if (audioClips.Length == 0) return;
@@ -43,6 +43,15 @@ public class SoundEffect : ScriptableObject
         if (destroy)
         {
             Destroy(source.gameObject, source.clip.length / source.pitch);
+        }
+        _currentAudioSource = source;
+    }
+
+    public void Stop()
+    {
+        if (_currentAudioSource != null)
+        {
+            _currentAudioSource.Stop();
         }
     }
 }
