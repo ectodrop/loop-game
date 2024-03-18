@@ -66,11 +66,21 @@ public class CharacterMovement : MonoBehaviour
 
         _velocity += moveDir.x * _playerSpeed * transform.right;
 
+        // Jumping
+        // ----------------------------------------------------------
+        // Check if the player is on the ground (Adjust as needed)
+        RaycastHit hit;
+        _grounded = Physics.Raycast(transform.position, Vector3.down, out hit, _controller.height / 2 + 0.1f);
+        
 
         // Gravity
         if (!_grounded)
         {
             _velocity.y += Gravity * Time.deltaTime;
+        }
+        else if (hit.collider.tag == "Mushroom")
+        {
+            _velocity.y = hit.collider.GetComponent<Rigidbody>().velocity.y;
         }
         else if (_velocity.y < 0)
         {
