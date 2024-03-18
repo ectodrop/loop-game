@@ -54,4 +54,40 @@ public class SoundEffect : ScriptableObject
             _currentAudioSource.Stop();
         }
     }
+
+    public void PlayLoop(AudioSource source = null)
+    {
+        if (audioClips.Length == 0) return;
+        if (source == null)
+        {
+            var tmp = new GameObject("sfx", typeof(AudioSource));
+            source = tmp.GetComponent<AudioSource>();
+            source.playOnAwake = false;
+        }
+        source.Stop();
+
+        source.clip = GetAudioClip();
+        source.pitch = pitch;
+        source.outputAudioMixerGroup = group;
+        source.volume = volume;
+        source.loop = true;
+        source.Play();
+        _currentAudioSource = source;
+    }
+
+    public void Mute()
+    {
+        if (_currentAudioSource != null)
+        {
+            _currentAudioSource.volume = 0;
+        }
+    }
+
+    public void Unmute()
+    {
+        if (_currentAudioSource != null)
+        {
+            _currentAudioSource.volume = volume;
+        }
+    }
 }
