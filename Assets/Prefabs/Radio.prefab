@@ -114,6 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5171600082665581998}
+  - component: {fileID: 8627946930551164073}
   m_Layer: 0
   m_Name: Radio
   m_TagString: Untagged
@@ -138,6 +139,26 @@ Transform:
   - {fileID: 8097022751099832045}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8627946930551164073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4649693000667869645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645f6045c734447689c109b88b7cd09c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  station1: {fileID: 11400000, guid: d4fdb0039dc9f4660862e6f798c7abc8, type: 2}
+  station2: {fileID: 11400000, guid: 0c71412d125e640eda1ddf4e4848ad50, type: 2}
+  station3: {fileID: 11400000, guid: 8a791e3437aa743c7b076591ddef1477, type: 2}
+  powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
+  powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
+  radioButtonClick: {fileID: 11400000, guid: 396cd591bd7cf4922afb2213044391db, type: 2}
+  startGrow: {fileID: 11400000, guid: 1616bb49e7a674829a8f05a684be4670, type: 2}
+  stopGrow: {fileID: 11400000, guid: 695d1344dbca14374a9feed3e84adfb8, type: 2}
 --- !u!1 &5975239097479679803
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +171,7 @@ GameObject:
   - component: {fileID: 7012538553347482927}
   - component: {fileID: 388847315134341245}
   - component: {fileID: 5159914989974703577}
+  - component: {fileID: 5732264389545714188}
   m_Layer: 0
   m_Name: RadioButton
   m_TagString: Untagged
@@ -243,3 +265,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5732264389545714188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5975239097479679803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3985d94f4fb473191766651e05298c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

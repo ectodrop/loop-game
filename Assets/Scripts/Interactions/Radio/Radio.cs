@@ -5,40 +5,44 @@ using UnityEngine;
 
 public class Radio : MonoBehaviour
 {
-    public GameEvent powerOn;
-    public GameEvent powerOff;
-    public GameEvent radioButton;
-
     public SoundEffect station1;
     public SoundEffect station2;
     public SoundEffect station3;
+    
+    [Header("Listening To")]
+    public GameEvent powerOn;
+    public GameEvent powerOff;
+    public GameEvent radioButtonClick;
+
+    [Header("Triggers")]
+    public GameEvent startGrow;
+    public GameEvent stopGrow;
 
     private float _interval = 20f;
     // State of the radio
     private bool _hasPower = false;
     private bool _timerOn = false;
-    private int _station = 0; // Stations 0, 1, 2
-    
-    
+    private int _station = 1; // Stations 0, 1, 2
+    private SoundEffect currentStation;
+
     private void OnEnable()
     {
         powerOn.AddListener(HandlePowerOn);
         powerOff.AddListener(HandlePowerOff);
-        radioButton.AddListener(HandleRadioButton);
+        radioButtonClick.AddListener(HandleRadioButton);
     }
 
     private void OnDisable()
     {
         powerOn.RemoveListener(HandlePowerOn);
         powerOff.RemoveListener(HandlePowerOff);
-        radioButton.RemoveListener(HandleRadioButton);
+        radioButtonClick.RemoveListener(HandleRadioButton);
     }
 
     private void HandlePowerOn()
     {
         _hasPower = true;
-        // Start by playing station 1
-        PlayStation(1);
+        PlayStation(_station);
     }
 
     private void HandlePowerOff()
@@ -48,12 +52,14 @@ public class Radio : MonoBehaviour
 
     private void HandleRadioButton()
     {
-        
+        currentStation.Stop();
+        PlayNextStation();
     }
     // Start is called before the first frame update
     void Start()
     {
         StartTimer();
+        currentStation = station1;
     }
 
     void PlayNextStation()
@@ -66,7 +72,7 @@ public class Radio : MonoBehaviour
         {
             _station += 1;
         }
-        
+
         // Play station
         PlayStation(_station);
     }
@@ -76,16 +82,21 @@ public class Radio : MonoBehaviour
         switch (station)
         {
             case 1:
+                currentStation = station1;
                 break;
             case 2:
+                currentStation = station2;
                 break;
             case 3:
+                currentStation = station3;
                 break;
             default:
+                currentStation = station1;
                 break;
         }
+        currentStation.Play();
     }
-    
+
     void StartTimer()
     {
         if (!_timerOn)
@@ -94,7 +105,7 @@ public class Radio : MonoBehaviour
         }
     }
 
-    
+
     IEnumerator Timer()
     {
         _timerOn = true;
@@ -107,7 +118,7 @@ public class Radio : MonoBehaviour
         }
 
         // Play next radio station
-        
+        PlayNextStation();
 
         // Restart
         _timerOn = false;
