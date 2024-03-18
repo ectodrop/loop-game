@@ -4403,7 +4403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317044e8524c74545b037d5d06002a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerDoor: {fileID: 1245349648}
+  powerDoor: {fileID: 1245349653}
   lookAtEvent: {fileID: 11400000, guid: 67bc92a290c6dde4d882319f65ba9518, type: 2}
 --- !u!1001 &822334507
 PrefabInstance:
@@ -7305,6 +7305,7 @@ GameObject:
   - component: {fileID: 1245349652}
   - component: {fileID: 1245349651}
   - component: {fileID: 1245349650}
+  - component: {fileID: 1245349653}
   m_Layer: 0
   m_Name: PowerDoor
   m_TagString: Untagged
@@ -7398,6 +7399,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245349648}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1245349653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245349648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3f761ac0adb004aa57f73add10abc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorSFX: {fileID: 11400000, guid: 8791a8a794272a6459fb8c9d0f03f6f9, type: 2}
+  timeToCompleteSeconds: 1
+  moveDistance: 5
 --- !u!1 &1336095892 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7610345134387402476, guid: 95d7dcfcb3189ab4c86b35b6c76dd40e, type: 3}

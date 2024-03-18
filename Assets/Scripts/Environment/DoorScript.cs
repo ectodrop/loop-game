@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour
 {
+    public SoundEffect doorSFX;
     public float timeToCompleteSeconds;
     public float moveDistance;
     
     public void OpenDoor()
     {
+        doorSFX.Play();
         StartCoroutine(MoveRoutine(transform.position + new Vector3(0, moveDistance, 0)));
     }
 
     public void CloseDoor()
     {
+        doorSFX.Play();
         StartCoroutine(MoveRoutine(transform.position - new Vector3(0, moveDistance, 0)));
     }
 

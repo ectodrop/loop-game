@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class RadioButton : MonoBehaviour, IInteractable, IRayHoverable, ILabel
 {
+    public bool debug;
     [Header("Listening To")]
     public GameEvent powerOn;
     public GameEvent powerOff;
@@ -38,7 +39,7 @@ public class RadioButton : MonoBehaviour, IInteractable, IRayHoverable, ILabel
 
     public void Interact()
     {
-        if (_hasPower)
+        if (_hasPower || debug)
         {
             radioButtonClick.TriggerEvent();
         }

@@ -151,12 +151,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 645f6045c734447689c109b88b7cd09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  station1: {fileID: 11400000, guid: d4fdb0039dc9f4660862e6f798c7abc8, type: 2}
-  station2: {fileID: 11400000, guid: 0c71412d125e640eda1ddf4e4848ad50, type: 2}
-  station3: {fileID: 11400000, guid: 8a791e3437aa743c7b076591ddef1477, type: 2}
+  bgm: {fileID: 0}
+  melody1: {fileID: 0}
+  melody2: {fileID: 0}
+  melody3: {fileID: 0}
+  _interval: 20
+  debug: 0
+  correctStation: 2
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
   radioButtonClick: {fileID: 11400000, guid: 396cd591bd7cf4922afb2213044391db, type: 2}
+  timeStopStart: {fileID: 11400000, guid: ff2edae89ca8dc947818500d2d72bcda, type: 2}
+  timeStopEnd: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
+  stations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   startGrow: {fileID: 11400000, guid: 1616bb49e7a674829a8f05a684be4670, type: 2}
   stopGrow: {fileID: 11400000, guid: 695d1344dbca14374a9feed3e84adfb8, type: 2}
 --- !u!1 &5975239097479679803
@@ -277,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3985d94f4fb473191766651e05298c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
   radioButtonClick: {fileID: 11400000, guid: 396cd591bd7cf4922afb2213044391db, type: 2}

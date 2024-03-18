@@ -50,11 +50,16 @@ public class TimeTutorialGuide : MonoBehaviour
         _timeLoopController.StopTime();
         if (firstTime.GetValue())
         {
-            _dialogueController.StartDialogue(dialogueFirstTime, options: DialogueOptions.STOP_TIME);
+            _dialogueController.StartDialogue(
+                dialogueFirstTime,
+                options: DialogueOptions.STOP_TIME,
+                finishedCallback: () => changeExpressionEvent.TriggerEvent((int)JarvisExpression.Empty));
         }
         else
         {
-            _dialogueController.StartDialogue(dialogueNotFirstTime, options: DialogueOptions.STOP_TIME);
+            _dialogueController.StartDialogue(dialogueNotFirstTime,
+                options: DialogueOptions.STOP_TIME,
+                finishedCallback: () => changeExpressionEvent.TriggerEvent((int)JarvisExpression.Empty));
         }
         
         lookAtEvent.TriggerEvent(jarvisObject.transform.position);
@@ -72,12 +77,10 @@ public class TimeTutorialGuide : MonoBehaviour
         {
             _timeLoopController.StopTime();
             _dialogueController.StartDialogue(dialogueSuccess, finishedCallback: () => StartCoroutine(ShowPlayerThoughts()));
-            changeExpressionEvent.TriggerEvent((int)JarvisExpression.Happy);
             _passed = true;
         }
         else
         {
-            changeExpressionEvent.TriggerEvent((int)JarvisExpression.Suprised);
             _dialogueController.StartDialogue(dialogueFail, DialogueOptions.STOP_TIME, finishedCallback: ShowResetDialogue);
             firstTime.SetValue(false);
         }
@@ -95,7 +98,6 @@ public class TimeTutorialGuide : MonoBehaviour
 
     private void ShowResetDialogue()
     {
-        changeExpressionEvent.TriggerEvent((int)JarvisExpression.Neutral);
         _dialogueController.StartDialogue(dialogueReset, options: DialogueOptions.NO_INPUT | DialogueOptions.STOP_TIME);
     }
 }

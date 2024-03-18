@@ -15,10 +15,19 @@ MonoBehaviour:
   sentences:
   - Speaker: Jarvis
     Body: 'Ok, it''s 12:10pm so time''s up! '
+    changeExpression: 1
+    changeExpressionEvent: {fileID: 11400000, guid: 16aa491e008e2744b821ff31108e807e, type: 2}
+    expression: 1
   - Speaker: Jarvis
     Body: 'Here''s your question:'
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
   - Speaker: Jarvis
     Body: At what time did the lights in this room flicker?
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
   choices:
   - 12:00pm
   - 12:01pm

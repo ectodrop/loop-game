@@ -15,6 +15,12 @@ MonoBehaviour:
   sentences:
   - Speaker: Jarvis
     Body: Wrong. Hmm... Seems like your observing ability has also been hindered.
+    changeExpression: 1
+    changeExpressionEvent: {fileID: 11400000, guid: 16aa491e008e2744b821ff31108e807e, type: 2}
+    expression: 3
   - Speaker: Jarvis
     Body: 'That''s fine however, we can keep doing this for as long as it takes. '
+    changeExpression: 1
+    changeExpressionEvent: {fileID: 11400000, guid: 16aa491e008e2744b821ff31108e807e, type: 2}
+    expression: 1
   choices: []
