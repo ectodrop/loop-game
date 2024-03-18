@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Mushroom : MonoBehaviour
 {
-    public GameEvent batteryDraining;
-    public GameEvent batteryStopDraining;
+    public GameEvent startGrow;
+    public GameEvent stopGrow;
+    private Rigidbody rb;
     public float GrowSpeed = 0.001f;
     private float growHeightLimit = 4.0f;
     private bool _growing = false;
@@ -16,25 +17,30 @@ public class Mushroom : MonoBehaviour
     {
         startPos = gameObject.transform.position;
         endPos = new Vector3(startPos.x, growHeightLimit, startPos.z);
+        rb = GetComponent<Rigidbody>();
     }
     private void OnEnable()
     {
-        batteryDraining.AddListener(Grow);
-        batteryStopDraining.AddListener(StopGrow);
+        startGrow.AddListener(Grow);
+        stopGrow.AddListener(StopGrow);
     }
     private void OnDisable()
     {
-        batteryDraining.RemoveListener(Grow);
-        batteryStopDraining.RemoveListener(StopGrow);
+        startGrow.RemoveListener(Grow);
+        stopGrow.RemoveListener(StopGrow);
     }
     private void FixedUpdate()
     {
         if (_growing)
         {
-            gameObject.transform.position = gameObject.transform.position + new Vector3(0, GrowSpeed, 0);
             if (gameObject.transform.position.y >= growHeightLimit)
             {
                 StopGrow();
+            }
+            else
+            {
+                //gameObject.transform.position = gameObject.transform.position + new Vector3(0, GrowSpeed, 0);
+                rb.MovePosition(rb.position + new Vector3(0, GrowSpeed, 0));
             }
         }
     }

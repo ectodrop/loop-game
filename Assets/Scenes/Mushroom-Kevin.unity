@@ -2865,7 +2865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8257893408254051794, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
       propertyPath: m_Interpolate
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8257893408254051794, guid: 5e9b58eca9504e442bdd3146814c5294, type: 3}
       propertyPath: m_CollisionDetection
@@ -12034,7 +12034,7 @@ GameObject:
   - component: {fileID: 1935435662}
   m_Layer: 0
   m_Name: Mushroom
-  m_TagString: Untagged
+  m_TagString: Mushroom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12137,9 +12137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e873663536b2643ab87ff2904858c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  batteryDraining: {fileID: 11400000, guid: fe6ac462cae99e247862bf00da89c36d, type: 2}
-  batteryStopDraining: {fileID: 11400000, guid: bc6d2e6ab98f2644f9459b9aac4f2da1, type: 2}
-  GrowSpeed: 0.1
+  startGrow: {fileID: 11400000, guid: fe6ac462cae99e247862bf00da89c36d, type: 2}
+  stopGrow: {fileID: 11400000, guid: bc6d2e6ab98f2644f9459b9aac4f2da1, type: 2}
+  GrowSpeed: 0.001
 --- !u!54 &1935435661
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12164,7 +12164,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!95 &1935435662
