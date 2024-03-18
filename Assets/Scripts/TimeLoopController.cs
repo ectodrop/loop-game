@@ -49,6 +49,11 @@ public class TimeLoopController : MonoBehaviour
     {
         timeSettings.ResetTimers();
         Time.timeScale = 1f;
+        gameControls.Wrapper.Player.Look.Enable();
+        gameControls.Wrapper.Player.Move.Enable();
+        gameControls.Wrapper.Player.Sprint.Enable();
+        gameControls.Wrapper.Player.Jump.Enable();
+        gameControls.Wrapper.Player.Interact.Enable();
         gameControls.Wrapper.Player.TimeStop.Enable();
     }
 
