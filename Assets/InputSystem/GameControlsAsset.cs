@@ -80,6 +80,15 @@ public partial class @GameControlsAsset: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FastForward"",
+                    ""type"": ""Button"",
+                    ""id"": ""61cde283-ef80-46e1-9074-a7fd3a8aeab8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -289,6 +298,17 @@ public partial class @GameControlsAsset: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""TimeStop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b83deb9-6549-4f48-9ce0-00fa89c966a0"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FastForward"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -902,6 +922,7 @@ public partial class @GameControlsAsset: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_TimeStop = m_Player.FindAction("TimeStop", throwIfNotFound: true);
+        m_Player_FastForward = m_Player.FindAction("FastForward", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -982,6 +1003,7 @@ public partial class @GameControlsAsset: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_TimeStop;
+    private readonly InputAction m_Player_FastForward;
     public struct PlayerActions
     {
         private @GameControlsAsset m_Wrapper;
@@ -992,6 +1014,7 @@ public partial class @GameControlsAsset: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @TimeStop => m_Wrapper.m_Player_TimeStop;
+        public InputAction @FastForward => m_Wrapper.m_Player_FastForward;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1019,6 +1042,9 @@ public partial class @GameControlsAsset: IInputActionCollection2, IDisposable
             @TimeStop.started += instance.OnTimeStop;
             @TimeStop.performed += instance.OnTimeStop;
             @TimeStop.canceled += instance.OnTimeStop;
+            @FastForward.started += instance.OnFastForward;
+            @FastForward.performed += instance.OnFastForward;
+            @FastForward.canceled += instance.OnFastForward;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1041,6 +1067,9 @@ public partial class @GameControlsAsset: IInputActionCollection2, IDisposable
             @TimeStop.started -= instance.OnTimeStop;
             @TimeStop.performed -= instance.OnTimeStop;
             @TimeStop.canceled -= instance.OnTimeStop;
+            @FastForward.started -= instance.OnFastForward;
+            @FastForward.performed -= instance.OnFastForward;
+            @FastForward.canceled -= instance.OnFastForward;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1237,6 +1266,7 @@ public partial class @GameControlsAsset: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnTimeStop(InputAction.CallbackContext context);
+        void OnFastForward(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
