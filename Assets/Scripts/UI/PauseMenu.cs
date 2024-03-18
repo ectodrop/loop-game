@@ -51,7 +51,6 @@ public class PauseMenu : MonoBehaviour
     {
         HUDDisableEvent.TriggerEvent();
         Time.timeScale = 0f;
-        // GameIsPaused = true;
         pauseMenuUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
