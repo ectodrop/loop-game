@@ -7776,7 +7776,7 @@ MonoBehaviour:
   lightOff: {fileID: 2100000, guid: 610d8812741194e4f8af4a42ac536a56, type: 2}
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
-  LightFlicker: {fileID: 11400000, guid: ffe4f8bbc4b2dfb468e55a6e2eaaa99d, type: 2}
+  LightFlicker: {fileID: 11400000, guid: 7d00d3e0eca1c2549a77376b9a56a41a, type: 2}
 --- !u!1 &1577409841
 GameObject:
   m_ObjectHideFlags: 0
