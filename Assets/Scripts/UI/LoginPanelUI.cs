@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class LoginPanelUI : MonoBehaviour
 {
     public GameObject loginPanelUI;
-    public TimeLoopController _timeLoopController;
     
     [Header("Listening To")]
     public GameEvent LoginUIOn;
@@ -31,7 +30,6 @@ public class LoginPanelUI : MonoBehaviour
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        _timeLoopController.StopTime();
     }
 
     public void CloseLoginPanel()
@@ -41,6 +39,5 @@ public class LoginPanelUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         loginPanelUI.SetActive(false);
-        _timeLoopController.ResumeTime();
     }
 }

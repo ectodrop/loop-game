@@ -12,12 +12,12 @@ public class TimeStopTutorialGuide : MonoBehaviour
 
     private void OnEnable()
     {
-        doorCloseEvent.AddListener(CloseDoor);
+        doorCloseEvent.gameEvent.AddListener(CloseDoor);
     }
 
     private void OnDisable()
     {
-        doorCloseEvent.RemoveListener(CloseDoor);
+        doorCloseEvent.gameEvent.RemoveListener(CloseDoor);
     }
 
     private void CloseDoor()

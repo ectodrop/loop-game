@@ -153,7 +153,7 @@ public class TimeLoopController : MonoBehaviour
         var nextEvent = scheduleController.scheduledEvents[currentEvent];
         if (nextEvent.time.CompareTo(timeSettings.currentTimestamp) <= 0)
         {
-            nextEvent.TriggerEvent();
+            nextEvent.gameEvent.TriggerEvent();
             currentEvent++;
         }
     }

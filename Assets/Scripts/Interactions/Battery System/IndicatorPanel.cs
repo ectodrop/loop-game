@@ -54,7 +54,7 @@ public class IndicatorPanel : MonoBehaviour
         switchOff.AddListener(HandleSwitchOff);
         batteryDraining.AddListener(HandleBatteryDrain);
         batteryStopDraining.AddListener(HandleBatteryDrainStop);
-        powerOutageEvent.AddListener(HandlePowerOutage);
+        powerOutageEvent.gameEvent.AddListener(HandlePowerOutage);
     }
 
     private void OnDisable()
@@ -63,7 +63,7 @@ public class IndicatorPanel : MonoBehaviour
         switchOff.RemoveListener(HandleSwitchOff);
         batteryDraining.RemoveListener(HandleBatteryDrain);
         batteryStopDraining.RemoveListener(HandleBatteryDrainStop);
-        powerOutageEvent.RemoveListener(HandlePowerOutage);
+        powerOutageEvent.gameEvent.RemoveListener(HandlePowerOutage);
     }
 
 

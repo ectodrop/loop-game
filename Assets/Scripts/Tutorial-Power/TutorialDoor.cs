@@ -26,14 +26,14 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
 
     private void OnEnable()
     {
-        powerOutageEvent.AddListener(HandlePowerOutage);
+        powerOutageEvent.gameEvent.AddListener(HandlePowerOutage);
         powerOn.AddListener(HandlePowerOn);
         powerOff.AddListener(HandlerPowerOff);
     }
 
     private void OnDisable()
     {
-        powerOutageEvent.RemoveListener(HandlePowerOutage);
+        powerOutageEvent.gameEvent.RemoveListener(HandlePowerOutage);
         powerOn.RemoveListener(HandlePowerOn);
         powerOff.RemoveListener(HandlerPowerOff);
     }

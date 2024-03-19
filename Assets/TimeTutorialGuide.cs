@@ -36,12 +36,12 @@ public class TimeTutorialGuide : MonoBehaviour
 
     private void OnEnable()
     {
-        studyTimeOverEvent.AddListener(Ask);
+        studyTimeOverEvent.gameEvent.AddListener(Ask);
     }
     
     private void OnDisable()
     {
-        studyTimeOverEvent.RemoveListener(Ask);
+        studyTimeOverEvent.gameEvent.RemoveListener(Ask);
         _timeLoopController.ResumeTime();
     }
     

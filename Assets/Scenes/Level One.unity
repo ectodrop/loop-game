@@ -736,6 +736,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 626794063838174792, guid: 201ddb459a8b6475a9628b7701623c35, type: 3}
+      propertyPath: timeSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 962a79f424033ff408df9840a81294cb, type: 2}
     - target: {fileID: 3081776530756691452, guid: 201ddb459a8b6475a9628b7701623c35, type: 3}
       propertyPath: m_Name
       value: FastForwardController

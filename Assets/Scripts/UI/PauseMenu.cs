@@ -10,7 +10,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject controlPanelUI;
     public GameObject loginPanelUI;
     public GameObject soundMenuUI;
-    public TimeLoopController _timeLoopController;
 
     public GameObject controlMenuUI;
 
@@ -18,13 +17,8 @@ public class PauseMenu : MonoBehaviour
     public GameEvent HUDEnableEvent;
     public GameEvent HUDDisableEvent;
     public GameEvent resetLoopEvent;
-
-
-
-    void Start()
-    {
-
-    }
+    public GameEvent gamePausedEvent;
+    public GameEvent gameUnPausedEvent;
 
     // Update is called once per frame
     void Update()
@@ -44,11 +38,12 @@ public class PauseMenu : MonoBehaviour
     void PauseGame()
     {
         HUDDisableEvent.TriggerEvent();
+        gamePausedEvent.TriggerEvent();
+        
         Time.timeScale = 0f;
         pauseMenuUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        _timeLoopController.StopTime();
     }
 
     // start loop
@@ -109,10 +104,10 @@ public class PauseMenu : MonoBehaviour
         if (!loginPanelUI.activeInHierarchy && !controlPanelUI.activeInHierarchy)
         {
             HUDEnableEvent.TriggerEvent();
+            gameUnPausedEvent.TriggerEvent();
             Time.timeScale = 1f;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            _timeLoopController.ResumeTime();
         }
     }
 }

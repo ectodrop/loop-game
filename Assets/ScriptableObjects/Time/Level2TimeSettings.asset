@@ -18,5 +18,6 @@ MonoBehaviour:
   defaultEndTimestamp:
     hour: 12
     minute: 30
+  fastForwardTimeScale: 3
   secondsPerMinute: 1
   minutesPerIncrement: 5

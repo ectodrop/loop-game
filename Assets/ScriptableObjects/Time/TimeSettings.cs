@@ -7,7 +7,8 @@ public class TimeSettings : ScriptableObject
 {
     public Timestamp defaultStartTimestamp = new Timestamp(12, 0);
     public Timestamp defaultEndTimestamp = new Timestamp(12, 20);
-    
+
+    public float fastForwardTimeScale = 2f;
     [Tooltip("How many seconds of realtime is 1 minute ingame?")]
     [Min(0.1f)]
     public float secondsPerMinute = 1.0f;
