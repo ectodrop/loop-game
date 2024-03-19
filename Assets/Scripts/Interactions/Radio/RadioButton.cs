@@ -39,6 +39,7 @@ public class RadioButton : MonoBehaviour, IInteractable, IRayHoverable, ILabel
 
     public void Interact()
     {
+        Debug.Log("here");
         if (_hasPower || debug)
         {
             radioButtonClick.TriggerEvent();
@@ -47,12 +48,12 @@ public class RadioButton : MonoBehaviour, IInteractable, IRayHoverable, ILabel
 
     public bool CanInteract()
     {
-        return _canInteract;
+        return true;
     }
 
     public string GetLabel()
     {
-        return _hasPower ? "Switch Station (E)" : "";
+        return _hasPower ? "Switch Station (E)" : "Radio not Charged";
     }
 
     public void OnHoverEnter()

@@ -15,7 +15,7 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
 
     [Header("Battery Drain Parameters")]
     public int drainRate = 5;
-    public int drainIntervalSeconds = 1;
+    public float drainIntervalSeconds = 1;
 
     [Header("Triggers")]
     public GameEvent powerOn;

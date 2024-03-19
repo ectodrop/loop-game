@@ -14,5 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Journal
-    Body: Frfr I love plants
+    Body: This radio seems to only play classical music.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
+  - Speaker: Journal
+    Body: Each station changes songs every <color=red>20 minutes</color>.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
+  - Speaker: Journal
+    Body: Though, all it the stations seem to be playing all the same songs anyway,
+      just in a different order.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
   choices: []

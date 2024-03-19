@@ -27,13 +27,13 @@ public class JournalPlants : MonoBehaviour, ILabel, IInteractable
         switch (entry)
         {
             case "Entry 1":
-                _dialogueController.StartDialogue(entry1Dialogue);
+                _dialogueController.StartDialogue(entry1Dialogue, options: DialogueOptions.STOP_TIME);
                 break;
             case "Entry 2":
-                _dialogueController.StartDialogue(entry2Dialogue);
+                _dialogueController.StartDialogue(entry2Dialogue, options: DialogueOptions.STOP_TIME);
                 break;
             case "Entry 3":
-                _dialogueController.StartDialogue(entry3Dialogue);
+                _dialogueController.StartDialogue(entry3Dialogue, options: DialogueOptions.STOP_TIME);
                 break;
             default:
                 break;

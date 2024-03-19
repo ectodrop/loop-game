@@ -55,6 +55,7 @@ public class LabLightsController : MonoBehaviour
             light.material = lightOff;
         }
     }
+    
     private void Update()
     {
         if (_flickering)

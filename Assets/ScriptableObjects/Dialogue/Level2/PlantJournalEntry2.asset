@@ -14,5 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Journal
-    Body: The plants seem to like <color=red>Piano Music</color>
+    Body: I accidently left the radio on while experimenting with the growths.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
+  - Speaker: Journal
+    Body: It seems that different plants have grow faster by listening their preferred
+      classical instrument.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
+  - Speaker: Journal
+    Body: Flowers like French Horn...
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
+  - Speaker: Journal
+    Body: <color=red>Mushrooms like Piano...</color>
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
+  - Speaker: Journal
+    Body: Will continue to study this phenomena.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
   choices: []

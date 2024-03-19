@@ -37,11 +37,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.417
+    - _Alpha: 0
+    - _CellDensity: 1
     - _Emission: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _TIMESTOPPED: 0
+    - _WaveSpeed: 0.1
     m_Colors:
     - _BaseColor: {r: 0, g: 0.058986403, b: 0.1792453, a: 1}
     - _RippleColor: {r: 0.10849059, g: 0.9563804, b: 1, a: 1}
