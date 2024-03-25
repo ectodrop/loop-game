@@ -116,7 +116,8 @@ public class Interactor : MonoBehaviour
                 pickedUp.TriggerEvent();
             }
         }
-        else if (curHoverObject == null && pickupScript.IsHolding())
+
+        if (curHoverObject == null && pickupScript.IsHolding())
         {
             pickupScript.DropObject();
         }

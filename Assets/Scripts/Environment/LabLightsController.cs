@@ -6,13 +6,11 @@ using UnityEngine.Rendering;
 
 public class LabLightsController : MonoBehaviour
 {
-    public Texture2D[] darkLightmapDir, darkLightmapColor;
-    public Texture2D[] brightLightmapDir, brightLightmapColor;
+    public LightMapAsset brightLightMapAsset;
+    public LightMapAsset darkLightMapAsset;
     public Material lightOn;
     public Material lightOff;
 
-    private LightmapData[] _darkLightMap, _brightLightmap;
-    
     [Header("Listening To")]
     public GameEvent powerOn;
     public GameEvent powerOff;
@@ -24,29 +22,6 @@ public class LabLightsController : MonoBehaviour
     private void Start()
     {
         _flickerCountDown = _flickerDuration;
-        List<LightmapData> dlightMap = new List<LightmapData>();
-        for (int i = 0; i < darkLightmapColor.Length; i++)
-        {
-            LightmapData lmdata = new LightmapData();
-            lmdata.lightmapDir = darkLightmapDir[i];
-            lmdata.lightmapColor = darkLightmapColor[i];
-            
-            dlightMap.Add(lmdata);
-        }
-
-        _darkLightMap = dlightMap.ToArray();
-        
-        List<LightmapData> blightMap = new List<LightmapData>();
-        for (int i = 0; i < brightLightmapColor.Length; i++)
-        {
-            LightmapData lmdata = new LightmapData();
-            lmdata.lightmapDir = brightLightmapDir[i];
-            lmdata.lightmapColor = brightLightmapColor[i];
-            
-            blightMap.Add(lmdata);
-        }
-
-        _brightLightmap = blightMap.ToArray();
     }
 
     private void OnEnable()
@@ -65,7 +40,7 @@ public class LabLightsController : MonoBehaviour
 
     private void HandlePowerOn()
     {
-        LightmapSettings.lightmaps = _brightLightmap;
+        LightmapSettings.lightmaps = brightLightMapAsset.GetLightMapData();
         foreach (var light in GetComponentsInChildren<MeshRenderer>())
         {
             light.material = lightOn;
@@ -74,12 +49,13 @@ public class LabLightsController : MonoBehaviour
 
     private void HandlePowerOff()
     {
-        LightmapSettings.lightmaps = _darkLightMap;
+        LightmapSettings.lightmaps = darkLightMapAsset.GetLightMapData();
         foreach (var light in GetComponentsInChildren<MeshRenderer>())
         {
             light.material = lightOff;
         }
     }
+    
     private void Update()
     {
         if (_flickering)

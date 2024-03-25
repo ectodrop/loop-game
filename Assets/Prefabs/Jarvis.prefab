@@ -28,8 +28,8 @@ RectTransform:
   m_GameObject: {fileID: 851488850456015091}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.503}
-  m_LocalScale: {x: 0.0005188441, y: 0.0009161429, z: 0.000646851}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.0003, y: 0.0003, z: 0.0003}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1286848646326024175}
   m_Father: {fileID: 4320797331756876541}
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.004}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 2900, y: 2175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &720892531011638059
 Canvas:
@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 8569818895425906627}
   - component: {fileID: 7260251591532657364}
   - component: {fileID: 2543306223873256604}
+  - component: {fileID: 5604190242770446316}
   m_Layer: 0
   m_Name: Jarvis
   m_TagString: Untagged
@@ -131,7 +132,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.47, y: 2.34, z: 30.82}
-  m_LocalScale: {x: 4.9105, y: 2.5978, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4147230817146882955}
@@ -208,6 +209,34 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5604190242770446316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300289252695381235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7927ccd6f8bd50449ce5ff0d5f03cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeExpressionEvent: {fileID: 11400000, guid: 16aa491e008e2744b821ff31108e807e, type: 2}
+  panel: {fileID: 7037243962554980556}
+  sprites:
+    list:
+    - key: 1
+      value: {fileID: 21300000, guid: 06a8df2e1e286dc4a90d9d85d5ba9a2d, type: 3}
+    - key: 2
+      value: {fileID: 21300000, guid: ee75e100dc26d21489416cd078729416, type: 3}
+    - key: 3
+      value: {fileID: 21300000, guid: d446cf09b6b4e724fa2b69e2a6ce09e4, type: 3}
+    - key: 4
+      value: {fileID: 21300000, guid: 1a979ce14ef626c4483096ad657ab8f3, type: 3}
+    - key: 5
+      value: {fileID: 21300000, guid: afe70f11c37c6ae44bb21c724512a96a, type: 3}
+    - key: 6
+      value: {fileID: 21300000, guid: f8cabd6793e744a4c94d97853935864a, type: 3}
 --- !u!1 &8118903474662148667
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +302,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 06a8df2e1e286dc4a90d9d85d5ba9a2d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

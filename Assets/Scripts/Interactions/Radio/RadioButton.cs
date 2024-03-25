@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class RadioButton : MonoBehaviour, IInteractable, IRayHoverable, ILabel
 {
+    public bool debug;
     [Header("Listening To")]
     public GameEvent powerOn;
     public GameEvent powerOff;
@@ -38,7 +39,8 @@ public class RadioButton : MonoBehaviour, IInteractable, IRayHoverable, ILabel
 
     public void Interact()
     {
-        if (_hasPower)
+        Debug.Log("here");
+        if (_hasPower || debug)
         {
             radioButtonClick.TriggerEvent();
         }
@@ -46,12 +48,12 @@ public class RadioButton : MonoBehaviour, IInteractable, IRayHoverable, ILabel
 
     public bool CanInteract()
     {
-        return _canInteract;
+        return true;
     }
 
     public string GetLabel()
     {
-        return _hasPower ? "Switch Station (E)" : "";
+        return _hasPower ? "Switch Station (E)" : "Radio not Charged";
     }
 
     public void OnHoverEnter()

@@ -15,6 +15,12 @@ MonoBehaviour:
   sentences:
   - Speaker: Jarvis
     Body: There you go!
+    changeExpression: 1
+    changeExpressionEvent: {fileID: 11400000, guid: 16aa491e008e2744b821ff31108e807e, type: 2}
+    expression: 2
   - Speaker: Jarvis
     Body: Let's move on to the next te-
+    changeExpression: 1
+    changeExpressionEvent: {fileID: 11400000, guid: 16aa491e008e2744b821ff31108e807e, type: 2}
+    expression: 1
   choices: []

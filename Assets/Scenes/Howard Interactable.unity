@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -298,7 +298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9319177ed1042489da0897c73755c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hintText: Cube 1
   onInteract:
     m_PersistentCalls:
       m_Calls:
@@ -557,7 +556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9319177ed1042489da0897c73755c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hintText: Cube 2
   onInteract:
     m_PersistentCalls:
       m_Calls:
@@ -809,7 +807,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9319177ed1042489da0897c73755c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hintText: Cube 3
   onInteract:
     m_PersistentCalls:
       m_Calls:

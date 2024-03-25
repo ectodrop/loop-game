@@ -42,13 +42,13 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     
     void OnEnable()
     {
-        displayPasswordEvent.AddListener(TurnOn);
+        displayPasswordEvent.gameEvent.AddListener(TurnOn);
         PowerOff.AddListener(SetInteractOff);
     }
 
     private void OnDisable()
     {
-        displayPasswordEvent.RemoveListener(TurnOn);
+        displayPasswordEvent.gameEvent.RemoveListener(TurnOn);
         PowerOff.RemoveListener(SetInteractOff);
     }
 

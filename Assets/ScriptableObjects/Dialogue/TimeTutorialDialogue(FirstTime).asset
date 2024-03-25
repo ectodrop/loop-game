@@ -14,7 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Jarvis
-    Body: Alright, I'm gonna test your observing ability now.
+    Body: Alright, this test will be about testing your observing ability.
+    changeExpression: 1
+    changeExpressionEvent: {fileID: 11400000, guid: 16aa491e008e2744b821ff31108e807e, type: 2}
+    expression: 1
   - Speaker: Jarvis
     Body: Observe the room unitil <color=red>12:10pm</color>, and you'll be asked
       a question.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
+  choices: []

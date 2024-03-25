@@ -5,10 +5,15 @@ using UnityEngine.InputSystem;
 
 public class FastForward : MonoBehaviour
 {
+    public SoundEffect fastForwardSFX;
+    public TimeSettings timeSettings;
     public GameControls gameControls;
+    public float timeScale = 2f;
 
-    [Header("Sets Shared Variables")]
     public SharedBool timeStoppedFlag;
+    [Header("Triggers")]
+    public GameEvent fastforwardStartEvent;
+    public GameEvent fastforwardEndEvent;
 
     private void OnEnable()
     {
@@ -24,9 +29,11 @@ public class FastForward : MonoBehaviour
 
     public void HandleFastForwardStart(InputAction.CallbackContext _)
     {
-        if (!timeStoppedFlag.GetValue())
+        if (!timeStoppedFlag.GetValue() && Time.timeScale > 0)
         {
-            Time.timeScale = 2f; // Start fast-forwarding
+            fastForwardSFX.Play();
+            fastforwardStartEvent.TriggerEvent();
+            Time.timeScale = timeSettings.fastForwardTimeScale; // Start fast-forwarding
             gameControls.Wrapper.Player.Move.Disable();
             gameControls.Wrapper.Player.Look.Disable();
             gameControls.Wrapper.Player.Sprint.Disable();
@@ -38,8 +45,10 @@ public class FastForward : MonoBehaviour
 
     public void HandleFastForwardStop(InputAction.CallbackContext _)
     {
-        if (!timeStoppedFlag.GetValue())
+        if (!timeStoppedFlag.GetValue() && Time.timeScale > 0)
         {
+            fastForwardSFX.Stop();
+            fastforwardEndEvent.TriggerEvent();
             Time.timeScale = 1f; // Stop fast-forwarding and return to normal time scale
             gameControls.Wrapper.Player.Look.Enable();
             gameControls.Wrapper.Player.Move.Enable();

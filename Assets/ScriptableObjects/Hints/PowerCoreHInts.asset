@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4946242ab65b77c43a637602d11f8397, type: 3}
   m_Name: PowerCoreHints
   m_EditorClassIdentifier: 
-  Label: Power Core (Goal)
+  Label: Flower (Goal)

@@ -5,21 +5,34 @@ using UnityEngine;
 
 public class Radio : MonoBehaviour
 {
-    public SoundEffect station1;
-    public SoundEffect station2;
-    public SoundEffect station3;
-    public float _interval = 20f;
+    public BatteryPackScript radioBatteryPack;
+    public TimeSettings timeSettings;
+    public BackgroundMusicScript bgmScript;
+    public AudioSource melody1;
+    public AudioSource melody2;
+    public AudioSource melody3;
+    public DialogueNode[] station1Dialogues;
+    public DialogueNode[] station2Dialogues;
+    public DialogueNode[] station3Dialogues;
+    private DialogueNode[][] stationDialogues = new DialogueNode[3][];
     public bool debug = false;
 
     // The station that will trigger the growth
-    [Range(1, 3)]
-    public int correctStation = 2;
+    public AudioSource correctMelody;
 
     [Header("Listening To")]
     public GameEvent powerOn;
     public GameEvent powerOff;
     public GameEvent radioButtonClick;
+    public GameEvent timeStopStart;
+    public GameEvent timeStopEnd;
+    public GameEvent changeChannelEvent;
+    public GameEvent gamePausedEvent;
+    public GameEvent gameUnPausedEvent;
+    public GameEvent fastforwardStart;
+    public GameEvent fastforwardEnd;
 
+    private AudioSource[] stations = new AudioSource[3];
     // Listen to these for the mushroom growth
     [Header("Triggers")]
     public GameEvent startGrow;
@@ -27,15 +40,34 @@ public class Radio : MonoBehaviour
     // State of the radio
     private bool _hasPower = false;
     private bool _timerOn = false;
-    private int _station = 1; // Stations 0, 1, 2
-    private SoundEffect currentStation;
-    private float _elapsedTime = 0f;
+    private int _station = 0; // Stations 0, 1, 2
+    private int numSongChanges = 0;
+    private DialogueController _dialogueController;
+
+    private void Start()
+    {
+        _dialogueController = FindObjectOfType<DialogueController>();
+        stations[0] = melody1;
+        stations[1] = melody2;
+        stations[2] = melody3;
+        stationDialogues[0] = station1Dialogues;
+        stationDialogues[1] = station2Dialogues;
+        stationDialogues[2] = station3Dialogues;
+        MuteAllStations();
+    }
 
     private void OnEnable()
     {
         powerOn.AddListener(HandlePowerOn);
         powerOff.AddListener(HandlePowerOff);
         radioButtonClick.AddListener(HandleRadioButton);
+        timeStopStart.AddListener(HandleTimeStopStart);
+        timeStopEnd.AddListener(HandleTimeStopEnd);
+        changeChannelEvent.AddListener(HandleChangeChannelEvent);
+        gamePausedEvent.AddListener(HandleTimeStopStart);
+        gameUnPausedEvent.AddListener(HandleTimeStopEnd);
+        fastforwardStart.AddListener(HandleStartFastForwardTime);
+        fastforwardEnd.AddListener(HandleStopFastForwardTime);
     }
 
     private void OnDisable()
@@ -43,12 +75,34 @@ public class Radio : MonoBehaviour
         powerOn.RemoveListener(HandlePowerOn);
         powerOff.RemoveListener(HandlePowerOff);
         radioButtonClick.RemoveListener(HandleRadioButton);
+        timeStopStart.RemoveListener(HandleTimeStopStart);
+        timeStopEnd.RemoveListener(HandleTimeStopEnd);
+        changeChannelEvent.RemoveListener(HandleChangeChannelEvent);
+        gamePausedEvent.RemoveListener(HandleTimeStopStart);
+        gameUnPausedEvent.RemoveListener(HandleTimeStopEnd);
+        fastforwardStart.RemoveListener(HandleStartFastForwardTime);
+        fastforwardEnd.RemoveListener(HandleStopFastForwardTime);
+    }
+
+    private void HandleTimeStopStart()
+    {
+        foreach (var melody in stations)
+        {
+            melody.Pause();
+        }
+    }
+
+    private void HandleTimeStopEnd()
+    {
+        foreach (var melody in stations)
+        {
+            melody.UnPause();
+        }
     }
 
     private void HandlePowerOn()
     {
         _hasPower = true;
-        StartTimer();
         PlayStation(_station);
     }
 
@@ -56,40 +110,50 @@ public class Radio : MonoBehaviour
     {
         _hasPower = false;
         MuteAllStations();
+        stopGrow.TriggerEvent();
     }
 
     private void HandleRadioButton()
     {
-        _elapsedTime = 0f;
-        PlayNextStation();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        currentStation = station1;
-        station1.PlayLoop();
-        station2.PlayLoop();
-        station3.PlayLoop();
-        MuteAllStations();
+        _dialogueController.StartDialogue(stationDialogues[_station][numSongChanges], options: DialogueOptions.STOP_TIME,
+            choiceCallback: HandleStationChoice);
     }
 
+
+    private void HandleStationChoice(string choice)
+    {
+        if (choice == "Station 1")
+        {
+            _station = 0;
+        }
+        if (choice == "Station 2")
+        {
+            _station = 1;
+        }
+        if (choice == "Station 3")
+        {
+            _station = 2;
+        }
+        PlayStation(_station);
+    }
+    
     void MuteAllStations()
     {
-        station1.Mute();
-        station2.Mute();
-        station3.Mute();
+        foreach (var station in stations)
+        {
+            station.mute = true;
+        }
+        bgmScript.RaiseVolume();
+    }
+
+    void UnMuteStation(int station)
+    {
+        stations[station].mute = false;
     }
 
     void PlayNextStation()
     {
-        if (_station == 3)
-        {
-            _station = 1;
-        }
-        else
-        {
-            _station += 1;
-        }
+        _station = (_station + 1) % 3;
 
         // Play station
         PlayStation(_station);
@@ -97,31 +161,7 @@ public class Radio : MonoBehaviour
 
     void PlayStation(int station)
     {
-        switch (station)
-        {
-            case 1:
-                currentStation = station1;
-                station1.Unmute();
-                station2.Mute();
-                station3.Mute();
-                break;
-            case 2:
-                currentStation = station2;
-                station1.Mute();
-                station2.Unmute();
-                station3.Mute();
-                break;
-            case 3:
-                currentStation = station3;
-                station1.Mute();
-                station2.Mute();
-                station3.Unmute();
-                break;
-            default:
-                currentStation = station1;
-                break;
-        }
-        if (station == correctStation)
+        if (stations[station] == correctMelody && _hasPower)
         {
             startGrow.TriggerEvent();
             if (debug) // For Debug
@@ -137,49 +177,49 @@ public class Radio : MonoBehaviour
                 Debug.Log("Stopped Growing");
             }
         }
-    }
-
-    void StartTimer()
-    {
-        if (!_timerOn)
-        {
-            StartCoroutine(Timer());
-        }
-    }
-
-
-    IEnumerator Timer()
-    {
-        _timerOn = true;
-        _elapsedTime = 0f;
-        int lastSecond = 0; // For Debug
-
-        while (_elapsedTime < _interval)
-        {
-            if (debug) // For Debug
-            {
-                int currentSecond = Mathf.FloorToInt(_elapsedTime);
-                if (currentSecond != lastSecond)
-                {
-                    Debug.Log(_elapsedTime);
-                }
-                lastSecond = currentSecond;
-            }
-            if (!_hasPower)
-            {
-                break;
-            }
-            _elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // Restart
-        _timerOn = false;
+        
         if (_hasPower)
         {
-            // Play next radio station
-            PlayNextStation();
-            StartTimer();
+            MuteAllStations();
+            UnMuteStation(station);
+            bgmScript.LowerVolume();
         }
+    }
+
+    private void ChangePitch(float pitch)
+    {
+        foreach (var station in stations)
+        {
+            station.pitch = pitch;
+        }
+    } 
+    private void HandleStartFastForwardTime()
+    {
+        ChangePitch(timeSettings.fastForwardTimeScale);
+    }
+
+    private void HandleStopFastForwardTime()
+    {
+        ChangePitch(1f);
+    }
+
+    private void HandleChangeChannelEvent()
+    {
+        if (numSongChanges == 0)
+        {
+            stations[0] = melody2;
+            stations[1] = melody3;
+            stations[2] = melody1;
+        }
+
+        if (numSongChanges == 1)
+        {
+            stations[0] = melody3;
+            stations[1] = melody1;
+            stations[2] = melody2;
+        }
+        PlayStation(_station);
+
+        numSongChanges++;
     }
 }

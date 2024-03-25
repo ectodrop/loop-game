@@ -4302,12 +4302,11 @@ MonoBehaviour:
   loginPanelUI: {fileID: 6570883862260565805}
   soundMenuUI: {fileID: 4847867738830521568}
   controlMenuUI: {fileID: 3094690184076705135}
-  _timeLoopController: {fileID: 4911952990284504097, guid: ad99874f1c23e254b91b8324ee9a69de, type: 3}
   HUDEnableEvent: {fileID: 11400000, guid: b5f5815aa870bd94193305b653618559, type: 2}
   HUDDisableEvent: {fileID: 11400000, guid: cdf783c48e6ae5146b11be7af6e6f4cd, type: 2}
   resetLoopEvent: {fileID: 11400000, guid: 8fb932e54d9c1da41a1bb9ab63b79c5d, type: 2}
-  timeStopStartEvent: {fileID: 11400000, guid: ff2edae89ca8dc947818500d2d72bcda, type: 2}
-  timeStopEndEvent: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
+  gamePausedEvent: {fileID: 11400000, guid: 0629d77e4981e164a96ae80c00ea0ce4, type: 2}
+  gameUnPausedEvent: {fileID: 11400000, guid: e3480dc6df8ca9b49962f30dcaa3ce38, type: 2}
 --- !u!114 &5583139110588714226
 MonoBehaviour:
   m_ObjectHideFlags: 0

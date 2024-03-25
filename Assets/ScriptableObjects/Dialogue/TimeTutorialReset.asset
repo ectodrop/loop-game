@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: TimeTutorialReset
   m_EditorClassIdentifier: 
   sentences:
-  - Speaker: Jarvis
+  - Speaker: 
     Body: Press <color=red>ESC</color> to access the pause menu, and <color=red>RESTART
       LOOP</color> there.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
+  choices: []

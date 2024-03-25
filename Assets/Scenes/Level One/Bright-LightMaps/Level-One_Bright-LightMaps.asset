@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a0d58359e7f35428741e3557964cf3, type: 3}
+  m_Name: Level-One_Bright-LightMaps
+  m_EditorClassIdentifier: 
+  lightMapColors:
+  - {fileID: 2800000, guid: 52bb8cdc3dcd3a545b8befc697ef1cfa, type: 3}
+  - {fileID: 2800000, guid: 3631f432d5398484da2d4f5afa862185, type: 3}
+  - {fileID: 2800000, guid: bfd7d4e66a0e2514ca652164e1cde6b9, type: 3}
+  - {fileID: 2800000, guid: 4fb4829f01be30245be2a62e4bb8522f, type: 3}
+  - {fileID: 2800000, guid: 6345e67b6109cf64b95bf6d456ca4d1c, type: 3}
+  - {fileID: 2800000, guid: f02d53e7caa64124283dec21bfb97325, type: 3}
+  - {fileID: 2800000, guid: 3a7b0d21349a49445b4b2f34257dd4c1, type: 3}
+  - {fileID: 2800000, guid: 6380f90475824834293ef33c566daddd, type: 3}
+  - {fileID: 2800000, guid: b34b48d34a901be4586a3df6aa547f5d, type: 3}
+  lightMapDirs:
+  - {fileID: 2800000, guid: 6275b53c3b28e264b9af697944cd7228, type: 3}
+  - {fileID: 2800000, guid: 49eb83e05966aad4b99bb9518ee9b09c, type: 3}
+  - {fileID: 2800000, guid: 11a28d8ffa9de914d9452c28636d8b05, type: 3}
+  - {fileID: 2800000, guid: 41186244d66d7f74a90d35df78954b3d, type: 3}
+  - {fileID: 2800000, guid: 478f8ed8310f8e542a172e91959c6907, type: 3}
+  - {fileID: 2800000, guid: f79e52bef7577f94887b749cfea1d52f, type: 3}
+  - {fileID: 2800000, guid: 5ffe6fd8922ee024880e51390401054c, type: 3}
+  - {fileID: 2800000, guid: 40e5cde3dcbfeeb49aaa4ab91e21b4cd, type: 3}
+  - {fileID: 2800000, guid: c81adc13a14dfe248951bd822418e35b, type: 3}

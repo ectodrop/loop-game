@@ -15,7 +15,7 @@ public class SimpleBatteryCharger : MonoBehaviour, IInteractable, ILabel
 
     [Header("Battery Drain Parameters")]
     public int chargeRate = 5;
-    public int chargeIntervalSeconds = 1;
+    public float chargeIntervalSeconds = 1;
 
     [Header("Triggers")]
     public GameEvent playerDropHeldEvent;
@@ -118,7 +118,7 @@ public class SimpleBatteryCharger : MonoBehaviour, IInteractable, ILabel
     private IEnumerator ChargeBattery()
     {
         // Drain battery until empty
-        while (_batteryScript.GetBatteryLevel() != 100 && _isCharging)
+        while (_batteryScript.GetBatteryLevel() < 100 && _isCharging)
         {
             if (!timeStoppedFlag.GetValue())
             {

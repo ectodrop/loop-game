@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1148200520599601571}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.586804, y: -1.526, z: -0.8076782}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 2.0982223, z: 2.4362}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -131,7 +131,7 @@ Transform:
   m_GameObject: {fileID: 4649693000667869645}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9301963, y: 2.6017916, z: -3.331524}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -151,12 +151,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 645f6045c734447689c109b88b7cd09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  station1: {fileID: 11400000, guid: d4fdb0039dc9f4660862e6f798c7abc8, type: 2}
-  station2: {fileID: 11400000, guid: 0c71412d125e640eda1ddf4e4848ad50, type: 2}
-  station3: {fileID: 11400000, guid: 8a791e3437aa743c7b076591ddef1477, type: 2}
+  bgmScript: {fileID: 0}
+  melody1: {fileID: 0}
+  melody2: {fileID: 0}
+  melody3: {fileID: 0}
+  debug: 0
+  correctStation: 2
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
   radioButtonClick: {fileID: 11400000, guid: 396cd591bd7cf4922afb2213044391db, type: 2}
+  timeStopStart: {fileID: 11400000, guid: ff2edae89ca8dc947818500d2d72bcda, type: 2}
+  timeStopEnd: {fileID: 11400000, guid: cb919c356029db84b9e01aab199dc351, type: 2}
+  changeChannelEvent: {fileID: 11400000, guid: 9f0c2a6df66eb444488cb48c5533ff74, type: 2}
+  gamePausedEvent: {fileID: 11400000, guid: 0629d77e4981e164a96ae80c00ea0ce4, type: 2}
+  gameUnPausedEvent: {fileID: 11400000, guid: e3480dc6df8ca9b49962f30dcaa3ce38, type: 2}
+  fastforwardStart: {fileID: 11400000, guid: 7cf17847067851f4cb308b7f867893eb, type: 2}
+  fastforwardEnd: {fileID: 11400000, guid: c22370742185d594a933984512ad64ca, type: 2}
+  stations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   startGrow: {fileID: 11400000, guid: 1616bb49e7a674829a8f05a684be4670, type: 2}
   stopGrow: {fileID: 11400000, guid: 695d1344dbca14374a9feed3e84adfb8, type: 2}
 --- !u!1 &5975239097479679803
@@ -188,7 +202,7 @@ Transform:
   m_GameObject: {fileID: 5975239097479679803}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.954, y: -1.265, z: -0.717}
+  m_LocalPosition: {x: 0.543, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -277,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3985d94f4fb473191766651e05298c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
   radioButtonClick: {fileID: 11400000, guid: 396cd591bd7cf4922afb2213044391db, type: 2}

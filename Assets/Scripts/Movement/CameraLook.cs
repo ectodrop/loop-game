@@ -102,7 +102,14 @@ public class CameraLook : MonoBehaviour
             yield return null;
         }
 
-        _currentRotationX = targetXRotation;
+        if (Mathf.Abs(targetXRotation - 360) < Mathf.Abs(targetXRotation))
+        {
+            _currentRotationX = targetXRotation-360;
+        }
+        else
+        {
+            _currentRotationX = targetXRotation;
+        }
         _fixlook = false;
     }
 

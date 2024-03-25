@@ -44,5 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a29ee3ca4633426ea47e3bfdca9ccfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fastForwardSFX: {fileID: 11400000, guid: ed1a38c9c4043b8418bde9d809ab6599, type: 2}
+  timeSettings: {fileID: 0}
   gameControls: {fileID: 11400000, guid: f31b148b09eff444cb16b6c51108c129, type: 2}
+  timeScale: 2
   timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
+  fastforwardStartEvent: {fileID: 11400000, guid: 7cf17847067851f4cb308b7f867893eb, type: 2}
+  fastforwardEndEvent: {fileID: 11400000, guid: c22370742185d594a933984512ad64ca, type: 2}

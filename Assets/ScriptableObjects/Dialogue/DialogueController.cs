@@ -228,6 +228,8 @@ public class DialogueController : MonoBehaviour
         dialogueSpeaker.text = dialogue.Speaker;
         dialogueBody.text = "";
         yield return null;
+        if (dialogue.changeExpression)
+            dialogue.changeExpressionEvent?.TriggerEvent((int)dialogue.expression);
         _skipScrawl = false;
         for (int i = 0; i < dialogue.Body.Length; i++)
         {

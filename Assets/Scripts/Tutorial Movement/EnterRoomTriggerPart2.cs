@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LookAtTrigger : MonoBehaviour
 {
-    public GameObject powerDoor;
+    public DoorScript powerDoor;
     [Header("Triggers")]
     public GameEventVector3 lookAtEvent;
 
@@ -20,19 +20,9 @@ public class LookAtTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(OpenDoor());
-        }
-    }
-    public IEnumerator OpenDoor()
-    {
-        lookAtEvent.TriggerEvent(powerDoor.transform.position);
-        _collider.enabled = false;
-        float y = 0;
-        while (y < 5f)
-        {
-            powerDoor.transform.position += new Vector3(0, Time.deltaTime, 0);
-            y += Time.deltaTime;
-            yield return null;
+            lookAtEvent.TriggerEvent(powerDoor.transform.position);
+            powerDoor.OpenDoor();
+            _collider.enabled = false;
         }
     }
 

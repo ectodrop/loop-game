@@ -75,12 +75,10 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
 
     public string GetLabel()
     {
-        if (_holding)
-            return "";
+        if (IsPlayerHolding() && !_holding)
+            return HoldingText;
 
-        if (!_holding && !IsPlayerHolding())
-            return "Missing Battery";
-        return IsPlayerHolding() ? HoldingText : EmptyText;
+        return "";
     }
 
     // Update is called once per frame

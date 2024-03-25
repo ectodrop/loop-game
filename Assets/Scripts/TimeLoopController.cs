@@ -48,6 +48,7 @@ public class TimeLoopController : MonoBehaviour
     private void Start()
     {
         timeSettings.ResetTimers();
+        timeStoppedFlag.ResetValue();
         Time.timeScale = 1f;
         gameControls.Wrapper.Player.Look.Enable();
         gameControls.Wrapper.Player.Move.Enable();
@@ -143,7 +144,6 @@ public class TimeLoopController : MonoBehaviour
     {
         timeStoppedFlag.SetValue(false);
         Shader.SetGlobalInteger("_TimeStopped", 0);
-
     }
 
     private void InvokeNextEvent()
@@ -154,7 +154,7 @@ public class TimeLoopController : MonoBehaviour
         var nextEvent = scheduleController.scheduledEvents[currentEvent];
         if (nextEvent.time.CompareTo(timeSettings.currentTimestamp) <= 0)
         {
-            nextEvent.TriggerEvent();
+            nextEvent.gameEvent.TriggerEvent();
             currentEvent++;
         }
     }

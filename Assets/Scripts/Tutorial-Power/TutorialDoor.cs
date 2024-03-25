@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, ILabel
 {
-    public GameObject door;
+    public DoorScript door;
     public int maxDoorHeight;
     public GameEvent doorFirstClick;
     public ScheduleEvent powerOutageEvent;
@@ -26,14 +26,14 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
 
     private void OnEnable()
     {
-        powerOutageEvent.AddListener(HandlePowerOutage);
+        powerOutageEvent.gameEvent.AddListener(HandlePowerOutage);
         powerOn.AddListener(HandlePowerOn);
         powerOff.AddListener(HandlerPowerOff);
     }
 
     private void OnDisable()
     {
-        powerOutageEvent.RemoveListener(HandlePowerOutage);
+        powerOutageEvent.gameEvent.RemoveListener(HandlePowerOutage);
         powerOn.RemoveListener(HandlePowerOn);
         powerOff.RemoveListener(HandlerPowerOff);
     }
@@ -85,7 +85,7 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
         {
             buttonClick.Play();
             SetGreen();
-            StartCoroutine(AnimateDoor());
+            door.OpenDoor();
             doorOpened.TriggerEvent();
         }
     }
@@ -94,19 +94,6 @@ public class NewBehaviourScript : MonoBehaviour, IInteractable, IRayHoverable, I
     {
         yield return new WaitForSeconds(1);
         SetRed();
-    }
-
-    IEnumerator AnimateDoor()
-    {
-        float height = door.transform.position.y;
-        garageDoorOpen.Play();
-        while (height < maxDoorHeight)
-        {
-            yield return new WaitForSeconds(0.01f);
-            Vector3 newPosition = door.transform.position + Vector3.up * 0.008f;
-            door.transform.position = newPosition;
-            height = door.transform.position.y;
-        }
     }
 
     private void SetRed()
