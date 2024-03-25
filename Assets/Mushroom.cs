@@ -8,11 +8,14 @@ public class Mushroom : MonoBehaviour
     public Transform mushroom;
     public Transform head;
     public Rigidbody movingPlatform;
+    public SharedBool timeStoppedFlag;
     public GameEvent startGrow;
     public GameEvent stopGrow;
     public float GrowSpeed = 0.01f;
     private float growHeightLimit = 4.0f;
     private bool _growing = false;
+    
+    
     private void OnEnable()
     {
         startGrow.AddListener(Grow);
@@ -25,7 +28,7 @@ public class Mushroom : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (_growing)
+        if (_growing && !timeStoppedFlag.GetValue())
         {
             if (gameObject.transform.position.y >= growHeightLimit)
             {

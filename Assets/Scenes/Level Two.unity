@@ -1719,6 +1719,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287459084}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &318363556
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 57348540407611088, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_Name
+      value: SimpleBatteryCharger (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 792411344197740321, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: battery
+      value: 
+      objectReference: {fileID: 1178377403}
+    - target: {fileID: 792411344197740321, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: chargeRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 792411344197740321, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: chargeIntervalSeconds
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050021417156202135, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -20.781948
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050021417156202135, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050021417156202135, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 30.632378
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050021417156202135, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050021417156202135, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050021417156202135, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050021417156202135, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050021417156202135, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050021417156202135, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050021417156202135, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 46c8a22c20584419083417b80718c2b2, type: 3}
 --- !u!1 &365259249
 GameObject:
   m_ObjectHideFlags: 0
@@ -4074,7 +4143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4241745378586661486, guid: 13857047564933648b09a9e763da2dfd, type: 3}
       propertyPath: DefaultSpeed
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8283829006946360855, guid: 13857047564933648b09a9e763da2dfd, type: 3}
       propertyPath: m_Name
@@ -10014,6 +10083,14 @@ PrefabInstance:
       propertyPath: drainIntervalSeconds
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 7293416976577938382, guid: 4a51a762e48e9487e976e0d5c2961cd5, type: 3}
+      propertyPath: enableBatteryHolderDrain
+      value: 
+      objectReference: {fileID: 11400000, guid: 155581ae3e6dd294eb9f8d996d8eaf7e, type: 2}
+    - target: {fileID: 7293416976577938382, guid: 4a51a762e48e9487e976e0d5c2961cd5, type: 3}
+      propertyPath: disableBatteryHolderDrain
+      value: 
+      objectReference: {fileID: 11400000, guid: a39b91db5ce96bc4aa8baa61102ba9d6, type: 2}
     - target: {fileID: 7933953800495488605, guid: 4a51a762e48e9487e976e0d5c2961cd5, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -15598,6 +15675,7 @@ MonoBehaviour:
   mushroom: {fileID: 1418478022}
   head: {fileID: 1527316121301731304}
   movingPlatform: {fileID: 1980520838}
+  timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
   startGrow: {fileID: 11400000, guid: 1616bb49e7a674829a8f05a684be4670, type: 2}
   stopGrow: {fileID: 11400000, guid: 695d1344dbca14374a9feed3e84adfb8, type: 2}
   GrowSpeed: 0.004
@@ -17049,7 +17127,7 @@ PrefabInstance:
     - target: {fileID: 6008954916482237635, guid: c7a4840e9a9e17b4788ed250c5834662, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 45188137}
+      objectReference: {fileID: 141647768}
     - target: {fileID: 8116940913664081526, guid: c7a4840e9a9e17b4788ed250c5834662, type: 3}
       propertyPath: batteryOn
       value: 
@@ -19172,14 +19250,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 81985432503266453, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
-      propertyPath: enableDrain
-      value: 
-      objectReference: {fileID: 11400000, guid: 155581ae3e6dd294eb9f8d996d8eaf7e, type: 2}
-    - target: {fileID: 81985432503266453, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
-      propertyPath: disableDrain
-      value: 
-      objectReference: {fileID: 11400000, guid: a39b91db5ce96bc4aa8baa61102ba9d6, type: 2}
     - target: {fileID: 247735219871910671, guid: 4d6bf4db271457b4daf1cf85b798704b, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 1
@@ -21500,11 +21570,15 @@ PrefabInstance:
     - target: {fileID: 8116940913664081526, guid: c7a4840e9a9e17b4788ed250c5834662, type: 3}
       propertyPath: batteryEnabled
       value: 
-      objectReference: {fileID: 11400000, guid: 246d6ba8b6fd1a642bcb43650bbbfb39, type: 2}
+      objectReference: {fileID: 11400000, guid: 155581ae3e6dd294eb9f8d996d8eaf7e, type: 2}
     - target: {fileID: 8116940913664081526, guid: c7a4840e9a9e17b4788ed250c5834662, type: 3}
       propertyPath: batteryDisabled
       value: 
-      objectReference: {fileID: 11400000, guid: 16acbc6daa870c54e9ccffe7a688b884, type: 2}
+      objectReference: {fileID: 11400000, guid: a39b91db5ce96bc4aa8baa61102ba9d6, type: 2}
+    - target: {fileID: 8116940913664081526, guid: c7a4840e9a9e17b4788ed250c5834662, type: 3}
+      propertyPath: timeStoppedFlag
+      value: 
+      objectReference: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
     - target: {fileID: 8116940913664081526, guid: c7a4840e9a9e17b4788ed250c5834662, type: 3}
       propertyPath: timeToChargeSeconds
       value: 3
@@ -22147,3 +22221,4 @@ SceneRoots:
   - {fileID: 1477447325}
   - {fileID: 1892812166}
   - {fileID: 940250721}
+  - {fileID: 318363556}

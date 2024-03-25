@@ -25,6 +25,9 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
     [Header("Listening To")]
     public GameEvent playerPickedUp;
 
+    public GameEvent enableBatteryHolderDrain;
+    public GameEvent disableBatteryHolderDrain;
+
     // Battery Object
     private TextMeshPro _batteryPercentageText;
     private GameObject _batteryPercentageBar;
@@ -36,6 +39,7 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
 
     // Booleans for the battery holder state
     private bool _hasBattery = false;
+    private bool _drainEnabled = false;
     private bool _isDraining = false;
 
     // Offsets to place battery perfectly
@@ -45,12 +49,21 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
     private void OnEnable()
     {
         playerPickedUp.AddListener(HandlePlayerPickedUp);
+        enableBatteryHolderDrain.AddListener(HandleEnableDrain);
+        disableBatteryHolderDrain.AddListener(HandleDisableDrain);
     }
 
     private void OnDisable()
     {
         playerPickedUp.RemoveListener(HandlePlayerPickedUp);
+        enableBatteryHolderDrain.RemoveListener(HandleEnableDrain);
+        disableBatteryHolderDrain.RemoveListener(HandleDisableDrain);
     }
+
+    private void HandleEnableDrain() => _drainEnabled = true;
+
+    private void HandleDisableDrain() => _drainEnabled = false;
+    
     private void HandlePlayerPickedUp()
     {
         if (IsPlayerHolding() && _hasBattery)
@@ -60,6 +73,7 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
             GetComponent<BoxCollider>().enabled = true;
         }
     }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -79,7 +93,6 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
         if (IsPlayerHolding() && !_hasBattery)
         {
             playerDropHeldEvent.TriggerEvent();
-            Debug.Log("Battery Inserted.");
             GetComponent<BoxCollider>().enabled = false;
             battery.transform.tag = "canPickUp";
             battery.layer = LayerMask.NameToLayer("Interactable");
@@ -125,9 +138,9 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
     private IEnumerator DrainBattery()
     {
         // Drain battery until empty
-        while (_batteryScript.GetBatteryLevel() != 0 && _isDraining)
+        while (_batteryScript.GetBatteryLevel() >= 0 && _isDraining)
         {
-            if (!timeStoppedFlag.GetValue())
+            if (!timeStoppedFlag.GetValue() && _drainEnabled)
             {
                 _batteryScript.DecreaseBattery(drainRate);
                 _batteryPercentageText.text = _batteryScript.GetBatteryLevel().ToString();

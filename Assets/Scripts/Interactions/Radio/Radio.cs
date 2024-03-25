@@ -110,6 +110,7 @@ public class Radio : MonoBehaviour
     {
         _hasPower = false;
         MuteAllStations();
+        stopGrow.TriggerEvent();
     }
 
     private void HandleRadioButton()
@@ -160,7 +161,7 @@ public class Radio : MonoBehaviour
 
     void PlayStation(int station)
     {
-        if (stations[station] == correctMelody)
+        if (stations[station] == correctMelody && _hasPower)
         {
             startGrow.TriggerEvent();
             if (debug) // For Debug
@@ -177,10 +178,12 @@ public class Radio : MonoBehaviour
             }
         }
         
-        MuteAllStations();
-        UnMuteStation(station);
-
-        bgmScript.LowerVolume();
+        if (_hasPower)
+        {
+            MuteAllStations();
+            UnMuteStation(station);
+            bgmScript.LowerVolume();
+        }
     }
 
     private void ChangePitch(float pitch)

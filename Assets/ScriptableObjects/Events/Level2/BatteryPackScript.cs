@@ -10,6 +10,7 @@ public class BatteryPackScript : MonoBehaviour
 {
     public Slider bar;
     public float timeToChargeSeconds = 1f;
+    public SharedBool timeStoppedFlag;
     [Header("Listening To")]
     public GameEvent batteryOn;
     public GameEvent batteryOff;
@@ -24,7 +25,6 @@ public class BatteryPackScript : MonoBehaviour
 
     private bool _batteryIn;
 
-    private bool _draining;
 
     private void Start()
     {
@@ -46,58 +46,42 @@ public class BatteryPackScript : MonoBehaviour
     private void HandleBatteryOn()
     {
         _batteryIn = true;
-        batteryDisabled.TriggerEvent();
         enableBatteryDrain.TriggerEvent();
     }
 
     private void HandleBatteryOff()
     {
         _batteryIn = false;
-        batteryEnabled.TriggerEvent();
     }
 
     private void Update()
     {
-        
-        if (_batteryIn)
+        if (!timeStoppedFlag.GetValue())
         {
-            if (bar.value < timeToChargeSeconds)
+            if (_batteryIn)
             {
-                bar.value += Time.deltaTime;
-            }
-            else
-            {
-                bar.value = timeToChargeSeconds;
-                batteryEnabled.TriggerEvent();
-                disableBatteryDrain.TriggerEvent();
-                batteryPackCharged.TriggerEvent();
-            }
-        }
-        else if (_draining)
-        {
-            if (bar.value > 0f)
-            {
-                bar.value -= Time.deltaTime;
-            }
-            else
-            {
-                bar.value = 0f;
-                if (_batteryIn)
+                if (bar.value < timeToChargeSeconds)
                 {
-                    enableBatteryDrain.TriggerEvent();
+                    bar.value += Time.deltaTime;
+                }
+                else
+                {
+                    bar.value = timeToChargeSeconds;
+                    batteryPackCharged.TriggerEvent();
+                }
+            }
+            else
+            {
+                if (bar.value > 0f)
+                {
+                    bar.value -= Time.deltaTime/10;
+                }
+                else
+                {
+                    bar.value = 0f;
                     batteryPackDepleted.TriggerEvent();
                 }
             }
         }
-    }
-
-    private bool IsFull()
-    {
-        return bar.value >= timeToChargeSeconds;
-    }
-
-    public void DrainBatteryPack()
-    {
-        _draining = true;
     }
 }

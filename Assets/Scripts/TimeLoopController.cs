@@ -48,6 +48,7 @@ public class TimeLoopController : MonoBehaviour
     private void Start()
     {
         timeSettings.ResetTimers();
+        timeStoppedFlag.ResetValue();
         Time.timeScale = 1f;
         gameControls.Wrapper.Player.Look.Enable();
         gameControls.Wrapper.Player.Move.Enable();
