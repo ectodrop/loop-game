@@ -17,6 +17,8 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     public SoundEffect computerUpdateCompleteSFX;
     [Header("Listening To")]
     public ScheduleEvent displayPasswordEvent;
+
+    [Header("Hints")] public HintData pcHint;
     // public SharedBool timeStopped;
     private bool _canInteract = true;
     private AudioSource _audioSource;
@@ -57,14 +59,25 @@ public class PC : MonoBehaviour, IInteractable, ILabel
         if (PCStatus == Status.Off)
         {
             _canInteract = false;
+            PCStatus = Status.Loading;
             LoadingScreen.SetActive(true);
+            pcHint.Unlock();
         }
+        
         else if (PCStatus == Status.On)
         {
             _canInteract = false;
             PCStatus = Status.Password;
             OnScreen.SetActive(false);
             PasswordScreen.SetActive(true);
+        }
+        
+        else if (PCStatus == Status.Crash)
+        {
+            _canInteract = false;
+            OnScreen.SetActive(false);
+            PasswordScreen.SetActive(false);
+            CrashScreen.SetActive(true);
         }
     }
     
@@ -80,7 +93,6 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     
     void SetInteractOff()
     {
-        _canInteract = false;
         Crash();
     }
 
@@ -98,10 +110,14 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     
     public void Crash()
     {
-        _audioSource.Stop();
-        PCStatus = Status.Crash;
-        LoadingScreen.SetActive(false);
-        OnScreen.SetActive(false);
-        CrashScreen.SetActive(true);
+        if (PCStatus != Status.On)
+        {
+            _audioSource.Stop();
+            PCStatus = Status.Crash;
+            _canInteract = true;
+            LoadingScreen.SetActive(false);
+            OnScreen.SetActive(false);
+            CrashScreen.SetActive(false);
+        }
     }
 }

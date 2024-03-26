@@ -8,17 +8,37 @@ using UnityEngine.UIElements;
 public class HintData : ScriptableObject
 {
     public string Label;
-    [NonSerialized]
-    public List<string> Hints;
+
+    public DialogueNode hintDialogue;
+    // public so we can see them in the inspector
+    public bool defaultUnlocked;
+    public bool defaultShown;
+    [SerializeField] private bool _unlocked;
+    [SerializeField] private bool _shown;
 
     private void OnEnable()
     {
-        Hints = new List<string>();
+        _unlocked = defaultUnlocked;
+        _shown = defaultShown;
     }
 
-
-    public void AddHint(string hint)
+    public void Unlock()
     {
-        Hints.Add(hint);
+        _unlocked = true;
+    }
+
+    public void SetShown()
+    {
+        _shown = true;
+    }
+
+    public bool WasShown()
+    {
+        return _shown;
+    }
+
+    public bool IsUnlocked()
+    {
+        return _unlocked;
     }
 }

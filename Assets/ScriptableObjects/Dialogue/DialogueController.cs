@@ -5,13 +5,17 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour
 {
+    public HashMap<string, Color> characterColors;
+    public Color defaultBackgroundColor;
     public float secondsPerCharacter = 1 / 60f;
     // a sound effect will be played for every "charactersPerSFX" characters
     public int charactersPerSFX = 3;
     public GameObject dialogueBox;
+    public Image dialogueBoxBackground;
     public DialogueChoiceBoxController choiceBox;
     public TextMeshProUGUI dialogueControlsHint;
     public TextMeshProUGUI dialogueSpeaker;
@@ -227,6 +231,14 @@ public class DialogueController : MonoBehaviour
     {
         dialogueSpeaker.text = dialogue.Speaker;
         dialogueBody.text = "";
+        if (characterColors.TryGetValue(dialogue.Speaker, out Color background))
+        {
+            dialogueBoxBackground.color = background;
+        }
+        else
+        {
+            dialogueBoxBackground.color = defaultBackgroundColor;
+        }
         yield return null;
         if (dialogue.changeExpression)
             dialogue.changeExpressionEvent?.TriggerEvent((int)dialogue.expression);

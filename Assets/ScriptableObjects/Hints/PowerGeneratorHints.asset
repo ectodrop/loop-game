@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: PowerGeneratorHints
   m_EditorClassIdentifier: 
   Label: Power Generator
+  _unlocked: 0
+  _shown: 0

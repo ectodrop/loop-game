@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TestScreenSpaceToCanvas : MonoBehaviour
@@ -8,6 +10,9 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
     public GameObject promptCirclePrefab;
     public GameControls gameControls;
 
+    [Header("Triggers")]
+    public GameEventVector3 lookAtEvent;
+    
     private HintBubble[] _hintBubbles;
     private Camera _cam;
 
@@ -23,12 +28,15 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
 
     private bool _timeStopped = false;
     private bool _hudDisabled = false;
+    private DialogueController _dialogueController;
 
     // Start is called before the first frame update
     void Start()
     {
         _cam = Camera.main;
-        _hintBubbles = GameObject.FindObjectsOfType<HintBubble>();
+        _dialogueController = FindObjectOfType<DialogueController>();
+        _hintBubbles = FindObjectsOfType<HintBubble>();
+        StartCoroutine(ShowNewlyUnlockedHints());
         _promptCircles = new RectTransform[_hintBubbles.Length];
         for (int i = 0; i < _hintBubbles.Length; i++)
         {
@@ -64,7 +72,14 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
             if (candidate >= 0 && minDist < thresholdDistance*thresholdDistance)
             {
                 _currentPromptCircle = _promptCircles[candidate].GetComponent<PromptScript>();
-                _currentPromptCircle.ShowHint(_hintBubbles[candidate].hintData.Label);
+                _currentPromptCircle.ShowHint();
+                if (gameControls.Wrapper.Player.Interact.WasPerformedThisFrame() &&
+                    _hintBubbles[candidate].hintData.IsUnlocked() &&
+                    _hintBubbles[candidate].hintData.hintDialogue != null)
+                {
+                    lookAtEvent.TriggerEvent(_hintBubbles[candidate].transform.position);
+                    _dialogueController.StartDialogue(_hintBubbles[candidate].hintData.hintDialogue);
+                }
             }
             else
             {
@@ -75,7 +90,6 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
             {
                 previousPromptCircle.HideHint();
             }
-                
         }
     }
 
@@ -93,6 +107,33 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
         timeStopEndEvent.RemoveListener(HandleTimeStopEnd);
         timeStopStartEvent.RemoveListener(HandleTimeStopStart);
         HUDEnableEvent.RemoveListener(HandleEnableHUD);
+    }
+
+    private IEnumerator ShowNewlyUnlockedHints()
+    {
+        yield return null;
+        gameControls.Wrapper.Player.Disable();
+        for (int i = 0; i < _hintBubbles.Length; i++)
+        {
+            var hintData = _hintBubbles[i].hintData;
+            var promptScript = _promptCircles[i].GetComponent<PromptScript>();
+            if (hintData.IsUnlocked())
+            {
+                if (!hintData.WasShown())
+                {
+                    hintData.SetShown();
+                    lookAtEvent.TriggerEvent(_hintBubbles[i].transform.position);
+                    yield return new WaitForSeconds(1f);
+                    promptScript.SetHintData(hintData);
+                    yield return new WaitForSeconds(1f);
+                }
+                else
+                {
+                    promptScript.SetHintData(hintData);
+                }
+            }
+        }
+        gameControls.Wrapper.Player.Enable();
     }
     
     private void HandleTimeStopStart()

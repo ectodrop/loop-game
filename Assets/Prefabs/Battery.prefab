@@ -502,7 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1b46a7fb0dbdd45a4002e1ed0da5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  identifier: {fileID: 11400000, guid: 3ee98a5b655d5a942823afbcb322a13d, type: 2}
+  identifier: {fileID: 11400000, guid: 307ee48d02867cd418222d3260786408, type: 2}
 --- !u!114 &5555183413175182846
 MonoBehaviour:
   m_ObjectHideFlags: 0

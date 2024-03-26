@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: PCHints
   m_EditorClassIdentifier: 
   Label: Password Database
+  hintDialogue: {fileID: 11400000, guid: d84eb834af8165344976f1b30a9a4ea5, type: 2}
+  defaultUnlocked: 0
+  defaultShown: 0
+  _unlocked: 0
+  _shown: 0

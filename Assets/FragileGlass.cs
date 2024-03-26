@@ -8,8 +8,10 @@ public class FragileGlass : MonoBehaviour, IInteractable, ILabel
     public PowerGenerator powerGenerator;
     public SoundEffect glassBreakSFX;
     public HoldableItemScriptableObject hammer;
+    public HoldableItemScriptableObject battery;
     public DialogueNode hammerlessFragileGlassDialogue;
     public DialogueNode undrainedHammerFragileGlassDialogue;
+    public DialogueNode batteryFragileGlassDialogue;
 
     private DialogueController _dialogueController;
 
@@ -25,7 +27,8 @@ public class FragileGlass : MonoBehaviour, IInteractable, ILabel
         
         if (!powerGenerator.drained && IsHoldingHammer())
             return "Break Glass with Hammer? (E)";
-        
+        if (IsHoldingBattery())
+            return "Break Glass with Battery? (E)";
         return "Break Glass? (E)";
     }
     
@@ -33,10 +36,19 @@ public class FragileGlass : MonoBehaviour, IInteractable, ILabel
     {
         return PickUpHoldScript.heldItemIdentifier == hammer;
     }
+
+    private bool IsHoldingBattery()
+    {
+        return PickUpHoldScript.heldItemIdentifier == battery;
+    }
     
     public void Interact()
     {
-        if (!IsHoldingHammer())
+        if (IsHoldingBattery())
+        {
+            _dialogueController.StartDialogue(batteryFragileGlassDialogue, DialogueOptions.STOP_TIME);
+        }
+        else if (!IsHoldingHammer())
         {
             _dialogueController.StartDialogue(hammerlessFragileGlassDialogue, DialogueOptions.STOP_TIME);
         }
