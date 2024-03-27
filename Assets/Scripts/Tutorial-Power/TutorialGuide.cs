@@ -33,7 +33,7 @@ public class TutorialGuide : MonoBehaviour
 
     [Header("Listening To")]
     public GameEvent switchOn;
-    public GameEvent powerOn;
+    public GameEvent batteryInserted;
     public GameEvent powerOff;
     public GameEvent doorOpened;
 
@@ -55,7 +55,7 @@ public class TutorialGuide : MonoBehaviour
     {
         doorFirstClick.AddListener(HandleDoorFirstClick);
         switchOn.AddListener(HandleSwitchOn);
-        powerOn.AddListener(HandlePowerOn);
+        batteryInserted.AddListener(HandleBatteryInserted);
         powerOff.AddListener(HandlePowerOff);
         doorOpened.AddListener(HandleDoorOpened);
     }
@@ -64,7 +64,7 @@ public class TutorialGuide : MonoBehaviour
     {
         doorFirstClick.RemoveListener(HandleDoorFirstClick);
         switchOn.RemoveListener(HandleSwitchOn);
-        powerOn.RemoveListener(HandlePowerOn);
+        batteryInserted.RemoveListener(HandleBatteryInserted);
         powerOff.RemoveListener(HandlePowerOff);
         doorOpened.RemoveListener(HandleDoorOpened);
     }
@@ -78,7 +78,7 @@ public class TutorialGuide : MonoBehaviour
     private void HandleDoorFirstClick()
     {
         StartCoroutine(TryOpenDoor());
-        enableSwitch.TriggerEvent();
+        enableBattery.TriggerEvent();
     }
 
     IEnumerator TryOpenDoor()
@@ -87,22 +87,19 @@ public class TutorialGuide : MonoBehaviour
         _dialogueController.ProgressDialogue(true);
     }
 
-    // 2. Once user switches, disable switch, enable battery
+
+    // 2. User can open the door with battery inserted
+    private void HandleBatteryInserted()
+    {
+        enableSwitch.TriggerEvent();
+        _dialogueController.ProgressDialogue(true);
+    }
+    
+    // 3. Once user switches, disable switch, enable battery
     private void HandleSwitchOn()
     {
-        disableSwitch.TriggerEvent();
-        enableBattery.TriggerEvent();
         _dialogueController.ProgressDialogue(true);
         _clickedSwitch = true;
-    }
-
-    // 3. User can open the door with battery inserted
-    private void HandlePowerOn()
-    {
-        if (_clickedSwitch)
-        {
-            _dialogueController.ProgressDialogue(true);
-        }
     }
 
     // 4. User did not exit the tutorial fast enough prompt them to loop reset

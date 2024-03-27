@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: ControlPanelHint
   m_EditorClassIdentifier: 
   Label: Generator Control Panel
-  hintDialogue: {fileID: 11400000, guid: 39c5a073edda64359ad79837911b0285, type: 2}
+  hintDialogue: {fileID: 11400000, guid: 560cdc7cd50a4f240af4b604bb7e17a8, type: 2}
   defaultUnlocked: 0
   defaultShown: 0
-  _unlocked: 0
-  _shown: 0
+  defaultRead: 0
+  _unlocked: 1
+  _shown: 1
+  _read: 1

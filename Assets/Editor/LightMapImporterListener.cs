@@ -4,6 +4,7 @@ using UnityEditor;
 using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEngine.Rendering;
 
 // This class uses the AssetPostprocessor to hook into Unity's asset import events.
 public class AssetImportListener : AssetPostprocessor
@@ -53,6 +54,8 @@ public class AssetImportListener : AssetPostprocessor
             }
         }
 
+        lightMapAsset.lightProbeData = new SphericalHarmonicsL2[LightmapSettings.lightProbes.bakedProbes.Length];
+        LightmapSettings.lightProbes.bakedProbes.CopyTo(lightMapAsset.lightProbeData, 0);
         // Save the changes to the ScriptableObject.
         EditorUtility.SetDirty(lightMapAsset);
         AssetDatabase.SaveAssets();

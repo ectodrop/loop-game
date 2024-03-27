@@ -8,6 +8,8 @@ public class ControlPanel : MonoBehaviour, IInteractable, IRayHoverable
     [Header("Triggers")]
     public GameEvent LoginUIOn;
 
+    public HintData controlPanelHints;
+    public HintData passwordDatabaseHints;
 
     public bool CanInteract()
     {
@@ -18,7 +20,8 @@ public class ControlPanel : MonoBehaviour, IInteractable, IRayHoverable
     {
         // controlPanelInteracted.TriggerEvent();
         LoginUIOn.TriggerEvent();   
-        
+        controlPanelHints.Unlock();
+        passwordDatabaseHints.Unlock();
     }
 
     public void OnHoverEnter()

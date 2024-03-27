@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adce889d7bd57e243a0b312de15ae9b0, type: 3}
-  m_Name: hint_EmergencyPowerDialogue
+  m_Name: hint_ControlPanelDialogue
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Thinking
-    Body: I can pull this lever to activate emergency power
+    Body: I can drain the coolant if I know the password.
     changeExpression: 0
     changeExpressionEvent: {fileID: 0}
     expression: 0

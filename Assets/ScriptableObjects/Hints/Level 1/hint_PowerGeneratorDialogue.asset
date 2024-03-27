@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Thinking
-    Body: This power generator seems to off at exactly <color=red>12:10 PM</color>
+    Body: This power generator seems to turn off at exactly <color=red>12:10 PM</color>.
     changeExpression: 0
     changeExpressionEvent: {fileID: 0}
     expression: 0

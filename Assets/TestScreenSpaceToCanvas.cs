@@ -75,10 +75,11 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
                 _currentPromptCircle.ShowHint();
                 if (gameControls.Wrapper.Player.Interact.WasPerformedThisFrame() &&
                     _hintBubbles[candidate].hintData.IsUnlocked() &&
+                    _hintBubbles[candidate].hintData.WasShown() &&
                     _hintBubbles[candidate].hintData.hintDialogue != null)
                 {
-                    _hintBubbles[candidate].hintData.SetRead();
                     lookAtEvent.TriggerEvent(_hintBubbles[candidate].transform.position);
+                    _currentPromptCircle.MarkAsRead();
                     _dialogueController.StartDialogue(_hintBubbles[candidate].hintData.hintDialogue);
                 }
             }
@@ -126,7 +127,8 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
                     lookAtEvent.TriggerEvent(_hintBubbles[i].transform.position);
                     yield return new WaitForSeconds(1f);
                     promptScript.SetHintData(hintData);
-                    yield return new WaitForSeconds(1f);
+                    promptScript.PlayNotification();
+                    yield return new WaitForSeconds(0.5f);
                 }
                 else
                 {

@@ -9,6 +9,7 @@ public class JournalPlants : MonoBehaviour, ILabel, IInteractable
     public DialogueNode entry1Dialogue;
     public DialogueNode entry2Dialogue;
     public DialogueNode entry3Dialogue;
+    public HintData mushroomHintData;
 
     private DialogueController _dialogueController;
 
@@ -19,7 +20,7 @@ public class JournalPlants : MonoBehaviour, ILabel, IInteractable
 
     public void Interact()
     {
-        _dialogueController.StartDialogue(openJournalDialogue, choiceCallback: ReadEntry);
+        _dialogueController.StartDialogue(openJournalDialogue, options: DialogueOptions.STOP_TIME, choiceCallback: ReadEntry);
     }
 
     public void ReadEntry(string entry)
@@ -31,6 +32,7 @@ public class JournalPlants : MonoBehaviour, ILabel, IInteractable
                 break;
             case "Entry 2":
                 _dialogueController.StartDialogue(entry2Dialogue, options: DialogueOptions.STOP_TIME);
+                mushroomHintData.Unlock();
                 break;
             case "Entry 3":
                 _dialogueController.StartDialogue(entry3Dialogue, options: DialogueOptions.STOP_TIME);

@@ -47,7 +47,6 @@ public class TimeTutorialGuide : MonoBehaviour
     
     void Start()
     {
-        _timeLoopController.StopTime();
         if (firstTime.GetValue())
         {
             _dialogueController.StartDialogue(

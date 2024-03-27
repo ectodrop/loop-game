@@ -11,6 +11,7 @@ public class BatteryPackScript : MonoBehaviour
     public Slider bar;
     public float timeToChargeSeconds = 1f;
     public SharedBool timeStoppedFlag;
+    public HintData batteryChargerHint;
     [Header("Listening To")]
     public GameEvent batteryOn;
     public GameEvent batteryOff;
@@ -52,6 +53,7 @@ public class BatteryPackScript : MonoBehaviour
     private void HandleBatteryOff()
     {
         _batteryIn = false;
+        batteryChargerHint.Unlock();
     }
 
     private void Update()

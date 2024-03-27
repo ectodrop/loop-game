@@ -13,6 +13,8 @@ public class FragileGlass : MonoBehaviour, IInteractable, ILabel
     public DialogueNode undrainedHammerFragileGlassDialogue;
     public DialogueNode batteryFragileGlassDialogue;
 
+    public HintData hammerHintData;
+    public HintData glassHintData;
     private DialogueController _dialogueController;
 
     private void Start()
@@ -47,10 +49,14 @@ public class FragileGlass : MonoBehaviour, IInteractable, ILabel
         if (IsHoldingBattery())
         {
             _dialogueController.StartDialogue(batteryFragileGlassDialogue, DialogueOptions.STOP_TIME);
+            hammerHintData.Unlock();
+            glassHintData.Unlock();
         }
         else if (!IsHoldingHammer())
         {
             _dialogueController.StartDialogue(hammerlessFragileGlassDialogue, DialogueOptions.STOP_TIME);
+            hammerHintData.Unlock();
+            glassHintData.Unlock();
         }
         else if (!powerGenerator.drained && IsHoldingHammer())
         {

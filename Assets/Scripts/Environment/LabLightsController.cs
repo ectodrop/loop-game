@@ -41,6 +41,7 @@ public class LabLightsController : MonoBehaviour
     private void HandlePowerOn()
     {
         LightmapSettings.lightmaps = brightLightMapAsset.GetLightMapData();
+        LightmapSettings.lightProbes.bakedProbes = brightLightMapAsset.lightProbeData;
         foreach (var light in GetComponentsInChildren<MeshRenderer>())
         {
             light.material = lightOn;
@@ -50,6 +51,7 @@ public class LabLightsController : MonoBehaviour
     private void HandlePowerOff()
     {
         LightmapSettings.lightmaps = darkLightMapAsset.GetLightMapData();
+        LightmapSettings.lightProbes.bakedProbes = darkLightMapAsset.lightProbeData;
         foreach (var light in GetComponentsInChildren<MeshRenderer>())
         {
             light.material = lightOff;

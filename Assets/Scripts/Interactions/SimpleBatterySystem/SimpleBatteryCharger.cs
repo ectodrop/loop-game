@@ -12,6 +12,7 @@ public class SimpleBatteryCharger : MonoBehaviour, IInteractable, ILabel
     public string HoldingText = "Insert Battery (E)";
     public string EmptyText = "Missing Battery";
     public SharedBool timeStoppedFlag;
+    public HintData batteryChargerHint;
 
     [Header("Battery Drain Parameters")]
     public int chargeRate = 5;
@@ -77,6 +78,7 @@ public class SimpleBatteryCharger : MonoBehaviour, IInteractable, ILabel
         if (IsPlayerHolding() && !_hasBattery)
         {
             playerDropHeldEvent.TriggerEvent();
+            batteryChargerHint.Unlock();
             Debug.Log("Battery Inserted.");
             GetComponent<BoxCollider>().enabled = false;
             battery.transform.tag = "canPickUp";
@@ -89,7 +91,6 @@ public class SimpleBatteryCharger : MonoBehaviour, IInteractable, ILabel
 
             _hasBattery = true;
             _isCharging = true;
-            
             StartCoroutine(ChargeBattery());
         }
     }

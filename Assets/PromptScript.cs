@@ -15,7 +15,8 @@ public class PromptScript : MonoBehaviour
     public GameObject circle;
     public GameObject interactText;
     public TextMeshProUGUI label;
-    public Animator animator;
+    public Animator hintBubbleAnimator;
+    public Animator notificationRingAnimator;
 
     private HintData _hintData;
 
@@ -50,12 +51,27 @@ public class PromptScript : MonoBehaviour
             SetImageColors(dialogueUnAvailable);
         }
     }
+
+    public void MarkAsRead()
+    {
+        if (_enabled)
+        {
+            _hintData.SetRead();
+            SetImageColors(dialogueUnAvailable);
+        }
+    }
+
+    public void PlayNotification()
+    {
+        notificationRingAnimator.gameObject.SetActive(true);
+        notificationRingAnimator.SetTrigger("TriggerRing");
+    }
     
     public void ShowHint()
     {
         hint.SetActive(true);
-        animator.SetTrigger("ShowHint");
-        animator.ResetTrigger("HideHint");
+        hintBubbleAnimator.SetTrigger("ShowHint");
+        hintBubbleAnimator.ResetTrigger("HideHint");
         if (_enabled)
         {
             if (_hintData.hintDialogue != null)

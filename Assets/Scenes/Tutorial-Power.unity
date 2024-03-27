@@ -757,14 +757,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    - target: {fileID: 2096733847622960730, guid: 108496e0d757dc34aa910f24540f6bcf, type: 3}
-      propertyPath: EmergencyOnText
-      value: Turn On Emergency Power(E)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2096733847622960730, guid: 108496e0d757dc34aa910f24540f6bcf, type: 3}
-      propertyPath: EmergencyOffText
-      value: Turn Off Emergency Power(E)
-      objectReference: {fileID: 0}
     - target: {fileID: 2294582293899518988, guid: 108496e0d757dc34aa910f24540f6bcf, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -1098,6 +1090,97 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.1489596, y: 1.8653631, z: 9.236973}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &455994453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 455994455}
+  - component: {fileID: 455994454}
+  m_Layer: 0
+  m_Name: Light Probe Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!220 &455994454
+LightProbeGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455994453}
+  m_Enabled: 1
+  m_SourcePositions:
+  - {x: 11.555737, y: 5.3108277, z: 19}
+  - {x: 11.555737, y: 5.3108277, z: -7.75}
+  - {x: 11.555737, y: 1, z: 19}
+  - {x: 11.555737, y: 1, z: -7.75}
+  - {x: -3.166099, y: 5.3108277, z: 19}
+  - {x: -3.166099, y: 5.3108277, z: -7.75}
+  - {x: -3.166099, y: 1, z: 19}
+  - {x: -3.166099, y: 1, z: -7.75}
+  - {x: -1, y: 5.3108277, z: 19}
+  - {x: -1, y: 5.3108277, z: -7.75}
+  - {x: -1, y: 1, z: 19}
+  - {x: -1, y: 1, z: -7.75}
+  - {x: 1, y: 5.3108277, z: 19}
+  - {x: 1, y: 5.3108277, z: -7.75}
+  - {x: 1, y: 1, z: 19}
+  - {x: 1, y: 1, z: -7.75}
+  - {x: 7.055737, y: 5.3108277, z: 19}
+  - {x: 7.055737, y: 5.3108277, z: -7.75}
+  - {x: 7.055737, y: 1, z: 19}
+  - {x: 7.055737, y: 1, z: -7.75}
+  - {x: 11.555737, y: 5.3108277, z: 4.5}
+  - {x: 11.555737, y: 1, z: 9.25}
+  - {x: -3.166099, y: 5.3108277, z: 4.5}
+  - {x: -3.166099, y: 1, z: 2.25}
+  - {x: -1, y: 5.3108277, z: 4.5}
+  - {x: -1, y: 1, z: 2.25}
+  - {x: 1, y: 5.3108277, z: 4.5}
+  - {x: 1, y: 1, z: 2.25}
+  - {x: 7.055737, y: 5.3108277, z: 4.5}
+  - {x: 7.055737, y: 1, z: 2.25}
+  - {x: 11.555737, y: 5.3108277, z: 11}
+  - {x: 11.555737, y: 1, z: 11}
+  - {x: -3.166099, y: 5.3108277, z: 11}
+  - {x: -3.166099, y: 1, z: 11}
+  - {x: -1, y: 5.3108277, z: 11}
+  - {x: -1, y: 1, z: 11}
+  - {x: 1, y: 5.3108277, z: 11}
+  - {x: 1, y: 1, z: 11}
+  - {x: 7.055737, y: 5.3108277, z: 11}
+  - {x: 7.055737, y: 1, z: 11}
+  - {x: 11.555737, y: 5.3108277, z: 9.25}
+  - {x: -3.166099, y: 5.3108277, z: 9.25}
+  - {x: -1, y: 5.3108277, z: 9.25}
+  - {x: 1, y: 5.3108277, z: 9.25}
+  - {x: 7.055737, y: 5.3108277, z: 9.25}
+  - {x: -3.166099, y: 1, z: 9.25}
+  - {x: -1, y: 1, z: 9.25}
+  - {x: 1, y: 1, z: 9.25}
+  - {x: 7.055737, y: 1, z: 9.25}
+  m_Dering: 1
+--- !u!4 &455994455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455994453}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1612,7 +1695,7 @@ MonoBehaviour:
   disableSwitch: {fileID: 11400000, guid: 9d006a4d94e2a7a4485d3b4cdc01d525, type: 2}
   lookAtEvent: {fileID: 11400000, guid: 67bc92a290c6dde4d882319f65ba9518, type: 2}
   switchOn: {fileID: 11400000, guid: cc9659571e034437db7d33d9139631c2, type: 2}
-  powerOn: {fileID: 11400000, guid: a656732696ee79148bf2f38deb6a2293, type: 2}
+  batteryInserted: {fileID: 11400000, guid: 5aadd7a111aecdb41ae4723ca24e5d17, type: 2}
   powerOff: {fileID: 11400000, guid: 735c361c1da60594cab1251ec4648991, type: 2}
   doorOpened: {fileID: 11400000, guid: 8c84099be481a4b1b9216e38035c94f7, type: 2}
 --- !u!4 &582914746
@@ -4758,3 +4841,4 @@ SceneRoots:
   - {fileID: 2060011383}
   - {fileID: 447715086}
   - {fileID: 526117056}
+  - {fileID: 455994455}

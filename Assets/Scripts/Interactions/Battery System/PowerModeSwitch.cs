@@ -14,6 +14,7 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable, ILab
     public GameEvent switchOn;
     public GameEvent switchOff;
 
+    public HintData emergencyPowerHintData;
 
     private bool _canInteract = true;
     private bool _emergencyPower = false;
@@ -81,6 +82,7 @@ public class PowerModeSwitch : MonoBehaviour, IInteractable, IRayHoverable, ILab
         if (!_emergencyPower)
         {
             TurnOn();
+            emergencyPowerHintData.Unlock();
         }
         // Switch off
         else

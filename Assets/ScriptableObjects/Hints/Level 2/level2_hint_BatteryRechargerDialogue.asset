@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adce889d7bd57e243a0b312de15ae9b0, type: 3}
-  m_Name: hint_PCDialogue
+  m_Name: level2_hint_BatteryRechargerDialogue
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Thinking
-    Body: This PC gives me the password
+    Body: I can recharge the battery with this.
     changeExpression: 0
     changeExpressionEvent: {fileID: 0}
     expression: 0

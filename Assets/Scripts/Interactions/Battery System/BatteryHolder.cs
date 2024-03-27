@@ -24,9 +24,11 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
     // Game Events
 
     public SharedBool timeStoppedFlag;
+    public HintData batteryHintData;
     [Header("Triggers")]
     public GameEvent batteryDraining;
     public GameEvent batteryStopDraining;
+    public GameEvent batteryInsertedEvent;
     public GameEvent playerDropHeldEvent;
 
     // Switch
@@ -87,7 +89,8 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
         if (IsPlayerHolding() && !_holding)
         {
             playerDropHeldEvent.TriggerEvent();
-            Debug.Log("Battery Inserted.");
+            batteryInsertedEvent.TriggerEvent();
+            
             GetComponent<BoxCollider>().enabled = false;
             battery.transform.tag = "Untagged";
             battery.transform.SetParent(gameObject.transform);
@@ -115,6 +118,7 @@ public class BatteryHolder : MonoBehaviour, IInteractable, ILabel
 
     public void StartBatteryDrain()
     {
+        batteryHintData.Unlock();
         emergencyPowerOnSFX.Play();
         AllowDrain();
         StartCoroutine(DrainBattery());
