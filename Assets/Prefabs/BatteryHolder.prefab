@@ -499,6 +499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2149874091780098115}
+  - component: {fileID: 5665619264478801299}
   m_Layer: 0
   m_Name: Lever
   m_TagString: Untagged
@@ -522,6 +523,19 @@ Transform:
   - {fileID: 6015105122928546230}
   m_Father: {fileID: 7962642457471275752}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5665619264478801299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967469772933252689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c529a99bfc1ec439d4acfd9d6110ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hintData: {fileID: 11400000, guid: 3fecaeaacf8cdb44aacb1d1f55701a58, type: 2}
 --- !u!1 &1030227435292919791
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,6 +809,7 @@ MonoBehaviour:
   holder: {fileID: 6952632585083689287}
   switchOn: {fileID: 11400000, guid: cc9659571e034437db7d33d9139631c2, type: 2}
   switchOff: {fileID: 11400000, guid: 7f5c559cea2a447f7847d814ad044b79, type: 2}
+  emergencyPowerHintData: {fileID: 11400000, guid: 3fecaeaacf8cdb44aacb1d1f55701a58, type: 2}
   enableSwitch: {fileID: 11400000, guid: 6debaa38eb26ec84a92a4e0409ed3df0, type: 2}
   disableSwitch: {fileID: 11400000, guid: 9d006a4d94e2a7a4485d3b4cdc01d525, type: 2}
 --- !u!64 &7520852106693292880
@@ -2019,8 +2034,10 @@ MonoBehaviour:
   switchObj: {fileID: 1158549602977910612}
   emergencyPowerOnSFX: {fileID: 11400000, guid: 264c26fb1735641a7a4dd9ae413f51f9, type: 2}
   timeStoppedFlag: {fileID: 11400000, guid: 7f141d3ad7e7ada4c808f6209e701334, type: 2}
+  batteryHintData: {fileID: 11400000, guid: 33848143a6108704cabab7941605e819, type: 2}
   batteryDraining: {fileID: 11400000, guid: fe6ac462cae99e247862bf00da89c36d, type: 2}
   batteryStopDraining: {fileID: 11400000, guid: bc6d2e6ab98f2644f9459b9aac4f2da1, type: 2}
+  batteryInsertedEvent: {fileID: 11400000, guid: 5aadd7a111aecdb41ae4723ca24e5d17, type: 2}
   playerDropHeldEvent: {fileID: 11400000, guid: d4be8eac327bce949ab9a46e2c01cb0e, type: 2}
   drainRate: 5
   drainIntervalSeconds: 1

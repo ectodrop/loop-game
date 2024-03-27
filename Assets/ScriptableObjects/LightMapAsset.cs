@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [CreateAssetMenu(menuName = "LightMapAsset", fileName = "NewLightMapAsset")]
 public class LightMapAsset : ScriptableObject
 {
     public List<Texture2D> lightMapColors = new List<Texture2D>();
     public List<Texture2D> lightMapDirs = new List<Texture2D>();
+    public SphericalHarmonicsL2[] lightProbeData;
 
 
     private LightmapData[] _lightmapDataCache;

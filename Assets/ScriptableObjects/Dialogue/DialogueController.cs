@@ -5,13 +5,17 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class DialogueController : MonoBehaviour
 {
+    public HashMap<string, Color> characterColors;
+    public Color defaultBackgroundColor;
     public float secondsPerCharacter = 1 / 60f;
     // a sound effect will be played for every "charactersPerSFX" characters
     public int charactersPerSFX = 3;
     public GameObject dialogueBox;
+    public Image dialogueBoxBackground;
     public DialogueChoiceBoxController choiceBox;
     public TextMeshProUGUI dialogueControlsHint;
     public TextMeshProUGUI dialogueSpeaker;
@@ -140,7 +144,7 @@ public class DialogueController : MonoBehaviour
         {
             gameControls.Wrapper.Player.Move.Disable();
             gameControls.Wrapper.Player.Look.Disable();
-            gameControls.Wrapper.Player.Sprint.Disable();
+            // gameControls.Wrapper.Player.Sprint.Disable();
             gameControls.Wrapper.Player.Jump.Disable();
             gameControls.Wrapper.Player.Interact.Disable();
             gameControls.Wrapper.Player.TimeStop.Disable();
@@ -158,7 +162,7 @@ public class DialogueController : MonoBehaviour
         {
             gameControls.Wrapper.Player.Look.Enable();
             gameControls.Wrapper.Player.Move.Enable();
-            gameControls.Wrapper.Player.Sprint.Enable();
+            // gameControls.Wrapper.Player.Sprint.Enable();
             gameControls.Wrapper.Player.Jump.Enable();
             gameControls.Wrapper.Player.Interact.Enable();
             gameControls.Wrapper.Player.TimeStop.Enable();
@@ -177,6 +181,8 @@ public class DialogueController : MonoBehaviour
         Action finishedCallback,
         Action<string> choiceCallback)
     {
+        // skip one frame to avoid some issues when being called in Start()
+        yield return null;
         InitDialogueBox();
         string choice = "";
         for (int i = 0; i < dialogueNode.sentences.Length; i++)
@@ -227,6 +233,14 @@ public class DialogueController : MonoBehaviour
     {
         dialogueSpeaker.text = dialogue.Speaker;
         dialogueBody.text = "";
+        if (characterColors.TryGetValue(dialogue.Speaker, out Color background))
+        {
+            dialogueBoxBackground.color = background;
+        }
+        else
+        {
+            dialogueBoxBackground.color = defaultBackgroundColor;
+        }
         yield return null;
         if (dialogue.changeExpression)
             dialogue.changeExpressionEvent?.TriggerEvent((int)dialogue.expression);

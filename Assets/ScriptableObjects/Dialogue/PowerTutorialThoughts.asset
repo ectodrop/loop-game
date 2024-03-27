@@ -16,16 +16,31 @@ MonoBehaviour:
   - Speaker: Thinking
     Body: Looks like the breaker is behind this <color=red>door</color>, let's see
       if I can open it without any power.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
   - Speaker: Thinking
-    Body: Nothing, figures... I think there's an emergency power unit <color=red>with
-      a lever</color> somewhere in this room that I can turn on.
+    Body: Nothing, figures... I think there's a <color=red>battery</color> for the
+      <color=red>emergency power unit</color> somewhere in this room.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
   - Speaker: Thinking
-    Body: This thing is useless without a <color=red>battery</color>. The battery
-      must be somewhere in this room.
+    Body: Great! Now all I need to do is <color=red>pull the lever</color> to turn
+      on the backup power.
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
   - Speaker: Thinking
     Body: Nice! I think the door switch just regained power, I better hurry though,
-      it looks like the battery drains super fast!
+      it looks like the battery <color=red>drains super fast</color>!
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
   - Speaker: Thinking
     Body: Damn, battery drained before I could make it out. (Press <color=red>ESC</color>
       to restart)
+    changeExpression: 0
+    changeExpressionEvent: {fileID: 0}
+    expression: 0
   choices: []

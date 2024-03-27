@@ -45,6 +45,7 @@ public class TimeLoopController : MonoBehaviour
     public SoundEffect timestopEndSFX;
 
     private bool firstFrame = true;
+
     private void Start()
     {
         timeSettings.ResetTimers();

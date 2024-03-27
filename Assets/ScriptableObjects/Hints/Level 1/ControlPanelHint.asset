@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4946242ab65b77c43a637602d11f8397, type: 3}
+  m_Name: ControlPanelHint
+  m_EditorClassIdentifier: 
+  Label: Generator Control Panel
+  hintDialogue: {fileID: 11400000, guid: 560cdc7cd50a4f240af4b604bb7e17a8, type: 2}
+  defaultUnlocked: 0
+  defaultShown: 0
+  defaultRead: 0
+  _unlocked: 1
+  _shown: 1
+  _read: 1

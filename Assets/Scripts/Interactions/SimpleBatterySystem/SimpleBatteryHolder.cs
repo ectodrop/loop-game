@@ -138,7 +138,7 @@ public class SimpleBatteryHolder : MonoBehaviour, IInteractable, ILabel
     private IEnumerator DrainBattery()
     {
         // Drain battery until empty
-        while (_batteryScript.GetBatteryLevel() >= 0 && _isDraining)
+        while (_batteryScript.GetBatteryLevel() > 0 && _isDraining)
         {
             if (!timeStoppedFlag.GetValue() && _drainEnabled)
             {

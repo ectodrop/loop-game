@@ -397,8 +397,8 @@ MonoBehaviour:
 
     Password is 123456'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2ff27b64e83de4144b23bc39b5c68883, type: 2}
+  m_sharedMaterial: {fileID: -3241003490921331077, guid: 2ff27b64e83de4144b23bc39b5c68883, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -533,8 +533,8 @@ MonoBehaviour:
 
     Power disconnected'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2ff27b64e83de4144b23bc39b5c68883, type: 2}
+  m_sharedMaterial: {fileID: -3241003490921331077, guid: 2ff27b64e83de4144b23bc39b5c68883, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -597,7 +597,7 @@ MonoBehaviour:
   m_margin: {x: -112.54318, y: -94.12914, z: -112.03147, w: -94.126854}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4009178471217193587
@@ -986,8 +986,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Fetching new Passwords...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2ff27b64e83de4144b23bc39b5c68883, type: 2}
+  m_sharedMaterial: {fileID: -3241003490921331077, guid: 2ff27b64e83de4144b23bc39b5c68883, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1050,7 +1050,7 @@ MonoBehaviour:
   m_margin: {x: -112.54318, y: -94.12914, z: -112.03147, w: -94.126854}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6486099789264146161
@@ -1111,6 +1111,7 @@ MonoBehaviour:
   computerUpdateSFX: {fileID: 11400000, guid: c3ec0af35c3f24474a9e748e668275eb, type: 2}
   computerUpdateCompleteSFX: {fileID: 11400000, guid: 3c62a2ecc5ed44af8a5306c338d4ddc5, type: 2}
   displayPasswordEvent: {fileID: 11400000, guid: 3fc680c4f90137443b465ad1e230bdc1, type: 2}
+  pcHint: {fileID: 11400000, guid: 8c6bd925858b01c4eb591962d60adc34, type: 2}
 --- !u!114 &5114103956319722705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1337,7 +1338,7 @@ MonoBehaviour:
 
     Power disconnected'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2ff27b64e83de4144b23bc39b5c68883, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1401,7 +1402,7 @@ MonoBehaviour:
   m_margin: {x: -112.54318, y: -94.12914, z: -112.03147, w: -94.126854}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8293327775236694507
