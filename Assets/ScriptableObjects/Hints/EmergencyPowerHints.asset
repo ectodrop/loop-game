@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: EmergencyPowerHints
   m_EditorClassIdentifier: 
   Label: Emergency Power
+  hintDialogue: {fileID: 11400000, guid: 9ab34f81e33844c0f9bd42324a0dc962, type: 2}
+  defaultUnlocked: 0
+  defaultShown: 0
+  _unlocked: 0
+  _shown: 0

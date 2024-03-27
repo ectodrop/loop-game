@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: HammerHints
   m_EditorClassIdentifier: 
   Label: Hammer
+  hintDialogue: {fileID: 11400000, guid: 5b06cc439b65e4ccea0202530bd5bf1b, type: 2}
+  defaultUnlocked: 0
+  defaultShown: 0
+  _unlocked: 0
+  _shown: 0

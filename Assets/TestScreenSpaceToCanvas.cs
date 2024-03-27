@@ -77,6 +77,7 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
                     _hintBubbles[candidate].hintData.IsUnlocked() &&
                     _hintBubbles[candidate].hintData.hintDialogue != null)
                 {
+                    _hintBubbles[candidate].hintData.SetRead();
                     lookAtEvent.TriggerEvent(_hintBubbles[candidate].transform.position);
                     _dialogueController.StartDialogue(_hintBubbles[candidate].hintData.hintDialogue);
                 }

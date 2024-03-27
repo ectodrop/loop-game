@@ -11,15 +11,19 @@ public class HintData : ScriptableObject
 
     public DialogueNode hintDialogue;
     // public so we can see them in the inspector
-    public bool defaultUnlocked;
-    public bool defaultShown;
+    public bool defaultUnlocked; // has the player unlocked this hint
+    public bool defaultShown; // has the hint been pointed out to the player
+    public bool defaultRead; // has the hint been "read" (the player interacted with the hint)
+
     [SerializeField] private bool _unlocked;
     [SerializeField] private bool _shown;
+    [SerializeField] private bool _read;
 
     private void OnEnable()
     {
         _unlocked = defaultUnlocked;
         _shown = defaultShown;
+        _read = defaultRead;
     }
 
     public void Unlock()
@@ -32,6 +36,11 @@ public class HintData : ScriptableObject
         _shown = true;
     }
 
+    public void SetRead()
+    {
+        _read = true;
+    }
+
     public bool WasShown()
     {
         return _shown;
@@ -40,5 +49,15 @@ public class HintData : ScriptableObject
     public bool IsUnlocked()
     {
         return _unlocked;
+    }
+
+    public bool IsRead()
+    {
+        return _read;
+    }
+
+    public bool HasDialogue()
+    {
+        return hintDialogue != null;
     }
 }

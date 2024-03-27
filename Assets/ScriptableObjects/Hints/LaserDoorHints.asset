@@ -10,6 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4946242ab65b77c43a637602d11f8397, type: 3}
-  m_Name: PuddleHints
+  m_Name: LaserDoorHints
   m_EditorClassIdentifier: 
-  Label: Electric Gate
+  Label: Laser Door
+  hintDialogue: {fileID: 11400000, guid: c6b7cb2bda49c4d8fa0944b74e04b4c1, type: 2}
+  defaultUnlocked: 0
+  defaultShown: 0
+  _unlocked: 0
+  _shown: 0

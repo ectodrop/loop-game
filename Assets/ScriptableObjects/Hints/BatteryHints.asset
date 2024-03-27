@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: BatteryHints
   m_EditorClassIdentifier: 
   Label: Battery
+  hintDialogue: {fileID: 0}
+  defaultUnlocked: 1
+  defaultShown: 1
+  _unlocked: 0
+  _shown: 0

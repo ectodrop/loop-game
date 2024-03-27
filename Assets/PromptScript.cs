@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class PromptScript : MonoBehaviour
 {
+    public Color dialogueAvailable;
+    public Color dialogueUnAvailable;
+    
     public Image[] hintImages;
     public GameObject hint;
     public GameObject circle;
@@ -30,7 +33,22 @@ public class PromptScript : MonoBehaviour
     {
         _enabled = true;
         _hintData = hintData;
-        SetImageColors(Color.red);
+        if (hintData.hintDialogue != null)
+        {
+            if (hintData.IsRead())
+            {
+                SetImageColors(dialogueUnAvailable);
+            }
+            else
+            {
+                SetImageColors(dialogueAvailable);
+            }
+        }
+        else
+        {
+            interactText.SetActive(false);
+            SetImageColors(dialogueUnAvailable);
+        }
     }
     
     public void ShowHint()

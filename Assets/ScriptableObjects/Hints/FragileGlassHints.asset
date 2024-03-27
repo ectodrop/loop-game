@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: FragileGlassHints
   m_EditorClassIdentifier: 
   Label: Fragile Glass
+  hintDialogue: {fileID: 11400000, guid: 843d2d426f43849d5a35a21b4d356341, type: 2}
+  defaultUnlocked: 0
+  defaultShown: 0
+  _unlocked: 0
+  _shown: 0

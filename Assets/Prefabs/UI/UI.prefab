@@ -4838,9 +4838,9 @@ MonoBehaviour:
     - key: Jarvis
       value: {r: 0, g: 0.267704, b: 0.3584906, a: 1}
     - key: Thinking
-      value: {r: 0, g: 0.25490198, b: 0.14036132, a: 1}
+      value: {r: 0, g: 0.10133413, b: 0.38679248, a: 1}
     - key: You
-      value: {r: 0, g: 0.25490198, b: 0.14117648, a: 1}
+      value: {r: 0, g: 0.101960786, b: 0.3882353, a: 1}
   defaultBackgroundColor: {r: 0.0627451, g: 0.12941177, b: 0.21568629, a: 1}
   secondsPerCharacter: 0.01666667
   charactersPerSFX: 4

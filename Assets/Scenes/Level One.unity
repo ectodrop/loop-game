@@ -4698,6 +4698,10 @@ PrefabInstance:
         Password is 123456'
       objectReference: {fileID: 0}
     - target: {fileID: 8628469091482211884, guid: f27e36a8f8d698e4a84071df76f20fe7, type: 3}
+      propertyPath: powerGeneratorHint
+      value: 
+      objectReference: {fileID: 11400000, guid: c3f2d8cb75babbd41972d397fbe15f26, type: 2}
+    - target: {fileID: 8628469091482211884, guid: f27e36a8f8d698e4a84071df76f20fe7, type: 3}
       propertyPath: displayPasswordEvent
       value: 
       objectReference: {fileID: 11400000, guid: 3fc680c4f90137443b465ad1e230bdc1, type: 2}
@@ -16114,6 +16118,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7413674992090036187, guid: 09698dff4d95f524b8901522811e6fd7, type: 3}
+      propertyPath: laserDoorHint
+      value: 
+      objectReference: {fileID: 11400000, guid: b8d42bbfc75787643a865ce8ffe48e96, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

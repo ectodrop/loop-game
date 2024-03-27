@@ -18,7 +18,10 @@ public class PC : MonoBehaviour, IInteractable, ILabel
     [Header("Listening To")]
     public ScheduleEvent displayPasswordEvent;
 
-    [Header("Hints")] public HintData pcHint;
+    [Header("Hints")]
+    public HintData pcHint;
+    public HintData powerGeneratorHint;
+    
     // public SharedBool timeStopped;
     private bool _canInteract = true;
     private AudioSource _audioSource;
@@ -74,6 +77,7 @@ public class PC : MonoBehaviour, IInteractable, ILabel
         
         else if (PCStatus == Status.Crash)
         {
+            powerGeneratorHint.Unlock();
             _canInteract = false;
             OnScreen.SetActive(false);
             PasswordScreen.SetActive(false);
