@@ -8,6 +8,7 @@ public class DoorScript : MonoBehaviour
     public SoundEffect doorSFX;
     public float timeToCompleteSeconds;
     public float moveDistance;
+    public Transform lookatPosition;
     
     public void OpenDoor()
     {

@@ -65,16 +65,15 @@ public class LabLightsController : MonoBehaviour
             _flickerCountDown -= Time.deltaTime;
             if (_flickerCountDown <= 0f)
             {
-                powerOn.TriggerEvent();
+                HandlePowerOn();
                 _flickering = false;
             }
         }
-        
-        
     }
+    
     void Flicker()
     {
         _flickering = true;
-        powerOff.TriggerEvent();
+        HandlePowerOff();
     }
 }

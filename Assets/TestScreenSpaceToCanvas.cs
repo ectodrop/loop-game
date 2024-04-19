@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
+using Input = UnityEngine.Windows.Input;
 
 public class TestScreenSpaceToCanvas : MonoBehaviour
 {
@@ -46,6 +49,15 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
         }
     }
 
+    public void OnHoldStart(InputAction.CallbackContext context)
+    {
+        if (context.interaction is HoldInteraction)
+        {
+            var holdInteraction = (HoldInteraction)context.interaction;
+        }
+        Debug.Log("Started");
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -73,7 +85,7 @@ public class TestScreenSpaceToCanvas : MonoBehaviour
             {
                 _currentPromptCircle = _promptCircles[candidate].GetComponent<PromptScript>();
                 _currentPromptCircle.ShowHint();
-                if (gameControls.Wrapper.Player.Interact.WasPerformedThisFrame() &&
+                if (gameControls.Wrapper.Player.HoldInteract.WasPerformedThisFrame() &&
                     _hintBubbles[candidate].hintData.IsUnlocked() &&
                     _hintBubbles[candidate].hintData.WasShown() &&
                     _hintBubbles[candidate].hintData.hintDialogue != null)

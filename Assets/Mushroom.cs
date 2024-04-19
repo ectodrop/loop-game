@@ -12,6 +12,7 @@ public class Mushroom : MonoBehaviour
     public GameEvent startGrow;
     public GameEvent stopGrow;
     public float GrowSpeed = 0.01f;
+    public AudioSource audiosource;
     private float growHeightLimit = 4.0f;
     private bool _growing = false;
     
@@ -44,10 +45,12 @@ public class Mushroom : MonoBehaviour
     }
     void Grow()
     {
+        audiosource.Play();
         _growing = true;
     }
     void StopGrow()
     {
+        audiosource.Stop();
         _growing = false;
     }
 }

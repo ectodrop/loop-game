@@ -1,19 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Radio : MonoBehaviour
 {
     public BatteryPackScript radioBatteryPack;
     public TimeSettings timeSettings;
-    public BackgroundMusicScript bgmScript;
     public AudioSource melody1;
     public AudioSource melody2;
     public AudioSource melody3;
     public DialogueNode[] station1Dialogues;
     public DialogueNode[] station2Dialogues;
     public DialogueNode[] station3Dialogues;
+    public GameObject bgmInstrumentals;
     private DialogueNode[][] stationDialogues = new DialogueNode[3][];
     public bool debug = false;
 
@@ -119,7 +120,6 @@ public class Radio : MonoBehaviour
             choiceCallback: HandleStationChoice);
     }
 
-
     private void HandleStationChoice(string choice)
     {
         if (choice == "Station 1")
@@ -143,7 +143,11 @@ public class Radio : MonoBehaviour
         {
             station.mute = true;
         }
-        bgmScript.RaiseVolume();
+
+        foreach (var audiosource in bgmInstrumentals.GetComponents<AudioSource>())
+        {
+            audiosource.volume = 0.2f;
+        }
     }
 
     void UnMuteStation(int station)
@@ -182,7 +186,10 @@ public class Radio : MonoBehaviour
         {
             MuteAllStations();
             UnMuteStation(station);
-            bgmScript.LowerVolume();
+            foreach (var audiosource in bgmInstrumentals.GetComponents<AudioSource>())
+            {
+                audiosource.volume = 0;
+            }
         }
     }
 

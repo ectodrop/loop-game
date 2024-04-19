@@ -48,6 +48,7 @@ public class CharacterMovement : MonoBehaviour
         // Check if the player is on the ground (Adjust as needed)
         RaycastHit hit;
         _grounded = Physics.Raycast(transform.position, Vector3.down, out hit, _controller.height / 2 + 0.1f);
+        Debug.Log(_grounded);
         
         // Horizontal Movement
         // ----------------------------------------------------------
@@ -79,6 +80,7 @@ public class CharacterMovement : MonoBehaviour
             if (hit.rigidbody != null)
             {
                 _yVelocity = hit.rigidbody.velocity.y;
+                _velocity.y = _yVelocity;
             }
             else
             {
@@ -108,13 +110,14 @@ public class CharacterMovement : MonoBehaviour
 
         // ----------------------------------------------------------
         // Update ALL movement after compute
+        // Debug.Log(_velocity);
         _controller.Move(_velocity * Time.deltaTime);
     }
-
-    private void FixedUpdate()
-    {
-        _controller.Move(new Vector3(0, _yVelocity, 0) * Time.fixedDeltaTime);
-    }
+    //
+    // private void FixedUpdate()
+    // {
+    //     _controller.Move(new Vector3(0, _yVelocity, 0) * Time.fixedDeltaTime);
+    // }
 
     // When player contacts the electrified puddle, the player will bounce back.
     private void OnControllerColliderHit(ControllerColliderHit hit)

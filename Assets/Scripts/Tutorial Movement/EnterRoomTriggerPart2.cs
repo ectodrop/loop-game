@@ -20,7 +20,7 @@ public class LookAtTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            lookAtEvent.TriggerEvent(powerDoor.transform.position);
+            lookAtEvent.TriggerEvent(powerDoor.lookatPosition.position);
             powerDoor.OpenDoor();
             _collider.enabled = false;
         }

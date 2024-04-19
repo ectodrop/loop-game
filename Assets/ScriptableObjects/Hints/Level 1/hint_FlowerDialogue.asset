@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - Speaker: Thinking
-    Body: I need to get the flower before it dies.
+    Body: I need to get the flower before it dies. It looks like I only have until
+      <color=red>12:30 PM</color>.
     changeExpression: 0
     changeExpressionEvent: {fileID: 0}
     expression: 0

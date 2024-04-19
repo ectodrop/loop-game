@@ -10,6 +10,7 @@ public class Interactor : MonoBehaviour
     public SharedBool timeStoppedFlag;
     public PickUpHoldScript pickupScript;
 
+    public DialogueNode resumeTimeDialogue;
     [Header("Listening To")] public GameEvent timeStopStartEvent;
     public GameEvent timeStopEndEvent;
 
@@ -30,13 +31,14 @@ public class Interactor : MonoBehaviour
     private ILabel[] curLabels;
 
     private RaycastHit interactHit;
+    private DialogueController _dialogueController;
 
     // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;
         rayLayerMask = LayerMask.GetMask("Interactable") | LayerMask.GetMask("Default");
-
+        _dialogueController = FindObjectOfType<DialogueController>();
     }
 
     private void OnEnable()
@@ -108,6 +110,19 @@ public class Interactor : MonoBehaviour
 
     private void HandleInteract(InputAction.CallbackContext _)
     {
+        if (curHoverObject != null && timeStoppedFlag.GetValue())
+        {
+            // setWarningTextEvent.TriggerEvent("Resume time to Interact (R)");
+            // flashWarningTextEvent.TriggerEvent();
+            if (curHoverObject.TryGetComponent(out IInteractable _) ||
+                curHoverObject.TryGetComponent(out PickupableObject _))
+            {
+                
+                _dialogueController.StartDialogue(resumeTimeDialogue);
+            }
+            return;
+        }
+        
         if (curHoverObject != null && !pickupScript.IsHolding())
         {
             if (curHoverObject.CompareTag("canPickUp"))
@@ -123,17 +138,10 @@ public class Interactor : MonoBehaviour
         }
         
         if (curHoverObject != null &&
-            curHoverObject.TryGetComponent<IInteractable>(out IInteractable interactable) && interactable.CanInteract())
+            curHoverObject.TryGetComponent<IInteractable>(out IInteractable interactable) && 
+            interactable.CanInteract())
         {
-            if (!timeStoppedFlag.GetValue())
-            {
-                interactable.Interact();
-            }
-            else
-            {
-                setWarningTextEvent.TriggerEvent("Resume time to Interact (R)");
-                flashWarningTextEvent.TriggerEvent();
-            }
+            interactable.Interact();
         }
     }
 }

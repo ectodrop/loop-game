@@ -149,6 +149,7 @@ public class DialogueController : MonoBehaviour
             gameControls.Wrapper.Player.Interact.Disable();
             gameControls.Wrapper.Player.TimeStop.Disable();
             gameControls.Wrapper.Player.FastForward.Disable();
+            gameControls.Wrapper.Player.HoldInteract.Disable();
         }
     }
 
@@ -167,6 +168,7 @@ public class DialogueController : MonoBehaviour
             gameControls.Wrapper.Player.Interact.Enable();
             gameControls.Wrapper.Player.TimeStop.Enable();
             gameControls.Wrapper.Player.FastForward.Enable();
+            gameControls.Wrapper.Player.HoldInteract.Enable();
         }
         dialogueBox.SetActive(false);
         _dialogueShowing = false;
@@ -182,6 +184,7 @@ public class DialogueController : MonoBehaviour
         Action<string> choiceCallback)
     {
         // skip one frame to avoid some issues when being called in Start()
+        yield return null;
         yield return null;
         InitDialogueBox();
         string choice = "";

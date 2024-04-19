@@ -88,7 +88,7 @@ public class MovementTutorialGuide : MonoBehaviour
 
     public void OpenTimeDoor()
     {
-        lookAtEvent.TriggerEvent(timeDoor.transform.position);
+        lookAtEvent.TriggerEvent(timeDoor.lookatPosition.position);
         timeDoor.OpenDoor();
     }
     
